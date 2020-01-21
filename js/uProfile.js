@@ -322,6 +322,48 @@ $(document).on('click', "#make_avatar", function(){
             }
         });
 })
+//=========================================================================
+$(document).on('input', '#people_search', function () {
+    let seacrh_val = $(this).val();
+    // console.log(seacrh_val)
+    let search_params = {
+        name : seacrh_val,
+        action : "search"
+    }
+    $.ajax({
+        type: "post",
+        url: "./u_profile/u_search.php",
+        data: search_params,
+        success: function (response) {
+            if(response){
+                response = JSON.parse(response);
+                // console.log(response);
+                if(response.errors){
+                    console.log(response)
+                    $(".search_friends_list").empty();
+                }
+                else{
+                    $(".search_friends_list").empty();
+                    let fr_miniature = response[0]["photo_path"] + "_min.jpg"; 
+                    response.forEach(element => {
+                        $(".search_friends_list").append(`<li>
+                                                            <figure>
+                                                                <img src="./u_profile/uploads/resized/${fr_miniature}" alt="" class="search_result_photos">
+                                                            </figure>
+                                                            <div class="friendz-data">
+                                                                <a href="time-line.html">${element.u_name} ${element.u_surname}</a>
+                                                                
+                                                            </div>
+                                                        </li>`);
+                    });
+                }
+            }
+            else{
+                $(".search_friends_list").empty();
+            }
+        }
+    });
+  });
 
 //=========================================================================
     $("#u_logout").click(function () {

@@ -743,13 +743,17 @@ header.sticky {
     width: 100%;
 }
 
-.form-search button {
+/* .form-search button {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
     color: #999;
     position: absolute;
     right: 5px;
     top: 9px;
+} */
+
+.search_result_photos{
+    border-radius: 50%;
 }
 
 .top-area > ul > li > a > span {
@@ -2127,6 +2131,48 @@ span.status.f-off {
     background: #a9a9a9;
 }
 
+.search_friends_list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #0E0E0E;
+}
+
+.search_friends_list li{
+    display: flex;
+    border: 1px solid #9300E7;
+    border-top: none;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.search_friends_list figure{
+    margin: 0;
+}
+
+.friendz-data {
+    display: inline-block;
+    line-height: 17px;
+    padding-left: 10px;
+    vertical-align: middle;
+    /* width: 74%; */
+    /* text-align: left; */
+}
+
+.friendz-data > i {
+    color: #999;
+    display: inline-block;
+    font-size: 13px;
+    width: 100%;
+}
+
+.friendz-data > a {
+    display: inline-block;
+    font-size: 14px;
+    text-transform: capitalize;
+    width: 100%;
+}
+
 .friendz-meta {
     display: inline-block;
     line-height: 17px;
@@ -2148,6 +2194,7 @@ span.status.f-off {
     text-transform: capitalize;
     width: 100%;
 }
+
 
 
 /*--- footer ---*/

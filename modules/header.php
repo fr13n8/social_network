@@ -272,10 +272,29 @@
 				<li>
 					<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
 					<div class="searched">
-						<form method="post" class="form-search">
-							<input type="text" placeholder="Search Friend">
-							<button data-ripple><i class="ti-search"></i></button>
-						</form>
+						<div class="form-search">
+							<input type="text" id="people_search" placeholder="Search Friend">
+							<!-- <i class="ti-search"></i> -->
+							<!-- <button data-ripple><i class="ti-search"></i></button> -->
+							<ul class="search_friends_list">
+								<!-- <li>
+									<figure>
+										<img src="images/resources/friend-avatar.jpg" alt="" class="search_result_photos">
+									</figure>
+									<div class="friendz-data">
+										<a href="time-line.html">bucky barnes</a>
+									</div>
+								</li>
+								<li>
+									<figure>
+										<img src="images/resources/friend-avatar.jpg" alt="" class="search_result_photos">
+									</figure>
+									<div class="friendz-data">
+										<a href="time-line.html">bucky barnes</a>
+									</div>
+								</li> -->
+							</ul>
+						</div>
 					</div>
 				</li>
 				<li><a href="newsfeed.html" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
