@@ -21,6 +21,14 @@ require_once("photo-cut.php");
                     // TODO
                     $this -> background_save();
                     break;
+                case 'photos':
+                    // TODO
+                    $this -> photos_save();
+                    break;
+                case 'main':
+                    // TODO
+                    $this -> make_main_photo();
+                    break;
             }
 
         }
@@ -68,6 +76,44 @@ require_once("photo-cut.php");
 
         }
 
+        function photos_save(){
+            $uploaddir = './uploads'; 
+            $uploaddirResized = './uploads/resized';
+        
+            if( ! is_dir( $uploaddir ) ) mkdir( $uploaddir);
+            if( ! is_dir( $uploaddirResized ) ) mkdir( $uploaddirResized);
+        
+            $file = $_FILES; 
+
+            $photos_callback = [];
+            foreach ($file as $key) {
+                $salt = time().$rand = random_int(1, 1000000);
+                $file_name = $salt;
+                
+                move_uploaded_file( $key['tmp_name'], "$uploaddir/$file_name".".jpg");
+                $u_session = $_SESSION['u_session'];
+                $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+                $id = $id[0]["ID"];
+                $this -> db -> query("INSERT INTO photos(user_id, photo_path, active) VALUES ('$id', '$file_name', 0)");
+                $this -> photos_resize($uploaddir, $file_name, $uploaddirResized, $photos_callback);
+                array_push($photos_callback, $file_name);
+            }
+            
+            $photos_callback = json_encode($photos_callback);
+            echo $photos_callback;
+
+        }
+
+        function make_main_photo(){
+            $photo_path = $_POST["photo"];
+            $u_session = $_SESSION['u_session'];
+            $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+                $id = $id[0]["ID"];
+            $this-> db -> query("UPDATE photos SET active = 0 WHERE user_id = $id");
+            $this-> db -> query("UPDATE photos SET active = 1 WHERE photo_path = $photo_path");
+            echo $photo_path;
+        }
+
         function backround_resize($uploaddir, $file_name, $uploaddirResized){
             $width = imagesx(imagecreatefromjpeg($uploaddir."/".$file_name.".jpg"));
             cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_background.jpg", $width, 550);
@@ -80,6 +126,13 @@ require_once("photo-cut.php");
             $height = imagesy(imagecreatefromjpeg($uploaddir."/".$file_name.".jpg"));
             cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_gall_min.jpg", 600, $height);
             echo $file_name;
+        }
+
+        function photos_resize($uploaddir, $file_name, $uploaddirResized){
+            cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_avatar.jpg", 219, 214);
+            cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_min.jpg", 45, 45);
+            $height = imagesy(imagecreatefromjpeg($uploaddir."/".$file_name.".jpg"));
+            cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_gall_min.jpg", 600, $height);
         }
     }
 

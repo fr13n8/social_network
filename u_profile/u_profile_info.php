@@ -20,7 +20,7 @@ session_start();
             $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
             $id = $id[0]["ID"];
             $u_info = $this->db->query("SELECT
-                                            user. NAME AS u_name,
+                                            user.NAME AS u_name,
                                             user.surname AS u_surname,
                                             user.email AS u_email,
                                             user.gender AS u_gender,

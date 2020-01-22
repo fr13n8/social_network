@@ -811,6 +811,70 @@ header.sticky {
     position: relative;
 }
 
+.user-photos {
+    /* border: 8px solid rgba(147, 0, 231, 0.9); */
+    /* border-radius: 3px 25px 0; */
+    /* box-shadow: 0 1px 0 #9300e7; */
+    float: right;
+    /* margin-top: -168px; */
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    /* height: 240px; */
+}
+
+.user-photos > figure > img {
+    width: 100%;
+    height: 100%;
+}
+
+.user-photos > figure {
+    margin-bottom: 0;
+    position: relative;
+}
+
+
+.user-photos .edit-phtos {
+    border-radius: 0;
+    bottom: -40px;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    transition: all 0.3s linear 0s;
+    padding: 5px;
+    text-align: center;
+}
+
+.user-photos:hover .edit-phtos {
+    bottom: 5px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.edit-phtos {
+    background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+    bottom: 100px;
+    color: #fff;
+    left: 275px;
+    padding: 5px 20px;
+    position: absolute;
+    z-index: 9;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.edit-phtos:hover {
+    background: transparent none repeat scroll 0 0;
+    /* border: 1px solid; */
+    color: #fff;
+}
+
+#make_avatar{
+    cursor: pointer;
+}
+
 .timeline-info {
     background: #292929 none repeat scroll 0 0;
     display: block;
@@ -911,6 +975,22 @@ header.sticky {
     z-index: 9;
     border-radius: 3px;
     border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.add-phto {
+    background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+    bottom: 100px;
+    color: #fff;
+    left: 275px;
+    padding: 5px 20px;
+    /* position: absolute; */
+    z-index: 9;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    width: 150px;
+    margin: auto;
+    margin-bottom: 25px;
 }
 
 .edit-phto:hover {

@@ -166,7 +166,12 @@
                                 VALUES('$u_name', '$u_surname', '$u_age', '$u_email', '$u_password')");
 
             $jd_photo = "anonymous";
-            $this -> db -> query("INSERT INTO photos(photo_path, user_id, active) VALUES('$jd_photo', LAST_INSERT_ID(), 1)");
+            
+            $last_index = $this -> db ->query("SELECT LAST_INSERT_ID() as last_id")->fetch_all(true);
+            $last_index = $last_index[0]['last_id'];
+            // print_r($last_index);
+            $this -> db -> query("INSERT INTO photos(photo_path, user_id, active) VALUES('$jd_photo', $last_index, 1)");
+            $this -> db -> query("INSERT INTO background(background_path, user_id, active) VALUES('', $last_index, 1)");
         }
 
     }
