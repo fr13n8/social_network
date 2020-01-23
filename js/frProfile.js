@@ -35,14 +35,29 @@ $(document).ready(function () {
                     $("#u_live").html(`Place of residence not known`);
                 }
                
+                if(response.req_active.length != 0){
+                    if(response.req_active[0].active == 1){
+                        $(".add-btn").empty();
+                        $(".add-btn").append(`<span class="del_request">Delete Request</span>`);
+                    }
+                    else{
+                        $(".add-btn").empty();
+                        $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
+                    }
+                }
+                else{
+                    $(".add-btn").empty();
+                    $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
+                }
+
                 $(".admin-name > h5").html(`${response[0].u_name} ${response[0].u_surname}`);
                 $("#u_name").html(` ${response[0].u_name} ${response[0].u_surname}`);
                 $("#u_email").html(`${response[0].u_email}`);
                 let u_avatar = response[0]["photo_path"] + "_avatar.jpg";
-                let u_miniature = response[0]["photo_path"] + "_min.jpg"; 
+                // let u_miniature = response[0]["photo_path"] + "_min.jpg"; 
                 let u_background = response[0]["background_path"] + "_background.jpg";
                 $("#u_avatar").attr("src", `./u_profile/uploads/resized/${u_avatar}`);
-                $(".u_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+                // $(".u_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
                 $("#u_background").attr("src", `./u_profile/uploads/resized/${u_background}`);
 
                 if(response.u_photos){
@@ -73,4 +88,32 @@ $(document).ready(function () {
                 }
         }
     });
+
+    $(".add-btn").on('click', ".snd_request", function () {
+        $.ajax({
+            type: "post",
+            url: "./u_profile/fr_server.php",
+            data: {
+                "action" : "request"
+            },
+            success: function (response) {
+                $(".add-btn").empty();
+                        $(".add-btn").append(`<span class="del_request">Delete Request</span>`);
+            }
+        });
+    })
+
+    $(".add-btn").on('click', ".del_request", function () {
+        $.ajax({
+            type: "post",
+            url: "./u_profile/fr_server.php",
+            data: {
+                "action" : "del_request"
+            },
+            success: function (response) {
+                $(".add-btn").empty();
+                        $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
+            }
+        });
+    })
 });

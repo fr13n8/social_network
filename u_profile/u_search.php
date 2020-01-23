@@ -21,6 +21,9 @@ session_start();
                         }
                         
                     break;
+                    case "fr_email":
+                        $fr_email = $_POST["email"];
+                        $this->fr_email_save($fr_email);
                 }
             }
         }
@@ -49,6 +52,11 @@ session_start();
                 $search_results = json_encode($search_results);
                 echo $search_results;
             }
+        }
+
+        function fr_email_save($fr_email){
+            $_SESSION["fr_email"] = $fr_email;
+            echo "OK";
         }
     }
 

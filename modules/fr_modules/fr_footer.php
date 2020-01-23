@@ -342,7 +342,7 @@
 	<script src="js/main.min.js"></script>
 	<script src="js/script.js"></script>
 	<!-- <script src="./js/jquery-3.4.1.min.js"></script> -->
-	<script src="./js/uProfile.js"></script>
+	<script src="./js/frProfile.js"></script>
 
 </body>	
 

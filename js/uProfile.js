@@ -267,13 +267,13 @@ $.ajax({
     dataType    : 'json',
     processData : false,
     contentType : false, 
-    success     : function(respond){
+    success     : function(response){
         // let u_photo = respond;
         // let u_background = u_photo + "_background.jpg";
         // $("#u_background").attr("src", `./u_profile/uploads/resized/${u_background}`);
         // respond = JSON.parse(respond)
 
-        console.log(respond)
+        console.log(response)
         if(response.u_photos){
             response.u_photos.forEach(element => {
                 if(element.photo_path == "anonymous"){
@@ -354,7 +354,7 @@ $(document).on('input', '#people_search', function () {
                                                                 <img src="./u_profile/uploads/resized/${fr_miniature}" alt="" class="search_result_photos">
                                                             </figure>
                                                             <div class="friendz-data">
-                                                                <span id="fr_profile" class="fr_profile" value="${element.u_email}" >${element.u_name} ${element.u_surname}</span>
+                                                                <span id="fr_item" class="fr_profile" data-value="${element.u_email}" >${element.u_name} ${element.u_surname}</span>
                                                             </div>
                                                         </li>`);
                     });
@@ -369,9 +369,23 @@ $(document).on('input', '#people_search', function () {
 
 //=========================================================================
 
-$(document).on("click", '#fr_profile', function(){
-    let fr_email = $(this).val();
-    console.log(fr_email)
+$(".search_friends_list").on("click", '#fr_item', function(){
+    let fr_email = $(this).data("value");
+    console.log(fr_email);
+    let fr_data = {
+        action : "fr_email",
+        email : fr_email
+    }
+    $.ajax({
+        type: "post",
+        url: "./u_profile/u_search.php",
+        data: fr_data,
+        success: function (response) {
+            if(response){
+                location.href = './fr_profile.php'
+            }
+        }
+    });
 })
 
 //=========================================================================

@@ -48,7 +48,40 @@ session_start();
         }
 
         function fr_getinfo(){
+            $fr_email = $_SESSION['fr_email'];
+            $u_session = $_SESSION['u_session'];
+            // echo $u_session;
+            // echo($fr_email);
+            $u_id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+            $u_id = $u_id[0]["ID"];
             
+            $fr_id = $this -> db -> query("SELECT ID FROM users WHERE email = '$fr_email'")->fetch_all(true);
+            $fr_id = $fr_id[0]["ID"];
+            $fr_info = $this->db->query("SELECT
+                                            user.NAME AS u_name,
+                                            user.surname AS u_surname,
+                                            user.email AS u_email,
+                                            user.gender AS u_gender,
+                                            user.city AS u_city,
+                                            user.country AS u_country,
+                                            user.phone AS u_phone,
+                                            user.about AS u_about,
+                                            photos.photo_path,
+                                            back.background_path
+                                        FROM
+                                            photos
+                                        INNER JOIN users user ON user.ID = photos.user_id
+                                        INNER JOIN background back ON user.ID = back.user_id
+                                        WHERE
+                                            email = '$fr_email'
+                                            AND photos.active = 1
+                                            AND back.active = 1")->fetch_all(true);
+            $req_active = $this -> db -> query("SELECT active FROM requests WHERE user_id = '$u_id' AND friend_id = '$fr_id' ")->fetch_all(true);
+            $fr_photos = $this->db->query("SELECT photo_path FROM photos WHERE user_id = (SELECT ID FROM users WHERE email = '$fr_email')")->fetch_all(true);
+            $fr_info['fr_photos'] = $fr_photos;
+            $fr_info['req_active'] = $req_active;
+            $fr_info = json_encode($fr_info);
+            print $fr_info;
         }
     }
 

@@ -460,8 +460,8 @@
 		<div class="feature-photo">
 			<figure><img src="" id="u_background" alt=""></figure>
 			<div class="add-btn">
-				<span>1205 followers</span>
-				<a href="#" title="" data-ripple="">Add Friend</a>
+				<!-- <span>1205 followers</span> -->
+				<!-- <span class="snd_request">Add Friend</span> -->
 			</div>
 			<!-- <form class="edit-phto">
 				<i class="fa fa-camera-retro"></i>
