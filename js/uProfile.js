@@ -38,17 +38,20 @@ $(document).ready(function () {
                 $(".admin-name > h5").html(`${response[0].u_name} ${response[0].u_surname}`);
                 $("#u_name").html(` ${response[0].u_name} ${response[0].u_surname}`);
                 $("#u_email").html(`${response[0].u_email}`);
-                let u_avatar = response[0]["photo_path"] + "_avatar.jpg";
-                let u_miniature = response[0]["photo_path"] + "_min.jpg"; 
-                let u_background = response[0]["background_path"] + "_background.jpg";
-                $("#u_avatar").attr("src", `./u_profile/uploads/resized/${u_avatar}`);
-                $(".u_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
-                $("#u_background").attr("src", `./u_profile/uploads/resized/${u_background}`);
+                
 
                 if(response.u_photos){
                     response.u_photos.forEach(element => {
                         if(element.photo_path == "anonymous"){
-                            return;
+                            let u_avatar = response[0]["photo_path"] + "_avatar.jpg";
+                            let u_miniature = response[0]["photo_path"] + "_min.jpg"; 
+                            $("#u_avatar").attr("src", `./u_profile/uploads/resized/${u_avatar}`);
+                            $(".u_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+                            if(response[0]["background_path"]){
+                                let u_background = response[0]["background_path"] + "_background.jpg";
+                                $("#u_background").attr("src", `./u_profile/uploads/resized/${u_background}`);
+                                return;
+                            }
                         }
                         else{
                             $(".photos").append(`  <li>									
@@ -351,8 +354,7 @@ $(document).on('input', '#people_search', function () {
                                                                 <img src="./u_profile/uploads/resized/${fr_miniature}" alt="" class="search_result_photos">
                                                             </figure>
                                                             <div class="friendz-data">
-                                                                <a href="time-line.html">${element.u_name} ${element.u_surname}</a>
-                                                                
+                                                                <span id="fr_profile" class="fr_profile" value="${element.u_email}" >${element.u_name} ${element.u_surname}</span>
                                                             </div>
                                                         </li>`);
                     });
@@ -364,6 +366,13 @@ $(document).on('input', '#people_search', function () {
         }
     });
   });
+
+//=========================================================================
+
+$(document).on("click", '#fr_profile', function(){
+    let fr_email = $(this).val();
+    console.log(fr_email)
+})
 
 //=========================================================================
     $("#u_logout").click(function () {

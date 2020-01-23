@@ -2166,7 +2166,7 @@ span.status.f-off {
     width: 100%;
 }
 
-.friendz-data > a {
+.friendz-data > span {
     display: inline-block;
     font-size: 14px;
     text-transform: capitalize;
@@ -2195,7 +2195,9 @@ span.status.f-off {
     width: 100%;
 }
 
-
+.fr_profile{
+    cursor: pointer;
+}
 
 /*--- footer ---*/
 
@@ -10185,4 +10187,6 @@ aside.sidebar.full-style {
     text-transform: uppercase;
 }
 
-
+.fr_profile{
+    cursor: pointer;
+}

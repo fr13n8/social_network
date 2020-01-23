@@ -10,6 +10,9 @@ session_start();
                 switch ($_POST["action"]) {
                     case 'u_info':
                         $this->u_getinfo();
+                    break;
+                    case 'fr_info':
+                        $this->fr_getinfo();
                 }
             }
         }
@@ -42,6 +45,10 @@ session_start();
             $u_info['u_photos'] = $u_photos;
             $u_info = json_encode($u_info);
             print $u_info;
+        }
+
+        function fr_getinfo(){
+            
         }
     }
 

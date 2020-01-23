@@ -1,9 +1,9 @@
 <div class="col-lg-6">
 								<div class="loadMore">
-									<div class="central-meta item">
+									<!-- <div class="central-meta item">
 										<div class="new-postbox">
 											<figure>
-												<img src="" class="u_miniature" alt="">
+												<img src="images/resources/min-avatar.jpg" class="u_miniature" alt="">
 											</figure>
 											<div class="newpst-input">
 												<form method="post">
@@ -42,7 +42,7 @@
 												</form>
 											</div>
 										</div>
-									</div>
+									</div> -->
 <!-- add post new box -->
 									<!-- <div class="central-meta item">
 										<div class="user-post">
