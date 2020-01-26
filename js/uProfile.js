@@ -74,6 +74,21 @@ $(document).ready(function () {
                 else{
                     return;
                 }
+
+                if(response.u_friends){
+                    response.u_friends.forEach(element => {
+                        $("#people-list").append(`<li data-value="${element.ID}">
+                                                <figure>
+                                                    <img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
+                                                    <span class="status f-online"></span>
+                                                </figure>
+                                                <div class="friendz-meta">
+                                                    <a href="time-line.html">${element.name} ${element.surname}</a>
+                                                    <i>${element.email}</i>
+                                                </div>
+                                            </li>`);
+                   });
+                }
         }
     });
 

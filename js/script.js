@@ -19,17 +19,95 @@ $('.user-img').on('click', function() {
 	$('.user-setting').toggleClass("active");
 	return false;
 });	
-	
-//--- side message box	
-$('.friendz-list > li, .chat-users > li').on('click', function() {
+
+
+$('.friendz-list, .chat-users').on('click', 'li', function(){
 	$('.chat-box').addClass("show");
+	let fr_id = $(this).data("value");
+	let fr_photo_phath = $(this).find('img').attr("src");
+	let u_photo_phath = $(".u_miniature").attr("src");
+	console.log(fr_photo_phath);
+	console.log(u_photo_phath)
+	$.ajax({
+		type: "post",
+		url: "./u_profile/u_messages.php",
+		data: {
+			friend_id : fr_id,
+			action : "show_msgs"
+		},
+		success: function (response) {
+			response = JSON.parse(response);
+			// console.log(fr_id);
+			$(".msgs_name").html(`${response[0].name} ${response[0].surname}`);
+			$('.message_body').attr("data-value", `${response[0].ID}`);
+			// getMessages(fr_id);
+			setInterval(getMessages(fr_id, fr_photo_phath, u_photo_phath), 500);
+		}
+	});
 	return false;
-});	
+})
 	$('.close-mesage').on('click', function() {
 		$('.chat-box').removeClass("show");
 		return false;
 	});	
 	
+//------ message send
+
+ $('.message_body').bind("enterKey",function(e){
+	let message = $(this).val();
+	let fr_id = $(this).data("value");
+	$(this).val("");
+	console.log(message);
+	$.ajax({
+		type: "post",
+		url: "./u_profile/u_messages.php",
+		data: {
+			friend_id : fr_id,
+			message : message,
+			action : "snd_msg"
+		},
+		success: function (response) {
+			
+		}
+	});
+ });
+ $('.message_body').keyup(function(e){
+	 if(e.keyCode == 13)
+	 {
+		 $(this).trigger("enterKey");
+	 }
+ });
+ 
+//------ real time messages
+
+function getMessages(fr_id, fr_photo, u_photo){
+	$.ajax({
+		type: "post",
+		url: "./u_profile/u_messages.php",
+		data: {
+			friend_id : fr_id,
+			action : "get_messages"
+		},
+		success: function (response) {
+			response = JSON.parse(response);
+			console.log(response);
+			response.forEach(element => {
+				$(".message-list").append(`
+									<li class="me">
+										<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
+										<div class="notification-event">
+											<span class="chat-message-item">
+												Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+											</span>
+											<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+										</div>
+									</li>`);
+			});
+			
+		}
+	});
+}
+
 //------ scrollbar plugin
 	if ($.isFunction($.fn.perfectScrollbar)) {
 		$('.dropdowns, .twiter-feed, .invition, .followers, .chatting-area, .peoples, #people-list, .chat-list > ul, .message-list, .chat-users, .left-menu').perfectScrollbar();

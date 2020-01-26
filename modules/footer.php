@@ -20,7 +20,7 @@
 										<h4 class="widget-title">Friends</h4>
 										<div id="searchDir"></div>
 										<ul id="people-list" class="friendz-list">
-											<li>
+											<!-- <li>
 												<figure>
 													<img src="images/resources/friend-avatar.jpg" alt="">
 													<span class="status f-online"></span>
@@ -114,19 +114,19 @@
 													<a href="time-line.html">Sarah Loren</a>
 													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c1e1d0e12190f3c1b111d1510521f1311">[email&#160;protected]</a></i>
 												</div>
-											</li>
+											</li> -->
 										</ul>
 										<div class="chat-box">
 											<div class="chat-head">
 												<span class="status f-online"></span>
-												<h6>Bucky Barnes</h6>
+												<h6 class="msgs_name"></h6>
 												<div class="more">
 													<span><i class="ti-more-alt"></i></span>
 													<span class="close-mesage"><i class="ti-close"></i></span>
 												</div>
 											</div>
 											<div class="chat-list">
-												<ul>
+												<ul class="message-list">
 													<li class="me">
 														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
 														<div class="notification-event">
@@ -156,7 +156,7 @@
 													</li>
 												</ul>
 												<form class="text-box">
-													<textarea placeholder="Post enter to post..."></textarea>
+													<textarea class="message_body" placeholder="Post enter to post..."></textarea>
 													<!-- <div class="add-smiles">
 														<span title="add icon" class="em em-expressionless"></span>
 													</div>
@@ -174,7 +174,7 @@
 														<i class="em em-rage"></i>
 														<i class="em em-stuck_out_tongue"></i>
 													</div> -->
-													<button type="submit"></button>
+													<!-- <button type="submit"></button> -->
 												</form>
 											</div>
 										</div>

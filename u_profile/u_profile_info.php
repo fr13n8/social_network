@@ -13,6 +13,7 @@ session_start();
                     break;
                     case 'fr_info':
                         $this->fr_getinfo();
+                    break;
                 }
             }
         }
@@ -55,8 +56,35 @@ session_start();
                                                 photos.active = 1
                                                 AND
                                                 users.ID IN ( SELECT user_id FROM requests WHERE friend_id = '$id' )")->fetch_all(true);
+            $u_friends = $this->db->query("SELECT
+                                        users.name,
+                                        users.surname,
+                                        users.email,
+                                        photos.photo_path,
+                                        users.ID
+                                    FROM
+                                        users
+                                    INNER JOIN photos ON photos.user_id = users.ID
+                                    WHERE
+                                        users.ID IN (
+                                            SELECT
+                                                user_id
+                                            FROM
+                                                friends
+                                            WHERE
+                                                friend_id = '$id'
+                                            UNION
+                                                SELECT
+                                                    friend_id
+                                                FROM
+                                                    friends
+                                                WHERE
+                                                    user_id = '$id'
+                                        )
+                                    AND photos.active = 1")->fetch_all(true);
             $u_info['u_photos'] = $u_photos;
             $u_info["u_requests"] = $u_requests;
+            $u_info["u_friends"] = $u_friends;
             $u_info = json_encode($u_info);
             print $u_info;
         }
