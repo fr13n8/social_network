@@ -398,6 +398,197 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 	});	
 	
 
+// Log Out
+	$("#u_logout").click(function () {
+        $.ajax({
+            type: "post",
+            url: "./u_profile/u_logout.php",
+            data: {
+                action : "u_logout"
+            },
+            success: function (response) {
+                if(response){
+                    console.log("saccess")
+                }
+                else{
+                    console.log("logout")
+                    location.href = './index.php'
+                }
+            }
+        });
+	})
+	
+
+// People Search
+	$(document).on('input', '#people_search', function () {
+		let seacrh_val = $(this).val();
+		// console.log(seacrh_val)
+		let search_params = {
+			name : seacrh_val,
+			action : "search"
+		}
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_search.php",
+			data: search_params,
+			success: function (response) {
+				if(response){
+					response = JSON.parse(response);
+					// console.log(response);
+					if(response.errors){
+						console.log(response)
+						$(".search_friends_list").empty();
+					}
+					else{
+						$(".search_friends_list").empty();
+						let fr_miniature = response[0]["photo_path"] + "_min.jpg"; 
+						response.forEach(element => {
+							$(".search_friends_list").append(`<li>
+																<figure>
+																	<img src="./u_profile/uploads/resized/${fr_miniature}" alt="" class="search_result_photos">
+																</figure>
+																<div class="friendz-data">
+																	<span class="fr_profile fr_item" data-value="${element.u_email}" >${element.u_name} ${element.u_surname}</span>
+																</div>
+															</li>`);
+						});
+					}
+				}
+				else{
+					$(".search_friends_list").empty();
+				}
+			}
+		});
+	  });
+	
+	
+	
+	$(".search_friends_list").on("click", '.fr_item', function(){
+		let fr_email = $(this).data("value");
+		console.log(fr_email);
+		let fr_data = {
+			action : "fr_email",
+			email : fr_email
+		}
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_search.php",
+			data: fr_data,
+			success: function (response) {
+				if(response){
+					location.href = './fr_profile.php'
+				}
+			}
+		});
+	})
+
+//============================================================================================================
+
+	 $.ajax({
+        type: "post",
+        url: "./u_profile/u_profile_info.php",
+        data: {
+            action : "u_info"
+        },
+        success: function (response) {
+            
+                response = JSON.parse(response);
+                console.log(response);
+				
+				
+                if(response.u_photos){
+                    response.u_photos.forEach(element => {
+						let u_miniature = response[0]["photo_path"] + "_min.jpg"; 
+						$(".u_top_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+                        
+                    });
+                }
+                else{
+                    return;
+				}
+				
+				if(response.u_requests){
+					$(".notifi-count").html(`${response.u_requests.length}`);
+					response.u_requests.length == 0 ? $(".notifi-title").html(`No new notifications yet`):$(".notifi-title").html(`${response.u_requests.length} New Notifications`);
+					
+					response.u_requests.forEach(element => {
+						let req_name = element.name;
+						let req_surname = element.surname;
+						let req_email = element.email;
+						let req_photo = element.photo_path+"_min.jpg";
+
+						$(".notifi-menu").append(`<li>
+													<a>
+														<img src="./u_profile/uploads/resized/${req_photo}" alt="">
+														<div class="mesg-meta" data-value="${element.ID}">
+															<h6 class="fr_item" data-value="${req_email}">${req_name} ${req_surname}</h6>
+															<span>Friend request</span>
+															<p class="tag green fr_accept">Accept</p>
+															<p class="tag red fr_reject">Reject</p>
+															<i>2 min ago</i>
+														</div>
+													</a>
+													<span class="tag green">New</span>
+												</li>`)
+					})
+				}
+        }
+	});
+	
+	$(".notifi-menu").on("click", '.fr_item', function(){
+		let fr_email = $(this).data("value");
+		console.log(fr_email);
+		let fr_data = {
+			action : "fr_email",
+			email : fr_email
+		}
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_search.php",
+			data: fr_data,
+			success: function (response) {
+				if(response){
+					location.href = './fr_profile.php'
+				}
+			}
+		});
+	})
+
+	$(".notifi-menu").on("click", '.fr_accept', function(){
+		let fr_id = $(this).parent().data("value");
+		let for_del = $(this).parent().parent().parent();
+		console.log(fr_id);
+		let fr_data = {
+			action : "fr_accept",
+			id : fr_id
+		}
+		$.ajax({
+			type: "post",
+			url: "./u_profile/fr_server.php",
+			data: fr_data,
+			success: function (response) {
+				for_del.remove();
+			}
+		});
+	})
+
+	$(".notifi-menu").on("click", '.fr_reject', function(){
+		let fr_id = $(this).parent().data("value");
+		let for_del = $(this).parent().parent().parent();
+		console.log(fr_id);
+		let fr_data = {
+			action : "fr_reject",
+			id : fr_id
+		}
+		$.ajax({
+			type: "post",
+			url: "./u_profile/fr_server.php",
+			data: fr_data,
+			success: function (response) {
+				for_del.remove();
+			}
+		});
+	})
 
 });//document ready end
 
