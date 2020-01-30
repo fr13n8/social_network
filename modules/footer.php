@@ -126,8 +126,8 @@
 												</div>
 											</div>
 											<div class="chat-list">
-												<ul class="message-list">
-													<li class="me">
+												<ul>
+													<!-- <li class="me">
 														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
 														<div class="notification-event">
 															<span class="chat-message-item">
@@ -153,7 +153,7 @@
 															</span>
 															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
 														</div>
-													</li>
+													</li> -->
 												</ul>
 												<form class="text-box">
 													<textarea class="message_body" placeholder="Post enter to post..."></textarea>
@@ -174,7 +174,7 @@
 														<i class="em em-rage"></i>
 														<i class="em em-stuck_out_tongue"></i>
 													</div> -->
-													<!-- <button type="submit"></button> -->
+													<button type="submit"></button>
 												</form>
 											</div>
 										</div>

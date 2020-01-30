@@ -4924,7 +4924,6 @@ canvas {
     visibility: hidden;
     transition: all 0.2s linear 0s;
     border: 1px solid #e1e8ed;
-    text-align: left;
 }
 
 .chat-box.show {
@@ -5056,6 +5055,7 @@ canvas {
     float: right;
     margin-left: 0;
     margin-right: 8px;
+    text-align: right;
 }
 
 .chat-list > ul li.you .chat-message-item {

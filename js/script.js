@@ -27,7 +27,7 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	let fr_photo_phath = $(this).find('img').attr("src");
 	let u_photo_phath = $(".u_miniature").attr("src");
 	console.log(fr_photo_phath);
-	console.log(u_photo_phath)
+	console.log(u_photo_phath);
 	$.ajax({
 		type: "post",
 		url: "./u_profile/u_messages.php",
@@ -40,8 +40,8 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 			// console.log(fr_id);
 			$(".msgs_name").html(`${response[0].name} ${response[0].surname}`);
 			$('.message_body').attr("data-value", `${response[0].ID}`);
-			// getMessages(fr_id);
-			setInterval(getMessages(fr_id, fr_photo_phath, u_photo_phath), 500);
+			getMessages(fr_id, fr_photo_phath, u_photo_phath);
+			setInterval(function(){getMessages(fr_id, fr_photo_phath, u_photo_phath)}, 300);
 		}
 	});
 	return false;
@@ -89,19 +89,35 @@ function getMessages(fr_id, fr_photo, u_photo){
 			action : "get_messages"
 		},
 		success: function (response) {
+			$(".chat-list > ul").empty();
 			response = JSON.parse(response);
-			console.log(response);
+			// console.log(response);
+			// console.log(fr_photo)
+			// console.log(u_photo)
+			
 			response.forEach(element => {
-				$(".message-list").append(`
-									<li class="me">
-										<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-										<div class="notification-event">
-											<span class="chat-message-item">
-												Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-											</span>
-											<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-										</div>
-									</li>`);
+				// let person;
+				// TODO
+				let person, person_avatar;
+				if(element.receiver_id == fr_id){
+					// console.log(222)
+					person = "you";
+					person_avatar = fr_photo;
+				}
+				else{
+					// console.log(333)
+					person = "me";
+					person_avatar = u_photo;
+				}
+				$(".chat-list > ul").append(`<li class="${person}">
+												<div class="chat-thumb"><img src="${person_avatar}" alt=""></div>
+												<div class="notification-event">
+													<span class="chat-message-item">
+														${element.message}
+													</span>
+													<span class="notification-date"><time datetime="${element.time}" class="entry-date updated">${element.time}</time></span>
+												</div>
+											</li>`);
 			});
 			
 		}
