@@ -2,6 +2,92 @@ jQuery(document).ready(function($) {
 	
 	"use strict";
 	
+
+
+
+
+	let socket = new WebSocket("ws://localhost:2346");
+
+	socket.onopen = function(e) {
+	  console.log("[open] Соединение установлено");
+	  console.log("Отправляем данные на сервер");
+	//   socket.send("Меня зовут Джон");
+	};
+	
+	socket.onmessage = function(event) {
+		let data = JSON.parse(event.data);
+		// let data = event.data;
+		// console.log(`[message] Данные получены с сервера: ${data}`);
+		// console.log(data);
+
+		switch (data.action) {
+			case "msgs-data":
+					// console.log("show-msgs");
+					$(".msgs_name").html(`${data[0].name} ${data[0].surname}`);
+					$('.message_body').attr("data-value", `${data[0].ID}`);
+					// if (elem.scrollTop >= (elem.scrollHeight - elem.clientHeight)) {
+					// 	elem.scrollTop = 0;
+					// 	return;
+					// } 
+					// setInterval(function(){getMessages(fr_id, fr_photo_phath, u_photo_phath)}, 300);
+				break;
+			case "messages":
+				// console.log("get_messages");
+				// console.log(data);
+				$(".chat-list > ul").empty();
+
+				$.each(data, function (indexInArray, element) { 
+					if(isNaN(indexInArray)){
+						
+					}
+					else{
+						let person, person_avatar;
+						if(element.receiver_id == data.fr_id){
+							// console.log(222)
+							person = "you";
+							person_avatar = data.u_photo_phath;
+						}
+						else{
+							// console.log(333)
+							person = "me";
+							person_avatar = data.fr_photo_phath;
+						}
+						$(".chat-list > ul").append(`<li class="${person}">
+													<div class="chat-thumb"><img src="${person_avatar}" alt=""></div>
+													<div class="notification-event">
+														<span class="chat-message-item">
+															${element.message}
+														</span>
+														<span class="notification-date"><time datetime="${element.time}" class="entry-date updated">${element.time}</time></span>
+													</div>
+												</li>`);
+					}
+				});
+				// $(".chat-list > ul").scrollTop=elem.scrollTop+9999;
+				break;
+			default:
+				break;
+		}
+	};
+	
+	socket.onclose = function(event) {
+	  if (event.wasClean) {
+		console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+	  } else {
+		// например, сервер убил процесс или сеть недоступна
+		// обычно в этом случае event.code 1006
+		console.log('[close] Соединение прервано');
+	  }
+	};
+	
+	socket.onerror = function(error) {
+	  console.log(`[error] ${error.message}`);
+	};
+
+
+
+
+
 //------- Notifications Dropdowns
   $('.top-area > .setting-area > li').on("click",function(){
 	$(this).siblings().children('div').removeClass('active');
@@ -25,26 +111,35 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	$('.chat-box').addClass("show");
 	let fr_id = $(this).data("value");
 	let fr_photo_phath = $(this).find('img').attr("src");
-	let u_photo_phath = $(".u_miniature").attr("src");
-	console.log(fr_photo_phath);
-	console.log(u_photo_phath);
-	$.ajax({
-		type: "post",
-		url: "./u_profile/u_messages.php",
-		data: {
-			friend_id : fr_id,
-			action : "show_msgs"
-		},
-		success: function (response) {
-			response = JSON.parse(response);
-			// console.log(fr_id);
-			$(".msgs_name").html(`${response[0].name} ${response[0].surname}`);
-			$('.message_body').attr("data-value", `${response[0].ID}`);
-			getMessages(fr_id, fr_photo_phath, u_photo_phath);
-			setInterval(function(){getMessages(fr_id, fr_photo_phath, u_photo_phath)}, 300);
-		}
-	});
-	return false;
+	let u_photo_phath = $(".u_top_miniature").attr("src");
+	// console.log(fr_photo_phath);
+	// console.log(u_photo_phath);
+	let u_session = localStorage.getItem('u_session');
+	let data = {
+		friend_id : fr_id,
+		action : "show_msgs",
+		u_session : u_session
+	};
+	console.log(data);
+	socket.send(JSON.stringify(data));
+	getMessages(fr_id, fr_photo_phath, u_photo_phath);
+	// $.ajax({
+	// 	type: "post",
+	// 	url: "./u_profile/u_messages.php",
+	// 	data: {
+	// 		friend_id : fr_id,
+	// 		action : "show_msgs"
+	// 	},
+	// 	success: function (response) {
+	// 		response = JSON.parse(response);
+	// 		// console.log(fr_id);
+	// 		$(".msgs_name").html(`${response[0].name} ${response[0].surname}`);
+	// 		$('.message_body').attr("data-value", `${response[0].ID}`);
+	// 		getMessages(fr_id, fr_photo_phath, u_photo_phath);
+	// 		setInterval(function(){getMessages(fr_id, fr_photo_phath, u_photo_phath)}, 300);
+	// 	}
+	// });
+	// return false;
 })
 	$('.close-mesage').on('click', function() {
 		$('.chat-box').removeClass("show");
@@ -57,19 +152,27 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	let message = $(this).val();
 	let fr_id = $(this).data("value");
 	$(this).val("");
-	console.log(message);
-	$.ajax({
-		type: "post",
-		url: "./u_profile/u_messages.php",
-		data: {
-			friend_id : fr_id,
-			message : message,
-			action : "snd_msg"
-		},
-		success: function (response) {
+	let u_session = localStorage.getItem('u_session');
+	let data = {
+		friend_id : fr_id,
+		message : message,
+		action : "snd_msg",
+		u_session : u_session
+	};
+	socket.send(JSON.stringify(data));
+	// console.log(message);
+	// $.ajax({
+	// 	type: "post",
+	// 	url: "./u_profile/u_messages.php",
+	// 	data: {
+	// 		friend_id : fr_id,
+	// 		message : message,
+	// 		action : "snd_msg"
+	// 	},
+	// 	success: function (response) {
 			
-		}
-	});
+	// 	}
+	// });
  });
  $('.message_body').keyup(function(e){
 	 if(e.keyCode == 13)
@@ -81,47 +184,56 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 //------ real time messages
 
 function getMessages(fr_id, fr_photo, u_photo){
-	$.ajax({
-		type: "post",
-		url: "./u_profile/u_messages.php",
-		data: {
-			friend_id : fr_id,
-			action : "get_messages"
-		},
-		success: function (response) {
-			$(".chat-list > ul").empty();
-			response = JSON.parse(response);
-			// console.log(response);
-			// console.log(fr_photo)
-			// console.log(u_photo)
+	let u_session = localStorage.getItem('u_session');
+	let data = {
+		friend_id : fr_id,
+		action : "get_messages",
+		u_session : u_session,
+		fr_photo_phath : fr_photo,
+		u_photo_phath : u_photo
+	};
+	socket.send(JSON.stringify(data));
+	// $.ajax({
+	// 	type: "post",
+	// 	url: "./u_profile/u_messages.php",
+	// 	data: {
+	// 		friend_id : fr_id,
+	// 		action : "get_messages"
+	// 	},
+	// 	success: function (response) {
+	// 		$(".chat-list > ul").empty();
+	// 		response = JSON.parse(response);
+	// 		// console.log(response);
+	// 		// console.log(fr_photo)
+	// 		// console.log(u_photo)
 			
-			response.forEach(element => {
-				// let person;
-				// TODO
-				let person, person_avatar;
-				if(element.receiver_id == fr_id){
-					// console.log(222)
-					person = "you";
-					person_avatar = fr_photo;
-				}
-				else{
-					// console.log(333)
-					person = "me";
-					person_avatar = u_photo;
-				}
-				$(".chat-list > ul").append(`<li class="${person}">
-												<div class="chat-thumb"><img src="${person_avatar}" alt=""></div>
-												<div class="notification-event">
-													<span class="chat-message-item">
-														${element.message}
-													</span>
-													<span class="notification-date"><time datetime="${element.time}" class="entry-date updated">${element.time}</time></span>
-												</div>
-											</li>`);
-			});
+	// 		response.forEach(element => {
+	// 			// let person;
+	// 			// TODO
+	// 			let person, person_avatar;
+	// 			if(element.receiver_id == fr_id){
+	// 				// console.log(222)
+	// 				person = "you";
+	// 				person_avatar = fr_photo;
+	// 			}
+	// 			else{
+	// 				// console.log(333)
+	// 				person = "me";
+	// 				person_avatar = u_photo;
+	// 			}
+	// 			$(".chat-list > ul").append(`<li class="${person}">
+	// 											<div class="chat-thumb"><img src="${person_avatar}" alt=""></div>
+	// 											<div class="notification-event">
+	// 												<span class="chat-message-item">
+	// 													${element.message}
+	// 												</span>
+	// 												<span class="notification-date"><time datetime="${element.time}" class="entry-date updated">${element.time}</time></span>
+	// 											</div>
+	// 										</li>`);
+	// 		});
 			
-		}
-	});
+	// 	}
+	// });
 }
 
 //------ scrollbar plugin
@@ -557,7 +669,8 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 	
 	
 	
-	$(".search_friends_list").on("click", '.fr_item', function(){
+	$(".search_friends_list, #people-list").on("click", '.fr_item', function(event){
+		event.stopPropagation();
 		let fr_email = $(this).data("value");
 		console.log(fr_email);
 		let fr_data = {
@@ -604,7 +717,7 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 				if(response.u_requests){
 					$(".notifi-count").html(`${response.u_requests.length}`);
 					response.u_requests.length == 0 ? $(".notifi-title").html(`No new notifications yet`):$(".notifi-title").html(`${response.u_requests.length} New Notifications`);
-					
+					$(".frends_req > span").html(response.u_requests.length);
 					response.u_requests.forEach(element => {
 						let req_name = element.name;
 						let req_surname = element.surname;

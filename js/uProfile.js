@@ -9,6 +9,7 @@ $(document).ready(function () {
             
                 response = JSON.parse(response);
                 console.log(response);
+                localStorage.setItem('u_session', response[0].u_session);
                 // for (const key in response[0]) {
                     // if (response[0].hasOwnProperty(key)) {
                     //     const element = response[0][key];
@@ -83,7 +84,7 @@ $(document).ready(function () {
                                                     <span class="status f-online"></span>
                                                 </figure>
                                                 <div class="friendz-meta">
-                                                    <a href="time-line.html">${element.name} ${element.surname}</a>
+                                                    <span class="fr_profile fr_item" data-value="${element.email}" >${element.name} ${element.surname}</span>
                                                     <i>${element.email}</i>
                                                 </div>
                                             </li>`);
@@ -91,6 +92,8 @@ $(document).ready(function () {
                 }
         }
     });
+
+    
 
     $("#u_dataChange").click(function () {
         let u_name = $("#u_nameChange").val();

@@ -1,0 +1,228 @@
+2020-02-01 16:36:58 pid:1 Error: Cannot use object of type stdClass as array in C:\xampp\htdocs\social_network\u_profile\websocket.php:29
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(657): {closure}(Object(Workerman\Connection\TcpConnection), Object(stdClass))
+#1 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(292): Workerman\Connection\TcpConnection->baseRead(Resource id #21)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#6 C:\xampp\htdocs\social_network\u_profile\websocket.php(48): Workerman\Worker::runAll()
+#7 {main}
+2020-02-01 16:36:58 pid:1 Worker process terminated
+2020-02-01 16:37:43 pid:1 Error: Cannot use object of type stdClass as array in C:\xampp\htdocs\social_network\u_profile\websocket.php:29
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(657): {closure}(Object(Workerman\Connection\TcpConnection), Object(stdClass))
+#1 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(292): Workerman\Connection\TcpConnection->baseRead(Resource id #21)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#6 C:\xampp\htdocs\social_network\u_profile\websocket.php(48): Workerman\Worker::runAll()
+#7 {main}
+2020-02-01 16:37:43 pid:1 Worker process terminated
+2020-02-01 16:38:51 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use object of type stdClass as array in C:\xampp\htdocs\social_network\u_profile\websocket.php:36
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#1 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#6 C:\xampp\htdocs\social_network\u_profile\websocket.php(48): Workerman\Worker::runAll()
+#7 {main}
+  thrown in C:\xampp\htdocs\social_network\u_profile\websocket.php on line 36"
+2020-02-01 16:41:31 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(37): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersFor in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php on line 236"
+2020-02-01 16:47:29 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\u_messages.php:32
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(38): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_n in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 32"
+2020-02-01 16:51:30 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\u_messages.php:32
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(39): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_n in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 32"
+2020-02-01 16:52:02 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\u_messages.php:32
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(39): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_n in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 32"
+2020-02-01 16:54:31 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\u_messages.php:32
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(41): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_n in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 32"
+2020-02-01 16:57:49 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\u_messages.php:32
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(41): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_n in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 32"
+2020-02-01 16:58:37 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\u_messages.php:32
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(41): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_n in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 32"
+2020-02-01 17:13:08 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\u_messages.php:32
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(41): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_n in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 32"
+2020-02-01 17:22:12 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(29): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersFor in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php on line 236"
+2020-02-01 17:23:10 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(30): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersFor in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php on line 236"
+2020-02-01 17:24:23 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(31): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersFor in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php on line 236"
+2020-02-01 17:24:59 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(31): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersFor in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php on line 236"
+2020-02-01 17:35:09 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(31): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersFor in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php on line 236"
+2020-02-01 17:36:37 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(32): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersFor in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php on line 236"
+2020-02-01 17:37:58 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(32): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersFor in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php on line 236"
+2020-02-01 18:04:50 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use string offset as an array in C:\xampp\htdocs\social_network\u_profile\u_messages.php:48
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(41): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_network\u_ in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 48"
+2020-02-01 18:12:15 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use string offset as an object in C:\xampp\htdocs\social_network\u_profile\u_messages.php:48
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(41): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_network\u in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 48"
+2020-02-01 18:12:40 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use string offset as an array in C:\xampp\htdocs\social_network\u_profile\u_messages.php:48
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\u_messages.php(17): MessagesController->msgs_getinfo()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(41): MessagesController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_network\u_ in C:\xampp\htdocs\social_network\u_profile\u_messages.php on line 48"
+2020-02-01 18:39:13 pid:1 Exception: You can't send(NULL) to client, you need to convert it to a string.  in C:\xampp\htdocs\social_network\vendor\workerman\workerman\Protocols\Websocket.php:236
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(344): Workerman\Protocols\Websocket::encode(NULL, Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(55): Workerman\Connection\TcpConnection->send(NULL)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(657): {closure}(Object(Workerman\Connection\TcpConnection), Array)
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(292): Workerman\Connection\TcpConnection->baseRead(Resource id #22)
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_network\u_profile\websocket.php(67): Workerman\Worker::runAll()
+#9 {main}
+2020-02-01 18:39:13 pid:1 Worker process terminated

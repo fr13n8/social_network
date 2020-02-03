@@ -32,6 +32,7 @@ session_start();
                                             user.country AS u_country,
                                             user.phone AS u_phone,
                                             user.about AS u_about,
+                                            user.session AS u_session,
                                             photos.photo_path,
                                             back.background_path
                                         FROM

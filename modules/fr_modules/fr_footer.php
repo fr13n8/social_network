@@ -20,7 +20,7 @@
 										<h4 class="widget-title">Friends</h4>
 										<div id="searchDir"></div>
 										<ul id="people-list" class="friendz-list">
-											<li>
+											<!-- <li>
 												<figure>
 													<img src="images/resources/friend-avatar.jpg" alt="">
 													<span class="status f-online"></span>
@@ -114,7 +114,7 @@
 													<a href="time-line.html">Sarah Loren</a>
 													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c1e1d0e12190f3c1b111d1510521f1311">[email&#160;protected]</a></i>
 												</div>
-											</li>
+											</li> -->
 										</ul>
 										<div class="chat-box">
 											<div class="chat-head">
@@ -340,6 +340,7 @@
 	
 	<!-- <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
 	<script src="js/main.min.js"></script>
+	<script src="./js/uProfile.js"></script>
 	<script src="js/script.js"></script>
 	<!-- <script src="./js/jquery-3.4.1.min.js"></script> -->
 	<script src="./js/frProfile.js"></script>

@@ -67,6 +67,20 @@ $(document).ready(function () {
                 if(response){
                     response = JSON.parse(response);
                     console.log(response);
+
+                    $("input").css({border : "none"});
+                    for (const key in response) {
+                        if (response.hasOwnProperty(key)) {
+                            const element = response[key];
+                            $(`#l_${key}`)
+                            .val("")
+                            .css({
+                                border : "2px solid red"
+                            })
+                            .attr("placeholder", `${element}`);
+                        }
+                    }
+                    
                 }
                 else{
                     location.href = './profile.php'

@@ -48,6 +48,8 @@ $(document).ready(function () {
                 // $("#u_background").attr("src", `./u_profile/uploads/resized/${u_background}`);
 
                 if(response.fr_photos){
+                    $(".photos").empty();
+                    console.log("empty")
                     response.fr_photos.forEach(element => {
                         if(element.photo_path == "anonymous"){
                             let u_avatar = response[0]["photo_path"] + "_avatar.jpg";
