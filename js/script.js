@@ -25,6 +25,7 @@ jQuery(document).ready(function($) {
 					// console.log("show-msgs");
 					$(".msgs_name").html(`${data[0].name} ${data[0].surname}`);
 					$('.message_body').attr("data-value", `${data[0].ID}`);
+					// scrollToBottom();
 					// if (elem.scrollTop >= (elem.scrollHeight - elem.clientHeight)) {
 					// 	elem.scrollTop = 0;
 					// 	return;
@@ -62,15 +63,22 @@ jQuery(document).ready(function($) {
 													</div>
 												</li>`);
 					}
+					// scrollToBottom();
 				});
+				// if(checker == 0){
+				// 	scrollToBottom();
+				// 	checker++;
+				// }
 				// $(".chat-list > ul").scrollTop=elem.scrollTop+9999;
 				break;
 			default:
 				break;
 		}
+		// scrollToBottom()
 	};
 	
 	socket.onclose = function(event) {
+		// checker = 0;
 	  if (event.wasClean) {
 		console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
 	  } else {
@@ -87,6 +95,12 @@ jQuery(document).ready(function($) {
 
 
 
+	function scrollToBottom() {
+		let scrollCount = $(".msg-list")[0].scrollHeight;
+		// console.log(scrollCount)
+		$(".msg-list").stop().animate({scrollTop : scrollCount });
+	  }
+	  
 
 //------- Notifications Dropdowns
   $('.top-area > .setting-area > li').on("click",function(){
@@ -123,6 +137,7 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	console.log(data);
 	socket.send(JSON.stringify(data));
 	getMessages(fr_id, fr_photo_phath, u_photo_phath);
+	scrollToBottom()
 	// $.ajax({
 	// 	type: "post",
 	// 	url: "./u_profile/u_messages.php",
@@ -160,6 +175,8 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 		u_session : u_session
 	};
 	socket.send(JSON.stringify(data));
+	
+	scrollToBottom()
 	// console.log(message);
 	// $.ajax({
 	// 	type: "post",
@@ -795,6 +812,41 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 				for_del.remove();
 			}
 		});
+	})
+
+	let p_photo;
+	$(".new-post").click(function(event){
+		event.stopPropagation();
+		event.preventDefault(); 
+			let post_description = $(".new-post-description").val();
+
+			
+			p_photo = $("#p_photo[type=file]").files;
+			
+			console.log(p_photo)
+			if( typeof p_photo == 'undefined' ) return;
+			
+			var data = new FormData();
+			
+			$.each( p_photo, function( key, value ){
+				data.append( key, value );
+			});
+			
+			data.append( 'action', 'new_post' );
+			data.append('p_description' , post_description);
+	
+
+			$.ajax({
+				url         : './u_profile/u_profile_info.php',
+				type        : 'POST',
+				data        : data,
+				cache       : false,
+				dataType    : 'json',
+				processData : false,
+				contentType : false,
+				success     : function(respond){
+				}
+			});
 	})
 
 });//document ready end

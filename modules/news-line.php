@@ -7,22 +7,22 @@
 											</figure>
 											<div class="newpst-input">
 												<form method="post">
-													<textarea rows="2" placeholder="write something"></textarea>
+													<textarea class="new-post-description" rows="2" placeholder="write something"></textarea>
 													<div class="attachments">
 														<ul>
-															<li>
+															<!-- <li>
 																<i class="fa fa-music"></i>
 																<label class="fileContainer">
 																	<input type="file">
 																</label>
-															</li>
+															</li> -->
 															<li>
 																<i class="fa fa-image"></i>
 																<label class="fileContainer">
-																	<input type="file">
+																	<input id="p_photo" type="file" multiple="multiple" accept=".txt,image/*">
 																</label>
 															</li>
-															<li>
+															<!-- <li>
 																<i class="fa fa-video-camera"></i>
 																<label class="fileContainer">
 																	<input type="file">
@@ -33,9 +33,9 @@
 																<label class="fileContainer">
 																	<input type="file">
 																</label>
-															</li>
+															</li> -->
 															<li>
-																<button>Publish</button>
+																<button type="button" class="new-post">Publish</button>
 															</li>
 														</ul>
 													</div>
@@ -135,7 +135,7 @@
 											</div>
 										</div>
 									</div> -->
-									<!-- <div class="central-meta item">
+									<div class="central-meta item news-dashboard">
 										<div class="user-post">
 											<div class="friend-info">
 												<figure>
@@ -146,32 +146,38 @@
 													<span>published: june,2 2018 19:PM</span>
 												</div>
 												<div class="post-meta">
-													<img src="images/resources/user-post.jpg" alt="">
+													<!-- <img src="images/resources/user-post.jpg" alt=""> -->
+													<div class="description">
+														
+														<p>
+															Curabitur world's most beautiful car in <a href="#" title="">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
+														</p>
+													</div>
 													<div class="we-video-info">
 														<ul>
 															
-															<li>
+															<!-- <li>
 																<span class="views" data-toggle="tooltip" title="views">
 																	<i class="fa fa-eye"></i>
 																	<ins>1.2k</ins>
 																</span>
-															</li>
+															</li> -->
 															<li>
 																<span class="comment" data-toggle="tooltip" title="Comments">
 																	<i class="fa fa-comments-o"></i>
-																	<ins>52</ins>
+																	<ins>0</ins>
 																</span>
 															</li>
 															<li>
 																<span class="like" data-toggle="tooltip" title="like">
 																	<i class="ti-heart"></i>
-																	<ins>2.2k</ins>
+																	<ins>0</ins>
 																</span>
 															</li>
 															<li>
 																<span class="dislike" data-toggle="tooltip" title="dislike">
 																	<i class="ti-heart-broken"></i>
-																	<ins>200</ins>
+																	<ins>0</ins>
 																</span>
 															</li>
 															<li class="social-media">
@@ -209,17 +215,12 @@
 															</li>
 														</ul>
 													</div>
-													<div class="description">
-														
-														<p>
-															Curabitur world's most beautiful car in <a href="#" title="">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
-														</p>
-													</div>
+													
 												</div>
 											</div>
 											<div class="coment-area">
 												<ul class="we-comet">
-													<li>
+													<!-- <li>
 														<div class="comet-avatar">
 															<img src="images/resources/comet-1.jpg" alt="">
 														</div>
@@ -259,7 +260,7 @@
 																</div>
 															</li>
 														</ul>
-													</li>
+													</li> -->
 													<li>
 														<div class="comet-avatar">
 															<img src="images/resources/comet-1.jpg" alt="">
@@ -309,7 +310,7 @@
 												</ul>
 											</div>
 										</div>
-									</div> -->
+									</div>
 									<!-- <div class="central-meta item">
 										<div class="user-post">
 											<div class="friend-info">

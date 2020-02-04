@@ -126,7 +126,7 @@
 												</div>
 											</div>
 											<div class="chat-list">
-												<ul>
+												<ul class="msg-list">
 													<!-- <li class="me">
 														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
 														<div class="notification-event">

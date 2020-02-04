@@ -14,6 +14,10 @@ session_start();
                     case 'fr_info':
                         $this->fr_getinfo();
                     break;
+                    case 'new_post':
+                        var_dump($_POST);
+                        // $this->new_post();
+                    break;
                 }
             }
         }
@@ -125,6 +129,33 @@ session_start();
             $fr_info['req_active'] = $req_active;
             $fr_info = json_encode($fr_info);
             print $fr_info;
+        }
+
+        function new_post(){
+            $p_desc = $_POST["p_description"];
+            $u_session = $_SESSION['u_session'];
+            $u_id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+            $u_id = $u_id[0]["ID"];
+
+            $uploaddir = './uploads'; 
+            $uploaddirResized = './uploads/posts';
+        
+            if( ! is_dir( $uploaddir ) ) mkdir( $uploaddir);
+            if( ! is_dir( $uploaddirResized ) ) mkdir( $uploaddirResized);
+        
+            $file = $_FILES; 
+            
+            $salt = time().$rand = random_int(1, 1000000);
+            $file_name = $salt;
+            move_uploaded_file( $file[0]['tmp_name'], "$uploaddir/$file_name".".jpg");
+            $u_session = $_SESSION['u_session'];
+            $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+            $id = $id[0]["ID"];
+            $this-> db -> query("UPDATE photos SET active = 0 WHERE user_id = $id");
+            $this -> db -> query("INSERT INTO photos(user_id, photo_path, active) VALUES ('$id', '$file_name', 1)");
+            $this -> photo_resize($uploaddir, $file_name, $uploaddirResized);
+
+            $this -> db -> query("INSERT INTO posts(post_description, user_id) VALUES($p_desc, $u_id)");
         }
     }
 
