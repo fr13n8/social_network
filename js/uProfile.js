@@ -180,7 +180,7 @@ $(document).ready(function () {
     var avatar;
     $('#avatar[type=file]').on('change', function(event){
         avatar = this.files;
-
+        console.log(avatar)
         
 	event.stopPropagation();
 	event.preventDefault(); 
@@ -209,6 +209,7 @@ $(document).ready(function () {
             let u_miniature = u_photo + "_min.jpg"; 
             $("#u_avatar").attr("src", `./u_profile/uploads/resized/${u_avatar}`);
             $(".u_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+            $(".u_top_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
 		}
 	});
     });

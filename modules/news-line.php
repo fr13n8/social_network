@@ -1,6 +1,6 @@
 <div class="col-lg-6">
 								<div class="loadMore">
-									<div class="central-meta item">
+									<div class="central-meta item post_form">
 										<div class="new-postbox">
 											<figure>
 												<img src="" class="u_miniature" alt="">
@@ -135,7 +135,7 @@
 											</div>
 										</div>
 									</div> -->
-									<div class="central-meta item news-dashboard">
+									<div class="central-meta item">
 										<div class="user-post">
 											<div class="friend-info">
 												<figure>

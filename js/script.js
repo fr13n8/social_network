@@ -814,23 +814,28 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 		});
 	})
 
-	let p_photo;
+	var p_photo;
+	$("#p_photo[type=file]").on('change' , function (event) {
+
+		p_photo = this.files;
+		console.log(p_photo)
+
+		event.preventDefault();
+		event.stopPropagation();
+	})
+
 	$(".new-post").click(function(event){
 		event.stopPropagation();
 		event.preventDefault(); 
 			let post_description = $(".new-post-description").val();
-
-			
-			p_photo = $("#p_photo[type=file]").files;
-			
 			console.log(p_photo)
-			if( typeof p_photo == 'undefined' ) return;
 			
 			var data = new FormData();
-			
-			$.each( p_photo, function( key, value ){
-				data.append( key, value );
-			});
+			if( typeof p_photo != 'undefined' ){
+				$.each( p_photo, function( key, value ){
+					data.append( key, value );
+				});
+			}
 			
 			data.append( 'action', 'new_post' );
 			data.append('p_description' , post_description);
@@ -844,7 +849,118 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 				dataType    : 'json',
 				processData : false,
 				contentType : false,
-				success     : function(respond){
+				success     : function(response){
+					// response = JSON.parse(response);
+					console.log(response);
+					let u_miniature = response[0]["photo_path"] + "_min.jpg";
+					var p_photo;
+					if(response[0].picture){
+						p_photo = `<img src="./u_profile/uploads/posts/${response[0].picture}.jpg" alt="">`;
+					}
+					else{
+						p_photo = '';
+					}
+					$(".post_form").after(`	<div class="central-meta item">
+												<div class="user-post">
+													<div class="friend-info">
+														<figure>
+															<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+														</figure>
+														<div class="friend-name">
+															<ins><a href="time-line.html" title="">${response[0].name} ${response[0].surname}</a></ins>
+															<span>published: ${response[0].time}</span>
+														</div>
+														<div class="post-meta">
+															${p_photo}
+															<div class="description">
+																
+																<p>
+																	${response[0].post_description}
+																</p>
+															</div>
+															<div class="we-video-info">
+																<ul>
+																	
+																	<!-- <li>
+																		<span class="views" data-toggle="tooltip" title="views">
+																			<i class="fa fa-eye"></i>
+																			<ins>1.2k</ins>
+																		</span>
+																	</li> -->
+																	<li>
+																		<span class="comment" data-toggle="tooltip" title="Comments">
+																			<i class="fa fa-comments-o"></i>
+																			<ins>0</ins>
+																		</span>
+																	</li>
+																	<li>
+																		<span class="like" data-toggle="tooltip" title="like">
+																			<i class="ti-heart"></i>
+																			<ins>0</ins>
+																		</span>
+																	</li>
+																	<li>
+																		<span class="dislike" data-toggle="tooltip" title="dislike">
+																			<i class="ti-heart-broken"></i>
+																			<ins>0</ins>
+																		</span>
+																	</li>
+																	<li class="social-media">
+																		<div class="menu">
+																		<div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+																			</div>
+																		</div>
+																			<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+																			</div>
+																		</div>
+
+																		</div>
+																	</li>
+																</ul>
+															</div>
+															
+														</div>
+													</div>
+													<div class="coment-area">
+														<ul class="we-comet">
+															<li class="post-comment">
+																<div class="comet-avatar">
+																	<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+																</div>
+																<div class="post-comt-box">
+																	<form method="post">
+																		<textarea placeholder="Post your comment"></textarea>
+																		
+																		<button type="submit"></button>
+																	</form>	
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>`);
 				}
 			});
 	})
