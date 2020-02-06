@@ -860,7 +860,7 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 					else{
 						p_photo = '';
 					}
-					$(".post_form").after(`	<div class="central-meta item">
+					$(".post_form").after(`	<div class="central-meta item" id="post_${response[0].ID}">
 												<div class="user-post">
 													<div class="friend-info">
 														<figure>
@@ -894,13 +894,13 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 																		</span>
 																	</li>
 																	<li>
-																		<span class="like" data-toggle="tooltip" title="like">
+																		<span class="like" data-toggle="tooltip" data-value="${response[0].ID}" title="like">
 																			<i class="ti-heart"></i>
 																			<ins>0</ins>
 																		</span>
 																	</li>
 																	<li>
-																		<span class="dislike" data-toggle="tooltip" title="dislike">
+																		<span class="dislike" data-toggle="tooltip" data-value="${response[0].ID}" title="dislike">
 																			<i class="ti-heart-broken"></i>
 																			<ins>0</ins>
 																		</span>
@@ -945,13 +945,16 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 													</div>
 													<div class="coment-area">
 														<ul class="we-comet">
+															<li class="load_more">
+																<a href="#" title="" class="showmore underline">more comments</a>
+															</li>
 															<li class="post-comment">
 																<div class="comet-avatar">
 																	<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
 																</div>
 																<div class="post-comt-box">
 																	<form method="post">
-																		<textarea placeholder="Post your comment"></textarea>
+																		<textarea data-value='${response[0].ID}' class='comment_area' placeholder="Post your comment" value = '23'></textarea>
 																		
 																		<button type="submit"></button>
 																	</form>	
@@ -963,6 +966,103 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 											</div>`);
 				}
 			});
+	})
+
+	$(document).on('click', '.like', function(){
+		console.log('OK')
+		let post_id = $(this).data('value');
+		let data = {
+			action : "p_like",
+			post_id : post_id
+		}
+		console.log(post_id)
+		var this_likes = $(this);
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_profile_info.php",
+			data: data,
+			success: function (response) {
+				if(response){
+					response = JSON.parse(response);
+					console.log(typeof(response))
+					console.log(response)
+					this_likes.find("ins").html(response[0]["COUNT(*)"]);
+				}
+				else{
+					this_likes.find("ins").html("0");
+				}
+			}
+		});
+	})
+
+	$(document).on('click', '.dislike', function(){
+		console.log('OK')
+		let post_id = $(this).data('value');
+		let data = {
+			action : "p_dislike",
+			post_id : post_id
+		}
+		console.log(post_id)
+		var this_dislikes = $(this);
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_profile_info.php",
+			data: data,
+			success: function (response) {
+				if(response){
+					response = JSON.parse(response);
+					console.log(typeof(response))
+					console.log(response)
+					this_dislikes.find("ins").html(response[0]["COUNT(*)"]);
+				}
+				else{
+					this_dislikes.find("ins").html("0");
+				}
+			}
+		});
+	})
+	 $(document).on('keyup','.comment_area',  function(e){
+		if(e.keyCode == 13)
+		{
+		let message = $(this).val();
+		let post_id = $(this).data("value");
+		$(this).val("");
+		let u_session = localStorage.getItem('u_session');
+		let data = {
+			action : "snd_comment",
+			post_id : post_id,
+			post_comment : message
+		};
+		let this_post = $(`#post_${post_id}`);
+		scrollToBottom()
+
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_profile_info.php",
+			data: data,
+			success: function (response) {
+				response = JSON.parse(response);
+				console.log(response);
+				$(`#post_${response[0].post_id}`).find(".comment_data").remove();
+				response.forEach(element => {
+					let u_miniature = element["photo_path"] + "_min.jpg"; 
+					$(`#post_${element.post_id}`).find(".load_more").before(`<li class="comment_data">
+										<div class="comet-avatar">
+											<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+										</div>
+										<div class="we-comment">
+											<div class="coment-head">
+												<h5><a href="time-line.html" title="">${element.name} ${element.surname}</a></h5>
+												<span>${element.time}</span>
+												<i class="fa fa-reply"></i>
+											</div>
+											<p>${element.comment}</p>
+										</div>
+									</li>`);
+				});
+			}
+		});
+		}
 	})
 
 });//document ready end
