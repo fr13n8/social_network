@@ -1,4 +1,187 @@
 $(document).ready(function () {
+
+    let socket = new WebSocket("ws://localhost:2346");
+
+	socket.onopen = function(e) {
+	  console.log("[open] Соединение установлено");
+	  console.log("Отправляем данные на сервер");
+	  getfrPosts();
+      getfrComments();
+	//   socket.send("Меня зовут Джон");
+	};
+	
+	socket.onmessage = function(event) {
+		let data = JSON.parse(event.data);
+		// let data = event.data;
+		// console.log(`[message] Данные получены с сервера: ${data}`);
+		// console.log(data);
+
+		switch (data.action) {
+			case "frposts_data":
+                    console.log(data)
+                    
+                    $.each(data, function (indexInArray, element) {
+                        if(isNaN(indexInArray)){
+                            return;
+                        }
+                        else{
+                            let u_miniature = element["photo_path"] + "_min.jpg";
+                        var p_photo;
+                        if(element.picture){
+                            p_photo = `<img src="./u_profile/uploads/posts/${element.picture}.jpg" alt="">`;
+                        }
+                        else{
+                            p_photo = '';
+                        }
+                        $(".loadMore").after(`	<div class="central-meta item" id="post_${element.ID}">
+                                                    <div class="user-post">
+                                                        <div class="friend-info">
+                                                            <figure>
+                                                                <img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+                                                            </figure>
+                                                            <div class="friend-name">
+                                                                <ins><a href="time-line.html" title="">${element.name} ${element.surname}</a></ins>
+                                                                <span>published: ${element.time}</span>
+                                                            </div>
+                                                            <div class="post-meta">
+                                                                ${p_photo}
+                                                                <div class="description">
+                                                                    
+                                                                    <p>
+                                                                        ${element.post_description}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="we-video-info">
+                                                                    <ul>
+                                                                        
+                                                                        <!-- <li>
+                                                                            <span class="views" data-toggle="tooltip" title="views">
+                                                                                <i class="fa fa-eye"></i>
+                                                                                <ins>1.2k</ins>
+                                                                            </span>
+                                                                        </li> -->
+                                                                        <li>
+                                                                            <span class="comment" data-toggle="tooltip" title="Comments">
+                                                                                <i class="fa fa-comments-o"></i>
+                                                                                <ins>0</ins>
+                                                                            </span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <span class="like" data-toggle="tooltip" data-value="${element.ID}" title="like">
+                                                                                <i class="ti-heart"></i>
+                                                                                <ins>0</ins>
+                                                                            </span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <span class="dislike" data-toggle="tooltip" data-value="${element.ID}" title="dislike">
+                                                                                <i class="ti-heart-broken"></i>
+                                                                                <ins>0</ins>
+                                                                            </span>
+                                                                        </li>
+                                                                        <li class="social-media">
+                                                                            <div class="menu">
+                                                                            <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+                                                                            <div class="rotater">
+                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+                                                                            </div>
+                                                                            <div class="rotater">
+                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+                                                                            </div>
+                                                                            <div class="rotater">
+                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+                                                                            </div>
+                                                                            <div class="rotater">
+                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+                                                                            </div>
+                                                                            <div class="rotater">
+                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+                                                                            </div>
+                                                                            <div class="rotater">
+                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+                                                                                </div>
+                                                                            </div>
+                                                                                <div class="rotater">
+                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="rotater">
+                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="coment-area">
+                                                            <ul class="we-comet">
+                                                                <li class="load_more">
+                                                                    <a href="#" title="" class="showmore underline">more comments</a>
+                                                                </li>
+                                                                <li class="post-comment">
+                                                                    <div class="comet-avatar">
+                                                                        <img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+                                                                    </div>
+                                                                    <div class="post-comt-box">
+                                                                        <form method="post">
+                                                                            <textarea data-value='${element.ID}' class='comment_area' placeholder="Post your comment" value = '23'></textarea>
+                                                                            
+                                                                            <button type="submit"></button>
+                                                                        </form>	
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>`);
+                        }
+                        
+                    });
+                break;
+            case "frcomments_data":
+                    console.log(data)
+                    $.each(data, function (indexInArray, element) { 
+                        $(`#post_${element.post_id}`).find(".comment_data").remove();
+                    });
+                    $.each(data, function (indexInArray, element) { 
+                        let u_miniature = element.photo_path + "_min.jpg"; 
+                        $(`#post_${element.post_id}`).find(".load_more").before(`<li class="comment_data">
+                                            <div class="comet-avatar">
+                                                <img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+                                            </div>
+                                            <div class="we-comment">
+                                                <div class="coment-head">
+                                                    <h5><a href="time-line.html" title="">${element.name} ${element.surname}</a></h5>
+                                                    <span>${element.time}</span>
+                                                    <i class="fa fa-reply"></i>
+                                                </div>
+                                                <p>${element.comment}</p>
+                                            </div>
+                                        </li>`);
+                    });
+				break;
+			default:
+				break;
+		}
+	};
+	
+	socket.onclose = function(event) {
+	  if (event.wasClean) {
+		console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+	  } else {
+		// например, сервер убил процесс или сеть недоступна
+		// обычно в этом случае event.code 1006
+		console.log('[close] Соединение прервано');
+	  }
+	};
+	
+	socket.onerror = function(error) {
+	  console.log(`[error] ${error.message}`);
+	};
+
     $.ajax({
         type: "post",
         url: "./u_profile/u_profile_info.php",
@@ -9,14 +192,6 @@ $(document).ready(function () {
             
                 response = JSON.parse(response);
                 console.log(response);
-                // for (const key in response[0]) {
-                    // if (response[0].hasOwnProperty(key)) {
-                    //     const element = response[0][key];
-                    //     $(`#${key}`).html(`${element}`);
-                    //     $(`#${key}Change`).val(`${element}`);
-                    //     $(".admin-name > h5").html(`${response[0][u_name]}`);
-                    // } 
-                    // }
                 let country;
                 if(response[0].u_country){
                     country = response[0].u_country;
@@ -49,7 +224,7 @@ $(document).ready(function () {
 
                 if(response.fr_photos){
                     $(".photos").empty();
-                    console.log("empty")
+                    // console.log("empty")
                     response.fr_photos.forEach(element => {
                         if(element.photo_path == "anonymous"){
                             let u_avatar = response[0]["photo_path"] + "_avatar.jpg";
@@ -125,4 +300,28 @@ $(document).ready(function () {
             }
         });
     })
+
+
+    function getfrPosts(){
+        let u_session = localStorage.getItem('u_session');
+        let fr_email = localStorage.getItem('fr_email');
+		let data = {
+			action : "get_frposts",
+            u_session : u_session,
+            fr_email : fr_email
+		}
+		socket.send(JSON.stringify(data));
+	}
+    
+	function getfrComments(){
+        let u_session = localStorage.getItem('u_session');
+        let fr_email = localStorage.getItem('fr_email');
+		let data = {
+			action : "get_frcomments",
+			u_session : u_session,
+            fr_email : fr_email
+		}
+		socket.send(JSON.stringify(data));
+    }
+        
 });

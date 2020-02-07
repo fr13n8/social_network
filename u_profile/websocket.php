@@ -2,6 +2,7 @@
 
 session_start();
 require_once 'u_messages.php';
+require_once 's_posts.php';
 require_once './vendor/autoload.php';
 use Workerman\Worker;
 use Workerman\Lib\Timer;
@@ -53,6 +54,51 @@ $ws_worker->onMessage = function($connection, $data)
         // var_dump($data);
         $messages = new MessagesController($data);
         return false;
+    }
+    else if($data["action"] == "get_posts"){
+        // 2.5 seconds
+        // var_dump($data);
+
+
+        // $time_interval = 0.1; 
+        // $timer_id = Timer::add($time_interval, 
+            // function() use($connection, $data)
+            // {
+                // echo "Timer run\n";
+                $posts = new PostsController($data);
+                // var_dump($posts->callback);
+                $connection->send($posts->callback);
+            // }
+        // );
+    }
+    else if($data["action"] == "get_comments"){       
+        $time_interval = 0.1; 
+        $timer_id = Timer::add($time_interval, 
+            function() use($connection, $data)
+            {
+                // echo "Timer run\n";
+                $comments = new PostsController($data);
+                // var_dump($messages->callback);
+                $connection->send($comments->callback);
+            }
+        );
+    }
+    else if($data["action"] == "get_frposts"){
+        $posts = new PostsController($data);
+        // var_dump($posts->callback);
+        $connection->send($posts->callback);
+    }
+    else if($data["action"] == "get_frcomments"){
+        $time_interval = 0.1; 
+        $timer_id = Timer::add($time_interval, 
+            function() use($connection, $data)
+            {
+                // echo "Timer run\n";
+                $comments = new PostsController($data);
+                // var_dump($messages->callback);
+                $connection->send($comments->callback);
+            }
+        );
     }
 };
 

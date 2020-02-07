@@ -76,20 +76,20 @@ $(document).ready(function () {
                     return;
                 }
 
-                if(response.u_friends){
-                    response.u_friends.forEach(element => {
-                        $("#people-list").append(`<li data-value="${element.ID}">
-                                                <figure>
-                                                    <img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
-                                                    <span class="status f-online"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <span class="fr_profile fr_item" data-value="${element.email}" >${element.name} ${element.surname}</span>
-                                                    <i>${element.email}</i>
-                                                </div>
-                                            </li>`);
-                   });
-                }
+                // if(response.u_friends){
+                //     response.u_friends.forEach(element => {
+                //         $("#people-list").append(`<li data-value="${element.ID}">
+                //                                 <figure>
+                //                                     <img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
+                //                                     <span class="status f-online"></span>
+                //                                 </figure>
+                //                                 <div class="friendz-meta">
+                //                                     <span class="fr_profile fr_item" data-value="${element.email}" >${element.name} ${element.surname}</span>
+                //                                     <i>${element.email}</i>
+                //                                 </div>
+                //                             </li>`);
+                //    });
+                // }
         }
     });
 
@@ -128,7 +128,7 @@ $(document).ready(function () {
             success: function (response) {
                 if(response){
                     response = JSON.parse(response);
-                    console.log(response[0]);
+                    console.log(response);
                     if(response.action === "errors"){
                         // console.log(response);
                     }

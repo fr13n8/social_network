@@ -119,15 +119,15 @@
 										<div class="chat-box">
 											<div class="chat-head">
 												<span class="status f-online"></span>
-												<h6>Bucky Barnes</h6>
+												<h6 class="msgs_name"></h6>
 												<div class="more">
 													<span><i class="ti-more-alt"></i></span>
 													<span class="close-mesage"><i class="ti-close"></i></span>
 												</div>
 											</div>
 											<div class="chat-list">
-												<ul>
-													<li class="me">
+												<ul class="msg-list">
+													<!-- <li class="me">
 														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
 														<div class="notification-event">
 															<span class="chat-message-item">
@@ -153,10 +153,10 @@
 															</span>
 															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
 														</div>
-													</li>
+													</li> -->
 												</ul>
 												<form class="text-box">
-													<textarea placeholder="Post enter to post..."></textarea>
+													<textarea class="message_body" placeholder="Post enter to post..."></textarea>
 													<!-- <div class="add-smiles">
 														<span title="add icon" class="em em-expressionless"></span>
 													</div>
@@ -336,14 +336,14 @@
 			</div>
 		</form>
 	</div> -->
-	<!-- side panel -->		
+	<!-- side panel -->	
 	
 	<!-- <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
 	<script src="js/main.min.js"></script>
-	<script src="./js/uProfile.js"></script>
+	<!-- <script src="./js/uProfile.js"></script> -->
 	<script src="js/script.js"></script>
 	<!-- <script src="./js/jquery-3.4.1.min.js"></script> -->
-	<script src="./js/frProfile.js"></script>
+	<script src="./js/frProfile.js" ></script>
 
 </body>	
 

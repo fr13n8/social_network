@@ -1,16 +1,14 @@
 jQuery(document).ready(function($) {
 	
 	"use strict";
-	
-
-
-
 
 	let socket = new WebSocket("ws://localhost:2346");
 
 	socket.onopen = function(e) {
 	  console.log("[open] Соединение установлено");
 	  console.log("Отправляем данные на сервер");
+	  getPosts();
+	  getComments();
 	//   socket.send("Меня зовут Джон");
 	};
 	
@@ -39,7 +37,7 @@ jQuery(document).ready(function($) {
 
 				$.each(data, function (indexInArray, element) { 
 					if(isNaN(indexInArray)){
-						
+						return;
 					}
 					else{
 						let person, person_avatar;
@@ -65,20 +63,164 @@ jQuery(document).ready(function($) {
 					}
 					// scrollToBottom();
 				});
-				// if(checker == 0){
-				// 	scrollToBottom();
-				// 	checker++;
-				// }
-				// $(".chat-list > ul").scrollTop=elem.scrollTop+9999;
 				break;
+			case "posts_data":
+				console.log(data);
+				$.each(data, function (indexInArray, element) {
+					if(isNaN(indexInArray)){
+						return;
+					}
+					else{
+						let u_miniature = element["photo_path"] + "_min.jpg";
+					var p_photo;
+					if(element.picture){
+						p_photo = `<img src="./u_profile/uploads/posts/${element.picture}.jpg" alt="">`;
+					}
+					else{
+						p_photo = '';
+					}
+					$(".post_form").after(`	<div class="central-meta item" id="post_${element.ID}">
+												<div class="user-post">
+													<div class="friend-info">
+														<figure>
+															<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+														</figure>
+														<div class="friend-name">
+															<ins><a href="time-line.html" title="">${element.name} ${element.surname}</a></ins>
+															<span>published: ${element.time}</span>
+														</div>
+														<div class="post-meta">
+															${p_photo}
+															<div class="description">
+																
+																<p>
+																	${element.post_description}
+																</p>
+															</div>
+															<div class="we-video-info">
+																<ul>
+																	
+																	<!-- <li>
+																		<span class="views" data-toggle="tooltip" title="views">
+																			<i class="fa fa-eye"></i>
+																			<ins>1.2k</ins>
+																		</span>
+																	</li> -->
+																	<li>
+																		<span class="comment" data-toggle="tooltip" title="Comments">
+																			<i class="fa fa-comments-o"></i>
+																			<ins>0</ins>
+																		</span>
+																	</li>
+																	<li>
+																		<span class="like" data-toggle="tooltip" data-value="${element.ID}" title="like">
+																			<i class="ti-heart"></i>
+																			<ins>0</ins>
+																		</span>
+																	</li>
+																	<li>
+																		<span class="dislike" data-toggle="tooltip" data-value="${element.ID}" title="dislike">
+																			<i class="ti-heart-broken"></i>
+																			<ins>0</ins>
+																		</span>
+																	</li>
+																	<li class="social-media">
+																		<div class="menu">
+																		<div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+																			</div>
+																		</div>
+																			<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+																			</div>
+																		</div>
+
+																		</div>
+																	</li>
+																</ul>
+															</div>
+															
+														</div>
+													</div>
+													<div class="coment-area">
+														<ul class="we-comet">
+															<li class="load_more">
+																<a href="#" title="" class="showmore underline">more comments</a>
+															</li>
+															<li class="post-comment">
+																<div class="comet-avatar">
+																	<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+																</div>
+																<div class="post-comt-box">
+																	<form method="post">
+																		<textarea data-value='${element.ID}' class='comment_area' placeholder="Post your comment" value = '23'></textarea>
+																		
+																		<button type="submit"></button>
+																	</form>	
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>`);
+					}
+					
+				});
+			break;
+			case "comments_data":
+				// console.log(data);
+				$.each(data, function (indexInArray, element) { 
+					$(`#post_${element.post_id}`).find(".comment_data").remove();
+				});
+				$.each(data, function (indexInArray, element) { 
+					let u_miniature = element.photo_path + "_min.jpg"; 
+					$(`#post_${element.post_id}`).find(".load_more").before(`<li class="comment_data">
+										<div class="comet-avatar">
+											<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+										</div>
+										<div class="we-comment">
+											<div class="coment-head">
+												<h5><a href="time-line.html" title="">${element.name} ${element.surname}</a></h5>
+												<span>${element.time}</span>
+												<i class="fa fa-reply"></i>
+											</div>
+											<p>${element.comment}</p>
+										</div>
+									</li>`);
+				});
+			break;
+			case "frposts_data":
+				console.log(data)
+			break;
+			case "frcomments_data":
+				console.log(data)
+			break;
 			default:
 				break;
 		}
-		// scrollToBottom()
 	};
 	
 	socket.onclose = function(event) {
-		// checker = 0;
 	  if (event.wasClean) {
 		console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
 	  } else {
@@ -91,8 +233,6 @@ jQuery(document).ready(function($) {
 	socket.onerror = function(error) {
 	  console.log(`[error] ${error.message}`);
 	};
-
-
 
 
 	function scrollToBottom() {
@@ -137,7 +277,7 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	console.log(data);
 	socket.send(JSON.stringify(data));
 	getMessages(fr_id, fr_photo_phath, u_photo_phath);
-	scrollToBottom()
+	// scrollToBottom()
 	// $.ajax({
 	// 	type: "post",
 	// 	url: "./u_profile/u_messages.php",
@@ -176,7 +316,7 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	};
 	socket.send(JSON.stringify(data));
 	
-	scrollToBottom()
+	// scrollToBottom()
 	// console.log(message);
 	// $.ajax({
 	// 	type: "post",
@@ -689,6 +829,7 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 	$(".search_friends_list, #people-list").on("click", '.fr_item', function(event){
 		event.stopPropagation();
 		let fr_email = $(this).data("value");
+		localStorage.setItem('fr_email', fr_email);
 		console.log(fr_email);
 		let fr_data = {
 			action : "fr_email",
@@ -756,11 +897,27 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 												</li>`)
 					})
 				}
+
+				if(response.u_friends){
+                    response.u_friends.forEach(element => {
+                        $("#people-list").append(`<li data-value="${element.ID}">
+                                                <figure>
+                                                    <img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
+                                                    <span class="status f-online"></span>
+                                                </figure>
+                                                <div class="friendz-meta">
+                                                    <span class="fr_profile fr_item" data-value="${element.email}" >${element.name} ${element.surname}</span>
+                                                    <i>${element.email}</i>
+                                                </div>
+                                            </li>`);
+                   });
+                }
         }
 	});
 	
 	$(".notifi-menu").on("click", '.fr_item', function(){
 		let fr_email = $(this).data("value");
+		localStorage.setItem('fr_email', fr_email);
 		console.log(fr_email);
 		let fr_data = {
 			action : "fr_email",
@@ -1034,36 +1191,55 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 			post_comment : message
 		};
 		let this_post = $(`#post_${post_id}`);
-		scrollToBottom()
+		// scrollToBottom()
 
 		$.ajax({
 			type: "post",
 			url: "./u_profile/u_profile_info.php",
 			data: data,
 			success: function (response) {
-				response = JSON.parse(response);
-				console.log(response);
-				$(`#post_${response[0].post_id}`).find(".comment_data").remove();
-				response.forEach(element => {
-					let u_miniature = element["photo_path"] + "_min.jpg"; 
-					$(`#post_${element.post_id}`).find(".load_more").before(`<li class="comment_data">
-										<div class="comet-avatar">
-											<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
-										</div>
-										<div class="we-comment">
-											<div class="coment-head">
-												<h5><a href="time-line.html" title="">${element.name} ${element.surname}</a></h5>
-												<span>${element.time}</span>
-												<i class="fa fa-reply"></i>
-											</div>
-											<p>${element.comment}</p>
-										</div>
-									</li>`);
-				});
+				// response = JSON.parse(response);
+				// console.log(response);
+				// $(`#post_${response[0].post_id}`).find(".comment_data").remove();
+				// response.forEach(element => {
+				// 	let u_miniature = element["photo_path"] + "_min.jpg"; 
+				// 	$(`#post_${element.post_id}`).find(".load_more").before(`<li class="comment_data">
+				// 						<div class="comet-avatar">
+				// 							<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+				// 						</div>
+				// 						<div class="we-comment">
+				// 							<div class="coment-head">
+				// 								<h5><a href="time-line.html" title="">${element.name} ${element.surname}</a></h5>
+				// 								<span>${element.time}</span>
+				// 								<i class="fa fa-reply"></i>
+				// 							</div>
+				// 							<p>${element.comment}</p>
+				// 						</div>
+				// 					</li>`);
+				// });
 			}
 		});
 		}
 	})
+
+	function getPosts(){
+		let u_session = localStorage.getItem('u_session');
+		let data = {
+			action : "get_posts",
+			u_session : u_session
+		}
+		socket.send(JSON.stringify(data));
+	}
+
+	function getComments(){
+		let u_session = localStorage.getItem('u_session');
+		let data = {
+			action : "get_comments",
+			u_session : u_session
+		}
+		socket.send(JSON.stringify(data));
+	}
+	
 
 });//document ready end
 
