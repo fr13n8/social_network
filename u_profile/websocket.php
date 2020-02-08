@@ -100,6 +100,30 @@ $ws_worker->onMessage = function($connection, $data)
             }
         );
     }
+    else if($data["action"] == "get_LDs"){
+        $time_interval = 0.1; 
+        $timer_id = Timer::add($time_interval, 
+            function() use($connection, $data)
+            {
+                // echo "Timer run\n";
+                $LDs = new PostsController($data);
+                // var_dump($posts->callback);
+                $connection->send($LDs->callback);
+            }
+        );   
+    }
+    else if($data["action"] == "get_myLDs"){
+        $time_interval = 0.1; 
+        $timer_id = Timer::add($time_interval, 
+            function() use($connection, $data)
+            {
+                // echo "Timer run\n";
+                $myLDs = new PostsController($data);
+                // var_dump($posts->callback);
+                $connection->send($myLDs->callback);
+            }
+        );
+    }
 };
 
 // Emitted when connection closed

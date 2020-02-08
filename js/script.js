@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
 	  console.log("Отправляем данные на сервер");
 	  getPosts();
 	  getComments();
+	  getLDs();
 	//   socket.send("Меня зовут Джон");
 	};
 	
@@ -79,7 +80,7 @@ jQuery(document).ready(function($) {
 					else{
 						p_photo = '';
 					}
-					$(".post_form").after(`	<div class="central-meta item" id="post_${element.ID}">
+					$(".post_form").after(`	<div class="central-meta item myposts" id="post_${element.ID}">
 												<div class="user-post">
 													<div class="friend-info">
 														<figure>
@@ -189,6 +190,7 @@ jQuery(document).ready(function($) {
 			break;
 			case "comments_data":
 				// console.log(data);
+				
 				$.each(data, function (indexInArray, element) { 
 					$(`#post_${element.post_id}`).find(".comment_data").remove();
 				});
@@ -209,12 +211,17 @@ jQuery(document).ready(function($) {
 									</li>`);
 				});
 			break;
-			case "frposts_data":
-				console.log(data)
-			break;
-			case "frcomments_data":
-				console.log(data)
-			break;
+			case 'myLDs':
+				$(".myposts").find(".we-video-info").find("ins").html("0");
+                    console.log(data);
+                    data.likes.forEach(element => {
+                        $(`#post_${element.post_id}`).find(".like").find("ins").html(`${element.likes}`);
+
+                    });
+                    data.dislikes.forEach(element => {
+                        $(`#post_${element.post_id}`).find(".dislike").find("ins").html(`${element.dislikes}`);
+                    });
+            break;
 			default:
 				break;
 		}
@@ -1017,7 +1024,7 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 					else{
 						p_photo = '';
 					}
-					$(".post_form").after(`	<div class="central-meta item" id="post_${response[0].ID}">
+					$(".post_form").after(`	<div class="central-meta item myposts" id="post_${response[0].ID}">
 												<div class="user-post">
 													<div class="friend-info">
 														<figure>
@@ -1139,15 +1146,17 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 			url: "./u_profile/u_profile_info.php",
 			data: data,
 			success: function (response) {
-				if(response){
-					response = JSON.parse(response);
-					console.log(typeof(response))
-					console.log(response)
-					this_likes.find("ins").html(response[0]["COUNT(*)"]);
-				}
-				else{
-					this_likes.find("ins").html("0");
-				}
+					// response = JSON.parse(response);
+					// console.log(response)
+				// if(response){
+				// 	response = JSON.parse(response);
+				// 	console.log(typeof(response))
+				// 	console.log(response)
+				// 	this_likes.find("ins").html(response[0]["COUNT(*)"]);
+				// }
+				// else{
+				// 	this_likes.find("ins").html("0");
+				// }
 			}
 		});
 	})
@@ -1166,15 +1175,17 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 			url: "./u_profile/u_profile_info.php",
 			data: data,
 			success: function (response) {
-				if(response){
-					response = JSON.parse(response);
-					console.log(typeof(response))
-					console.log(response)
-					this_dislikes.find("ins").html(response[0]["COUNT(*)"]);
-				}
-				else{
-					this_dislikes.find("ins").html("0");
-				}
+					// response = JSON.parse(response);
+					// console.log(response)
+				// if(response){
+				// 	response = JSON.parse(response);
+				// 	console.log(typeof(response))
+				// 	console.log(response)
+				// 	this_dislikes.find("ins").html(response[0]["COUNT(*)"]);
+				// }
+				// else{
+				// 	this_dislikes.find("ins").html("0");
+				// }
 			}
 		});
 	})
@@ -1240,7 +1251,14 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 		socket.send(JSON.stringify(data));
 	}
 	
-
+	function getLDs(){
+        let u_session = localStorage.getItem('u_session');
+		let data = {
+			action : "get_myLDs",
+			u_session : u_session
+		}
+		socket.send(JSON.stringify(data));
+    }
 });//document ready end
 
 

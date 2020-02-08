@@ -25,12 +25,12 @@
                 case 'get_frcomments':
                     $this->get_frcomments();
                 break;
-                // case 'p_like':
-                //     $this->post_like();
-                // break;
-                // case 'p_dislike':
-                //     $this->post_dislike();
-                // break;
+                case 'get_LDs':
+                    $this->get_LDs();
+                break;
+                case 'get_myLDs':
+                    $this->get_myLDs();
+                break;
             }
         }
     }
@@ -146,55 +146,117 @@
         return $this -> callback = $comments;
     }
 
-    function post_like(){
-        $u_session = $_SESSION['u_session'];
-        $u_id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
-        $u_id = $u_id[0]["ID"];
-
-        $post_id = $_POST["post_id"];
-        $check_list = $this-> db -> query("SELECT user_id FROM post_likes WHERE user_id = '$u_id' AND post_id = '$post_id'")->fetch_all(true);
-        // print_r($check_list);
-        if(!empty($check_list)){
-            $this->db->query("DELETE FROM post_likes WHERE user_id = $u_id AND post_id = $post_id");
-        }
-        else{
-            $this->db->query("INSERT INTO post_likes(post_id, user_id) VALUES($post_id, $u_id)");
-        }
-        $like_data = $this -> db -> query("SELECT post_id, COUNT(*) 
-                                            FROM post_likes
-                                            WHERE post_id = $post_id
-                                            GROUP BY post_id
-                                            ")->fetch_all(true);
-        if(!empty($like_data)){
-            $like_data = json_encode($like_data);
-            echo $like_data;
-        }
+    function get_LDs(){
+        $fr_email = $this -> data["fr_email"];
+        $likes = $this -> db -> query("SELECT
+                                            post_id,
+                                            COUNT(*) AS likes
+                                        FROM
+                                            post_likes
+                                        WHERE
+                                            post_id IN (
+                                                SELECT
+                                                    ID
+                                                FROM
+                                                    posts
+                                                WHERE
+                                                    user_id = (
+                                                        SELECT
+                                                            ID
+                                                        FROM
+                                                            users
+                                                        WHERE
+                                                            email = '$fr_email'
+                                                    )
+                                            )
+                                        GROUP BY
+                                            post_id")->fetch_all(true);
+        $dislikes = $this -> db -> query("SELECT
+                                                post_id,
+                                                COUNT(*) AS dislikes
+                                            FROM
+                                                post_dislikes
+                                            WHERE
+                                                post_id IN (
+                                                    SELECT
+                                                        ID
+                                                    FROM
+                                                        posts
+                                                    WHERE
+                                                        user_id = (
+                                                            SELECT
+                                                                ID
+                                                            FROM
+                                                                users
+                                                            WHERE
+                                                                email = '$fr_email'
+                                                        )
+                                                )
+                                            GROUP BY
+                                                post_id")->fetch_all(true);
+        $LDs_data["likes"] = $likes;
+        $LDs_data["dislikes"] = $dislikes;
+        $LDs_data["action"] = "LDs";
+        $LDs_data = json_encode($LDs_data);
+        $this -> callback = $LDs_data;
     }
 
-    function post_dislike(){
-        $u_session = $_SESSION['u_session'];
-        $u_id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
-        $u_id = $u_id[0]["ID"];
-
-        $post_id = $_POST["post_id"];
-        $check_list = $this-> db -> query("SELECT user_id FROM post_dislikes WHERE user_id = '$u_id' AND post_id = '$post_id'")->fetch_all(true);
-        if(!empty($check_list)){
-            $this->db->query("DELETE FROM post_dislikes WHERE user_id = $u_id AND post_id = $post_id");
-        }
-        else{
-            $this->db->query("INSERT INTO post_dislikes(post_id, user_id) VALUES($post_id, $u_id)");
-        }
-        $dislike_data = $this -> db -> query("SELECT post_id, COUNT(*) 
-                                            FROM post_dislikes
-                                            WHERE post_id = $post_id
-                                            GROUP BY post_id
-                                            ")->fetch_all(true);
-        if(!empty($dislike_data)){
-            $dislike_data = json_encode($dislike_data);
-            echo $dislike_data;
-        }
+    function get_myLDs(){
+        $u_session = $this -> data["u_session"];
+        $email = $this -> db -> query("SELECT email FROM users WHERE session = $u_session")->fetch_all(true);
+        $email = $email[0]["email"];
+        $likes = $this -> db -> query("SELECT
+                                            post_id,
+                                            COUNT(*) AS likes
+                                        FROM
+                                            post_likes
+                                        WHERE
+                                            post_id IN (
+                                                SELECT
+                                                    ID
+                                                FROM
+                                                    posts
+                                                WHERE
+                                                    user_id = (
+                                                        SELECT
+                                                            ID
+                                                        FROM
+                                                            users
+                                                        WHERE
+                                                            email = '$email'
+                                                    )
+                                            )
+                                        GROUP BY
+                                            post_id")->fetch_all(true);
+        $dislikes = $this -> db -> query("SELECT
+                                                post_id,
+                                                COUNT(*) AS dislikes
+                                            FROM
+                                                post_dislikes
+                                            WHERE
+                                                post_id IN (
+                                                    SELECT
+                                                        ID
+                                                    FROM
+                                                        posts
+                                                    WHERE
+                                                        user_id = (
+                                                            SELECT
+                                                                ID
+                                                            FROM
+                                                                users
+                                                            WHERE
+                                                                email = '$email'
+                                                        )
+                                                )
+                                            GROUP BY
+                                                post_id")->fetch_all(true);
+        $LDs_data["likes"] = $likes;
+        $LDs_data["dislikes"] = $dislikes;
+        $LDs_data["action"] = "myLDs";
+        $LDs_data = json_encode($LDs_data);
+        $this -> callback = $LDs_data;
     }
-
     
  }
 

@@ -7,6 +7,7 @@ $(document).ready(function () {
 	  console.log("Отправляем данные на сервер");
 	  getfrPosts();
       getfrComments();
+      getLDs();
 	//   socket.send("Меня зовут Джон");
 	};
 	
@@ -33,7 +34,7 @@ $(document).ready(function () {
                         else{
                             p_photo = '';
                         }
-                        $(".loadMore").after(`	<div class="central-meta item" id="post_${element.ID}">
+                        $(".loadMore").after(`	<div class="central-meta item posts" id="post_${element.ID}">
                                                     <div class="user-post">
                                                         <div class="friend-info">
                                                             <figure>
@@ -162,7 +163,19 @@ $(document).ready(function () {
                                             </div>
                                         </li>`);
                     });
-				break;
+                break;
+            case 'LDs':
+                    console.log(data);
+                    $(".posts").find(".we-video-info").find("ins").html("0");
+                        data.likes.forEach(element => {
+                            $(`#post_${element.post_id}`).find(".like").find("ins").html(`${element.likes}`);
+                        });
+                    
+                        data.dislikes.forEach(element => {
+                            $(`#post_${element.post_id}`).find(".dislike").find("ins").html(`${element.dislikes}`);
+                        });
+                    
+            break;
 			default:
 				break;
 		}
@@ -301,7 +314,6 @@ $(document).ready(function () {
         });
     })
 
-
     function getfrPosts(){
         let u_session = localStorage.getItem('u_session');
         let fr_email = localStorage.getItem('fr_email');
@@ -323,5 +335,16 @@ $(document).ready(function () {
 		}
 		socket.send(JSON.stringify(data));
     }
-        
+    
+    function getLDs(){
+        let u_session = localStorage.getItem('u_session');
+        let fr_email = localStorage.getItem('fr_email');
+		let data = {
+			action : "get_LDs",
+			u_session : u_session,
+            fr_email : fr_email
+		}
+		socket.send(JSON.stringify(data));
+    }
+
 });

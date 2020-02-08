@@ -4915,7 +4915,7 @@ canvas {
     background: #fbfbfb none repeat scroll 0 0;
     border-radius: 3px;
     bottom: -2px;
-    position: absolute;
+    /* position: absolute; */
     right: 100%;
     width: 300px;
     z-index: 9999999;
@@ -5060,6 +5060,8 @@ canvas {
 
 .chat-list > ul li.you .chat-message-item {
     background: rgba(202, 239, 142, 0.55) none repeat scroll 0 0;
+    max-width: 200px;
+    word-wrap: break-word;
 }
 
 .text-box {
