@@ -2489,7 +2489,7 @@ footer .logo {
     background: #fff none repeat scroll 0 0;
     border-radius: 0 0 3px 3px;
     position: absolute;
-    left: -15px;
+    left: -105px;
     text-align: left;
     top: 100%;
     width: 150px;
@@ -3589,6 +3589,11 @@ a.add-butn {
     top: 10px;
 }
 
+a.add-butn.unfriend
+{
+    background : lightslategray none repeat scroll 0 0;
+}
+
 .pepl-info > span {
     float: left;
     font-size: 13px;
@@ -3898,7 +3903,7 @@ a.add-butn.more-action {
     font-size: 17.5px;
     font-weight: 600;
     text-transform: capitalize;
-    color: #000;
+    color: #9300e7;
     margin-bottom: 20px;
     padding-bottom: 20px;
     position: relative;
@@ -4367,6 +4372,14 @@ a.forgot-pwd {
     margin-right: 10px;
     text-align: left;
     direction: ltr;
+}
+
+li.me{
+    text-align:left;
+}
+
+li.you{
+    text-align:right;
 }
 
 .conversation-head {
@@ -4915,8 +4928,8 @@ canvas {
     background: #fbfbfb none repeat scroll 0 0;
     border-radius: 3px;
     bottom: -2px;
-    /* position: absolute; */
-    right: 100%;
+    position: fixed;
+    right: 4%;
     width: 300px;
     z-index: 9999999;
     transform: translate(40px) scale(0);
@@ -5443,7 +5456,7 @@ canvas {
 .form-group textarea.has-value,
 .form-group textarea:focus,
 .form-group textarea:valid {
-    color: #2a2a2a;
+    color: #fff;
 }
 
 .row.widget-page {
@@ -5583,7 +5596,7 @@ canvas {
 }
 
 .chat-friendz .chat-box {
-    bottom: -40px;
+    bottom: 0px;
 }
 
 .menu-left {

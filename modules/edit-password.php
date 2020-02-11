@@ -16,7 +16,7 @@
 												  <input type="password" id="u_passwordChange" required="required"/>
 												  <label class="control-label" for="input">Current password</label><i class="mtrl-select"></i>
 												</div>
-												<a class="forgot-pwd underline" title="" href="#">Forgot Password?</a>
+												<!-- <a class="forgot-pwd underline" title="" href="#">Forgot Password?</a> -->
 												<div class="submit-btns">
 													<!-- <button type="button" class="mtr-btn"><span>Cancel</span></button> -->
 													<button type="button" id="u_passChange" class="mtr-btn"><span>Update</span></button>

@@ -53,9 +53,9 @@
 												</div>
 												<div class="tab-pane fade" id="interest" role="tabpanel">
 													<ul class="basics">
-														<li>Footbal</li>
+														<!-- <li>Footbal</li>
 														<li>internet</li>
-														<li>photography</li>
+														<li>photography</li> -->
 													</ul>
 												</div>
 												<div class="tab-pane fade" id="lang" role="tabpanel">

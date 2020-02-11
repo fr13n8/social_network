@@ -1,10 +1,28 @@
-<?php 
+<?php
+require_once '../jevix/jevix.class.php';
 session_start();
     class userProfileInfo{
         private $db;
+        private $jevix;
 
         function __construct(){
             $this -> db = new mysqli("localhost", "root", "", "social_network");
+            
+            $this -> jevix = new Jevix();
+            // Устанавливаем разрешённые теги. (Все не разрешенные теги считаются запрещенными.)
+            $this -> jevix->cfgAllowTags(array('strong', 'ul', 'li', 'h1', 'h2'));
+            
+            // Устанавливаем разрешённые параметры тегов.
+            // $this -> jevix->cfgAllowTagParams('a', array('title', 'href'));
+            
+            // Устанавливаем параметры тегов являющиеся обязяательными. Без них вырезает тег оставляя содержимое.
+            // $this -> jevix->cfgSetTagParamsRequired('a', 'href');
+            
+            // Устанавливаем теги которые может содержать тег контейнер
+            $this -> jevix->cfgSetTagChilds('ul', 'li', true, false);
+            
+            // Устанавливаем атрибуты тегов, которые будут добавлятся автоматически
+            // $this -> jevix->cfgSetTagParamsAutoAdd('a', array('rel' => 'nofollow'));
 
             if(isset($_POST)){
                 switch ($_POST["action"]) {
@@ -71,31 +89,31 @@ session_start();
                                                 AND
                                                 users.ID IN ( SELECT user_id FROM requests WHERE friend_id = '$id' )")->fetch_all(true);
             $u_friends = $this->db->query("SELECT
-                                        users.name,
-                                        users.surname,
-                                        users.email,
-                                        photos.photo_path,
-                                        users.ID
-                                    FROM
-                                        users
-                                    INNER JOIN photos ON photos.user_id = users.ID
-                                    WHERE
-                                        users.ID IN (
-                                            SELECT
-                                                user_id
+                                                users.name,
+                                                users.surname,
+                                                users.email,
+                                                photos.photo_path,
+                                                users.ID
                                             FROM
-                                                friends
+                                                users
+                                            INNER JOIN photos ON photos.user_id = users.ID
                                             WHERE
-                                                friend_id = '$id'
-                                            UNION
-                                                SELECT
-                                                    friend_id
-                                                FROM
-                                                    friends
-                                                WHERE
-                                                    user_id = '$id'
-                                        )
-                                    AND photos.active = 1")->fetch_all(true);
+                                                users.ID IN (
+                                                    SELECT
+                                                        user_id
+                                                    FROM
+                                                        friends
+                                                    WHERE
+                                                        friend_id = '$id'
+                                                    UNION
+                                                        SELECT
+                                                            friend_id
+                                                        FROM
+                                                            friends
+                                                        WHERE
+                                                            user_id = '$id'
+                                                )
+                                            AND photos.active = 1")->fetch_all(true);
             $u_info['u_photos'] = $u_photos;
             $u_info["u_requests"] = $u_requests;
             $u_info["u_friends"] = $u_friends;
@@ -133,15 +151,46 @@ session_start();
                                             AND photos.active = 1
                                             AND back.active = 1")->fetch_all(true);
             $req_active = $this -> db -> query("SELECT active FROM requests WHERE user_id = '$u_id' AND friend_id = '$fr_id' ")->fetch_all(true);
+            $check_friend = $this -> db -> query("SELECT active FROM friends WHERE user_id = '$u_id' AND friend_id = '$fr_id' UNION SELECT active FROM friends WHERE user_id = '$fr_id' AND friend_id = '$u_id'")->fetch_all(true);
             $fr_photos = $this->db->query("SELECT photo_path FROM photos WHERE user_id = (SELECT ID FROM users WHERE email = '$fr_email')")->fetch_all(true);
+            $fr_friends = $this->db->query("SELECT
+                                            users.name,
+                                            users.surname,
+                                            users.email,
+                                            photos.photo_path,
+                                            users.ID
+                                        FROM
+                                            users
+                                        INNER JOIN photos ON photos.user_id = users.ID
+                                        WHERE
+                                            users.ID IN (
+                                                SELECT
+                                                    user_id
+                                                FROM
+                                                    friends
+                                                WHERE
+                                                    friend_id = '$fr_id'
+                                                UNION
+                                                    SELECT
+                                                        friend_id
+                                                    FROM
+                                                        friends
+                                                    WHERE
+                                                        user_id = '$fr_id'
+                                            )
+                                        AND photos.active = 1 ")->fetch_all(true);
             $fr_info['fr_photos'] = $fr_photos;
             $fr_info['req_active'] = $req_active;
+            $fr_info['fr_check'] = $check_friend;
+            $fr_info['fr_friends'] = $fr_friends;
             $fr_info = json_encode($fr_info);
             print $fr_info;
         }
 
         function new_post(){
             $p_desc = $_POST["p_description"];
+            $p_desc =$this->jevix->parse($p_desc,$errors);
+            $p_desc = mysqli_real_escape_string($this->db, $p_desc);
             $u_session = $_SESSION['u_session'];
             $u_id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
             $u_id = $u_id[0]["ID"];
@@ -179,6 +228,7 @@ session_start();
                                                      AND users.id = posts.user_id 
                                                      AND photos.user_id = posts.user_id 
                                                      AND photos.active = 1")->fetch_all(true);
+            // var_dump($new_post);
             $new_post = json_encode($new_post);
             echo $new_post;
         }
@@ -189,7 +239,8 @@ session_start();
             $u_id = $u_id[0]["ID"];
             $post_id = $_POST["post_id"];
             $post_comment = $_POST["post_comment"];
-    
+            $post_comment =$this->jevix->parse($post_comment,$errors);
+            $post_comment = mysqli_real_escape_string($this->db, $post_comment);
             $this->db->query("INSERT INTO comments(post_id, user_id, comment) VALUES('$post_id', '$u_id', '$post_comment')");
             // $p_comments = $this->db->query("SELECT
             //                                     users.name,

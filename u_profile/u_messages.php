@@ -1,16 +1,34 @@
 <?php
 
+require_once './jevix/jevix.class.php';
+
 // session_start();
 
     class MessagesController{
         private $db;
         public $data;
         public $callback;
+        private $jevix;
 
         function __construct($data){
             $this -> db = new mysqli("localhost", "root", "", "social_network");
             $this -> data = $data;
 
+            $this -> jevix = new Jevix();
+            // Устанавливаем разрешённые теги. (Все не разрешенные теги считаются запрещенными.)
+            // $this -> jevix->cfgAllowTags(array());
+            
+            // Устанавливаем разрешённые параметры тегов.
+            // $this -> jevix->cfgAllowTagParams('a', array('title', 'href'));
+            
+            // Устанавливаем параметры тегов являющиеся обязяательными. Без них вырезает тег оставляя содержимое.
+            // $this -> jevix->cfgSetTagParamsRequired('a', 'href');
+            
+            // Устанавливаем теги которые может содержать тег контейнер
+            // $this -> jevix->cfgSetTagChilds('ul', 'li', true, false);
+            
+            // Устанавливаем атрибуты тегов, которые будут добавлятся автоматически
+            // $this -> jevix->cfgSetTagParamsAutoAdd('a', array('rel' => 'nofollow'));
             if(isset($this -> data)){
                 switch ($this -> data["action"]) {
                     case 'show_msgs':
@@ -56,6 +74,7 @@
             $id = $id[0]["ID"];
             $friend_id = $this -> data["friend_id"];
             $message = $this -> data["message"];
+            $message =$this->jevix->parse($message,$errors);
             $this->db->query("INSERT INTO messages(user_id, receiver_id, message) VALUES('$id', '$friend_id', '$message')");
         }
 

@@ -214,7 +214,7 @@
 		</div>
 		
 		<div class="top-area">
-			<ul class="main-menu">
+			<!-- <ul class="main-menu">
 				<li>
 					<a href="#" title="">Home</a>
 					<ul>
@@ -267,7 +267,7 @@
 						<li><a href="widgets.html" title="">Widgts</a></li>
 					</ul>
 				</li>
-			</ul>
+			</ul> -->
 			<ul class="setting-area">
 				<li>
 					<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
@@ -343,7 +343,7 @@
 						<a href="notifications.html" title="" class="more-mesg">view more</a>
 					</div>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="#" title="Messages" data-ripple=""><i class="ti-comment"></i><span>12</span></a>
 					<div class="dropdowns">
 						<span>5 New Messages</span>
@@ -406,7 +406,7 @@
 						</ul>
 						<a href="messages.html" title="" class="more-mesg">view more</a>
 					</div>
-				</li>
+				</li> -->
 				<!-- <li><a href="#" title="Languages" data-ripple=""><i class="fa fa-globe"></i></a>
 					<div class="dropdowns languages">
 						<a href="#" title=""><i class="ti-check"></i>English</a>
@@ -420,17 +420,179 @@
 				<img src="" class="u_top_miniature" alt="">
 				<span class="status f-online"></span>
 				<div class="user-setting">
-					<a href="#" title=""><span class="status f-online"></span>online</a>
+					<!-- <a href="#" title=""><span class="status f-online"></span>online</a>
 					<a href="#" title=""><span class="status f-away"></span>away</a>
-					<a href="#" title=""><span class="status f-off"></span>offline</a>
-					<a href="#" title=""><i class="ti-user"></i> view profile</a>
-					<a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-					<a href="#" title=""><i class="ti-target"></i>activity log</a>
-					<a href="#" title=""><i class="ti-settings"></i>account setting</a>
-					<a href="#" title="" id="u_logout"><i class="ti-power-off"></i>log out</a>
+					<a href="#" title=""><span class="status f-off"></span>offline</a> -->
+					<a href="profile.php" title=""><i class="ti-user"></i> view Profile</a>
+					<a href="profile-setting.php" title=""><i class="ti-pencil-alt"></i>edit Profile</a>
+					<a href="edit-interest.php" title=""><i class="ti-heart"></i>edit Interests</a>
+					<a href="edit-password.php" title=""><i class="ti-lock"></i>edit Password</a>
+					<a href="#" title="" id="u_logout"><i class="ti-power-off"></i>Log Out</a>
 				</div>
 			</div>
 			<span class="main-menu" data-ripple=""></span>
 		</div>
 	</div>
 	<!-- topbar -->	
+
+<div class="fixed-sidebar right">
+		<div class="chat-friendz">
+			<ul class="chat-users" id="people-list">
+				<!-- <li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend1.jpg" alt="">
+						<span class="status f-online"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend2.jpg" alt="">
+						<span class="status f-away"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend3.jpg" alt="">
+						<span class="status f-online"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend4.jpg" alt="">
+						<span class="status f-offline"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend5.jpg" alt="">
+						<span class="status f-online"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend6.jpg" alt="">
+						<span class="status f-online"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend7.jpg" alt="">
+						<span class="status f-offline"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend8.jpg" alt="">
+						<span class="status f-online"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend9.jpg" alt="">
+						<span class="status f-away"></span>
+					</div>
+				</li>
+				<li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend10.jpg" alt="">
+						<span class="status f-away"></span>
+					</div>
+				</li> -->
+				<!-- <li>
+					<div class="author-thmb">
+						<img src="images/resources/side-friend8.jpg" alt="">
+						<span class="status f-online"></span>
+					</div>
+				</li> -->
+			</ul>
+			<div class="chat-box">
+				<div class="chat-head">
+					<span class="status f-online"></span>
+					<h6 class="msgs_name"></h6>
+					<div class="more">
+						<span class="more-optns"><i class="ti-more-alt"></i>
+							<!-- <ul>
+								<li>block chat</li>
+								<li>unblock chat</li>
+								<li>conversation</li>
+							</ul> -->
+						</span>
+						<span class="close-mesage"><i class="ti-close"></i></span>
+					</div>
+				</div>
+				<div class="chat-list">
+					<ul>
+						<!-- <li class="me">
+							<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
+							<div class="notification-event">
+								<span class="chat-message-item">
+									Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+								</span>
+								<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+							</div>
+						</li>
+						<li class="you">
+							<div class="chat-thumb"><img src="images/resources/chatlist2.jpg" alt=""></div>
+							<div class="notification-event">
+								<span class="chat-message-item">
+									Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+								</span>
+								<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+							</div>
+						</li>
+						<li class="me">
+							<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
+							<div class="notification-event">
+								<span class="chat-message-item">
+									Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+								</span>
+								<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+							</div>
+						</li> -->
+					</ul>
+					<form class="text-box">
+						<textarea class="message_body" placeholder="Post enter to post..."></textarea>
+						<!-- <div class="add-smiles">
+							<span title="add icon" class="em em-expressionless"></span>
+						</div>
+						<div class="smiles-bunch">
+							<i class="em em---1"></i>
+							<i class="em em-smiley"></i>
+							<i class="em em-anguished"></i>
+							<i class="em em-laughing"></i>
+							<i class="em em-angry"></i>
+							<i class="em em-astonished"></i>
+							<i class="em em-blush"></i>
+							<i class="em em-disappointed"></i>
+							<i class="em em-worried"></i>
+							<i class="em em-kissing_heart"></i>
+							<i class="em em-rage"></i>
+							<i class="em em-stuck_out_tongue"></i>
+						</div>
+						<button type="submit"></button> -->
+					</form>
+					<!-- <form class="text-box">
+						<textarea placeholder="Post enter to post..."></textarea>
+						<div class="add-smiles">
+							<span title="add icon" class="em em-expressionless"></span>
+						</div>
+						<div class="smiles-bunch">
+							<i class="em em---1"></i>
+							<i class="em em-smiley"></i>
+							<i class="em em-anguished"></i>
+							<i class="em em-laughing"></i>
+							<i class="em em-angry"></i>
+							<i class="em em-astonished"></i>
+							<i class="em em-blush"></i>
+							<i class="em em-disappointed"></i>
+							<i class="em em-worried"></i>
+							<i class="em em-kissing_heart"></i>
+							<i class="em em-rage"></i>
+							<i class="em em-stuck_out_tongue"></i>
+						</div>
+						<button type="submit"></button>
+					</form> -->
+				</div>
+			</div>
+		</div>
+	</div><!-- right sidebar user chat -->

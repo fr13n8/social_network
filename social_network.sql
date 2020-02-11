@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 23/01/2020 00:36:55
+ Date: 11/02/2020 14:31:45
 */
 
 SET NAMES utf8mb4;
@@ -29,13 +29,69 @@ CREATE TABLE `background`  (
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `user_id_idx`(`user_id`) USING BTREE,
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of background
+-- Table structure for comments
 -- ----------------------------
-INSERT INTO `background` VALUES (12, 29, '', '0');
-INSERT INTO `background` VALUES (13, 29, '1579713520899685', '1');
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE `comments`  (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NULL DEFAULT NULL,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `post_id`(`post_id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for friends
+-- ----------------------------
+DROP TABLE IF EXISTS `friends`;
+CREATE TABLE `friends`  (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `friend_id` int(11) NULL DEFAULT NULL,
+  `active` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  INDEX `friend_id`(`friend_id`) USING BTREE,
+  CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for interests
+-- ----------------------------
+DROP TABLE IF EXISTS `interests`;
+CREATE TABLE `interests`  (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `interest` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `interests_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for messages
+-- ----------------------------
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE `messages`  (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `receiver_id` int(11) NULL DEFAULT NULL,
+  `message` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  INDEX `receiver_id`(`receiver_id`) USING BTREE,
+  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for photos
@@ -49,75 +105,66 @@ CREATE TABLE `photos`  (
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 95 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 131 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of photos
+-- Table structure for post_dislikes
 -- ----------------------------
-INSERT INTO `photos` VALUES (31, 29, 'anonymous', '0');
-INSERT INTO `photos` VALUES (32, 29, '157971341674681', '1');
-INSERT INTO `photos` VALUES (33, 29, '1579713468116352', '0');
-INSERT INTO `photos` VALUES (34, 29, '1579713469466580', '0');
-INSERT INTO `photos` VALUES (35, 29, '1579713469894836', '0');
-INSERT INTO `photos` VALUES (36, 29, '1579713469453793', '0');
-INSERT INTO `photos` VALUES (37, 29, '1579713469252872', '0');
-INSERT INTO `photos` VALUES (38, 29, '1579713469510261', '0');
-INSERT INTO `photos` VALUES (39, 29, '1579713469738122', '0');
-INSERT INTO `photos` VALUES (40, 29, '1579714677459585', '0');
-INSERT INTO `photos` VALUES (41, 29, '157971467859779', '0');
-INSERT INTO `photos` VALUES (42, 29, '1579714678137997', '0');
-INSERT INTO `photos` VALUES (43, 29, '1579714678270908', '0');
-INSERT INTO `photos` VALUES (44, 29, '1579714743158190', '0');
-INSERT INTO `photos` VALUES (45, 29, '1579714743671551', '0');
-INSERT INTO `photos` VALUES (46, 29, '1579714743146160', '0');
-INSERT INTO `photos` VALUES (47, 29, '1579714795236423', '0');
-INSERT INTO `photos` VALUES (48, 29, '1579714795722562', '0');
-INSERT INTO `photos` VALUES (49, 29, '1579714796961522', '0');
-INSERT INTO `photos` VALUES (50, 29, '1579714897699128', '0');
-INSERT INTO `photos` VALUES (51, 29, '1579714897311669', '0');
-INSERT INTO `photos` VALUES (52, 29, '157971489787489', '0');
-INSERT INTO `photos` VALUES (53, 29, '1579714944482173', '0');
-INSERT INTO `photos` VALUES (54, 29, '1579714944399348', '0');
-INSERT INTO `photos` VALUES (55, 29, '157971494497092', '0');
-INSERT INTO `photos` VALUES (56, 29, '1579714984182763', '0');
-INSERT INTO `photos` VALUES (57, 29, '157971498477761', '0');
-INSERT INTO `photos` VALUES (58, 29, '157971498432635', '0');
-INSERT INTO `photos` VALUES (59, 29, '1579715131904717', '0');
-INSERT INTO `photos` VALUES (60, 29, '1579715131792064', '0');
-INSERT INTO `photos` VALUES (61, 29, '1579715131305208', '0');
-INSERT INTO `photos` VALUES (62, 29, '1579715262534335', '0');
-INSERT INTO `photos` VALUES (63, 29, '157971526293280', '0');
-INSERT INTO `photos` VALUES (64, 29, '1579715262536888', '0');
-INSERT INTO `photos` VALUES (65, 29, '1579715317843407', '0');
-INSERT INTO `photos` VALUES (66, 29, '1579715317888564', '0');
-INSERT INTO `photos` VALUES (67, 29, '1579715317949912', '0');
-INSERT INTO `photos` VALUES (68, 29, '157971543598541', '0');
-INSERT INTO `photos` VALUES (69, 29, '1579715435408549', '0');
-INSERT INTO `photos` VALUES (70, 29, '1579715435491492', '0');
-INSERT INTO `photos` VALUES (71, 29, '1579715538682555', '0');
-INSERT INTO `photos` VALUES (72, 29, '1579715538160659', '0');
-INSERT INTO `photos` VALUES (73, 29, '1579715538421290', '0');
-INSERT INTO `photos` VALUES (74, 29, '1579715538237374', '0');
-INSERT INTO `photos` VALUES (75, 29, '1579715538598230', '0');
-INSERT INTO `photos` VALUES (76, 29, '1579715538412386', '0');
-INSERT INTO `photos` VALUES (77, 29, '1579715539823418', '0');
-INSERT INTO `photos` VALUES (78, 29, '157971553939940', '0');
-INSERT INTO `photos` VALUES (79, 29, '1579715539128450', '0');
-INSERT INTO `photos` VALUES (80, 29, '157971555153675', '0');
-INSERT INTO `photos` VALUES (81, 29, '1579715551399618', '0');
-INSERT INTO `photos` VALUES (82, 29, '157971555156135', '0');
-INSERT INTO `photos` VALUES (83, 29, '1579715582526948', '0');
-INSERT INTO `photos` VALUES (84, 29, '1579715582526332', '0');
-INSERT INTO `photos` VALUES (85, 29, '1579715582942014', '0');
-INSERT INTO `photos` VALUES (86, 29, '1579715612927208', '0');
-INSERT INTO `photos` VALUES (87, 29, '1579715612621984', '0');
-INSERT INTO `photos` VALUES (88, 29, '157971561269078', '0');
-INSERT INTO `photos` VALUES (89, 29, '157971600194969', '0');
-INSERT INTO `photos` VALUES (90, 29, '1579716001822058', '0');
-INSERT INTO `photos` VALUES (91, 29, '1579716001425495', '0');
-INSERT INTO `photos` VALUES (92, 29, '1579716062725591', '0');
-INSERT INTO `photos` VALUES (93, 29, '1579716062395579', '0');
-INSERT INTO `photos` VALUES (94, 29, '1579716062232791', '0');
+DROP TABLE IF EXISTS `post_dislikes`;
+CREATE TABLE `post_dislikes`  (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NULL DEFAULT NULL,
+  `user_id` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `post_id`(`post_id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `post_dislikes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `post_dislikes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for post_likes
+-- ----------------------------
+DROP TABLE IF EXISTS `post_likes`;
+CREATE TABLE `post_likes`  (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NULL DEFAULT NULL,
+  `user_id` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `post_id`(`post_id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `post_likes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `post_likes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for posts
+-- ----------------------------
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE `posts`  (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `post_description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for requests
+-- ----------------------------
+DROP TABLE IF EXISTS `requests`;
+CREATE TABLE `requests`  (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `friend_id` int(11) NULL DEFAULT NULL,
+  `active` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `friend_id`(`friend_id`) USING BTREE,
+  CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`friend_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for users
@@ -137,11 +184,6 @@ CREATE TABLE `users`  (
   `about` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of users
--- ----------------------------
-INSERT INTO `users` VALUES (29, 'Erik', 'Hovsepyan', 21, 'hovsepyan@mail.ru', '$2y$11$zyDmVUZSSBQtVKODrluoueghHTD193yYQ5uCcrzaH/cS2FxkMlBnW', '1579713360709842', NULL, NULL, NULL, NULL, NULL);
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -3,13 +3,13 @@ $(document).ready(function () {
     let socket = new WebSocket("ws://localhost:2346");
 
 	socket.onopen = function(e) {
-	  console.log("[open] Соединение установлено");
-	  console.log("Отправляем данные на сервер");
-	  getfrPosts();
-      getfrComments();
-      getLDs();
-	//   socket.send("Меня зовут Джон");
-	};
+        console.log("[open] Соединение установлено");
+        console.log("Отправляем данные на сервер");
+            getfrPosts();
+            getfrComments();
+            getLDs();
+      //   socket.send("Меня зовут Джон");
+      };
 	
 	socket.onmessage = function(event) {
 		let data = JSON.parse(event.data);
@@ -27,6 +27,7 @@ $(document).ready(function () {
                         }
                         else{
                             let u_miniature = element["photo_path"] + "_min.jpg";
+                            let me_miniature = $(".u_top_miniature").attr("src");
                         var p_photo;
                         if(element.picture){
                             p_photo = `<img src="./u_profile/uploads/posts/${element.picture}.jpg" alt="">`;
@@ -124,7 +125,7 @@ $(document).ready(function () {
                                                                 </li>
                                                                 <li class="post-comment">
                                                                     <div class="comet-avatar">
-                                                                        <img src="./u_profile/uploads/resized/${u_miniature}" alt="">
+                                                                        <img src="${me_miniature}" alt="">
                                                                     </div>
                                                                     <div class="post-comt-box">
                                                                         <form method="post">
@@ -143,7 +144,7 @@ $(document).ready(function () {
                     });
                 break;
             case "frcomments_data":
-                    console.log(data)
+                    // console.log(data)
                     $.each(data, function (indexInArray, element) { 
                         $(`#post_${element.post_id}`).find(".comment_data").remove();
                     });
@@ -165,7 +166,7 @@ $(document).ready(function () {
                     });
                 break;
             case 'LDs':
-                    console.log(data);
+                    // console.log(data);
                     $(".posts").find(".we-video-info").find("ins").html("0");
                         data.likes.forEach(element => {
                             $(`#post_${element.post_id}`).find(".like").find("ins").html(`${element.likes}`);
@@ -280,9 +281,50 @@ $(document).ready(function () {
                     }
                 }
                 else{
-                    $(".add-btn").empty();
-                    $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
+                    if(response.fr_check.length != 0){
+                        if(response.fr_check[0].active == 1){
+                            $(".add-btn").empty();
+                            $(".add-btn").append(`<span class="del_friend">Delete from friends</span>`);
+                        }
+                        else{
+                            $(".add-btn").empty();
+                            $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
+                        }
+                    }
+                    else{
+                        $(".add-btn").empty();
+                        $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
+                    }
+                    // $(".add-btn").empty();
+                    // $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
                 }
+
+                if(response.fr_friends){
+                    let fr_friends = response.fr_friends.reverse();
+                    $(".interest-added").empty();
+                    $.each(fr_friends, function (indexInArray, element) { 
+                        $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`);
+                        $(".basics").append(`<li>${element.interest}</li>`);
+                    });
+                }
+        }
+    });
+
+    $.ajax({
+        type: "post",
+        url: "./u_profile/u_dataChange.php",
+        data: {
+            action : "get_FRinterests"
+        },
+        success: function (response) {
+            response = JSON.parse(response);
+            console.log(response);
+            response = response.reverse();
+            $(".interest-added").empty();
+            $.each(response, function (indexInArray, element) { 
+                 $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`);
+                 $(".basics").append(`<li>${element.interest}</li>`);
+            });
         }
     });
 
@@ -306,6 +348,20 @@ $(document).ready(function () {
             url: "./u_profile/fr_server.php",
             data: {
                 "action" : "del_request"
+            },
+            success: function (response) {
+                $(".add-btn").empty();
+                        $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
+            }
+        });
+    })
+
+    $(".add-btn").on('click', ".del_friend", function () {
+        $.ajax({
+            type: "post",
+            url: "./u_profile/fr_server.php",
+            data: {
+                "action" : "del_friend"
             },
             success: function (response) {
                 $(".add-btn").empty();

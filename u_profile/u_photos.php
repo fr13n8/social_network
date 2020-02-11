@@ -89,14 +89,14 @@ require_once("photo-cut.php");
             foreach ($file as $key) {
                 $salt = time().$rand = random_int(1, 1000000);
                 $file_name = $salt;
-                
+
                 move_uploaded_file( $key['tmp_name'], "$uploaddir/$file_name".".jpg");
                 $u_session = $_SESSION['u_session'];
                 $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
                 $id = $id[0]["ID"];
                 $this -> db -> query("INSERT INTO photos(user_id, photo_path, active) VALUES ('$id', '$file_name', 0)");
                 $this -> photos_resize($uploaddir, $file_name, $uploaddirResized, $photos_callback);
-                array_push($photos_callback, $file_name);
+                $photos_callback[] = $file_name;
             }
             
             $photos_callback = json_encode($photos_callback);

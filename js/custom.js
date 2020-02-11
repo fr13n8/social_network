@@ -2538,7 +2538,7 @@ if (typeof NProgress != 'undefined') {
 						  className: "btn-sm"
 						},
 					  ],
-					  responsive: true
+					  responsive: false
 					});
 				  }
 				};

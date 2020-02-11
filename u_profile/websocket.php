@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once 'u_messages.php';
 require_once 's_posts.php';

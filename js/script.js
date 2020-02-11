@@ -52,11 +52,12 @@ jQuery(document).ready(function($) {
 							person = "me";
 							person_avatar = data.fr_photo_phath;
 						}
-						$(".chat-list > ul").append(`<li class="${person}">
+						$(".chat-list > ul").append(`
+												<li class="${person}">
 													<div class="chat-thumb"><img src="${person_avatar}" alt=""></div>
 													<div class="notification-event">
 														<span class="chat-message-item">
-															${element.message}
+														${element.message}
 														</span>
 														<span class="notification-date"><time datetime="${element.time}" class="entry-date updated">${element.time}</time></span>
 													</div>
@@ -66,7 +67,7 @@ jQuery(document).ready(function($) {
 				});
 				break;
 			case "posts_data":
-				console.log(data);
+				// console.log(data);
 				$.each(data, function (indexInArray, element) {
 					if(isNaN(indexInArray)){
 						return;
@@ -125,39 +126,7 @@ jQuery(document).ready(function($) {
 																			<ins>0</ins>
 																		</span>
 																	</li>
-																	<li class="social-media">
-																		<div class="menu">
-																		<div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																			</div>
-																		</div>
-																			<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																			</div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																			</div>
-																		</div>
-
-																		</div>
-																	</li>
+																	
 																</ul>
 															</div>
 															
@@ -213,7 +182,7 @@ jQuery(document).ready(function($) {
 			break;
 			case 'myLDs':
 				$(".myposts").find(".we-video-info").find("ins").html("0");
-                    console.log(data);
+                    // console.log(data);
                     data.likes.forEach(element => {
                         $(`#post_${element.post_id}`).find(".like").find("ins").html(`${element.likes}`);
 
@@ -256,15 +225,16 @@ jQuery(document).ready(function($) {
 	return false;
   });
 //------- remove class active on body
-  $("body *").not('.top-area > .setting-area > li').on("click", function() {
-	$(".top-area > .setting-area > li > div").removeClass('active');		
+  $("body *").not('.top-area > .setting-area > li').on("click", function(e) {
+	// e.stopPropagation();
+		$(".top-area > .setting-area > li > div").removeClass('active');		
  });
 	
 
 //--- user setting dropdown on topbar	
-$('.user-img').on('click', function() {
-	$('.user-setting').toggleClass("active");
-	return false;
+$('.user-img').on('click', function(e) {
+	// e.stopPropagation();
+		$('.user-setting').toggleClass("active");	
 });	
 
 
@@ -759,13 +729,13 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 	}
 	
 // Responsive nav dropdowns
-	$('.offcanvas-menu li.menu-item-has-children > a').on('click', function () {
-		$(this).parent().siblings().children('ul').slideUp();
-		$(this).parent().siblings().removeClass('active');
-		$(this).parent().children('ul').slideToggle();
-		$(this).parent().toggleClass('active');
-		return false;
-	});	
+	// $('.offcanvas-menu li.menu-item-has-children > a').on('click', function () {
+	// 	$(this).parent().siblings().children('ul').slideUp();
+	// 	$(this).parent().siblings().removeClass('active');
+	// 	$(this).parent().children('ul').slideToggle();
+	// 	$(this).parent().toggleClass('active');
+	// 	return false;
+	// });	
 	
 
 // Log Out
@@ -870,8 +840,9 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 				
                 if(response.u_photos){
                     response.u_photos.forEach(element => {
-						let u_miniature = response[0]["photo_path"] + "_min.jpg"; 
+						let u_miniature = response[0]["photo_path"] + "_min.jpg";
 						$(".u_top_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+						console.log(u_miniature)
                         
                     });
                 }
@@ -881,7 +852,13 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 				
 				if(response.u_requests){
 					$(".notifi-count").html(`${response.u_requests.length}`);
-					response.u_requests.length == 0 ? $(".notifi-title").html(`No new notifications yet`):$(".notifi-title").html(`${response.u_requests.length} New Notifications`);
+					if(response.u_requests.length == 0){
+						$(".notifi-title").html(`No new notifications yet`);
+					}
+					else{
+						$(".notifi-title").html(`${response.u_requests.length} New Notifications`);
+						$(".friendz-req-count").html(`${response.u_requests.length}`);
+					}
 					$(".frends_req > span").html(response.u_requests.length);
 					response.u_requests.forEach(element => {
 						let req_name = element.name;
@@ -903,25 +880,133 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 													<span class="tag green">New</span>
 												</li>`)
 					})
+
+					response.u_requests.forEach(element => {
+						let req_name = element.name;
+						let req_surname = element.surname;
+						let req_email = element.email;
+						let req_photo = element.photo_path+"_min.jpg";
+						$("#frends-req > ul").append(`<li>
+															<div class="nearly-pepls">
+																<figure>
+																	<a href="time-line.html" title=""><img src="./u_profile/uploads/resized/${req_photo}" alt=""></a>
+																</figure>
+																<div class="pepl-info" data-value="${element.ID}">
+																	<h4><a href="time-line.html" title="">${req_name} ${req_surname}</a></h4>
+																	<span>${req_email}</span>
+																	<a href="#" title="" class="add-butn more-action fr_reject" data-ripple="">delete Request</a>
+																	<a href="#" title="" class="add-butn fr_accept" data-ripple="">Confirm</a>
+																</div>
+															</div>
+														</li>`)
+					})
 				}
 
 				if(response.u_friends){
+					$(".friendz-count").html(response.u_friends.length);
                     response.u_friends.forEach(element => {
-                        $("#people-list").append(`<li data-value="${element.ID}">
-                                                <figure>
-                                                    <img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
-                                                    <span class="status f-online"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <span class="fr_profile fr_item" data-value="${element.email}" >${element.name} ${element.surname}</span>
-                                                    <i>${element.email}</i>
-                                                </div>
-                                            </li>`);
-                   });
+                        $("#people-list").append(`
+											
+											<li data-value="${element.ID}">
+												<div class="author-thmb">
+													<img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
+													<span class="status f-online"></span>
+												</div>
+											</li>`);
+				   });
+				   
+				   response.u_friends.forEach(element => {
+					   $("#frends > ul").append(`<li data-value="${element.ID}">
+													<div class="nearly-pepls">
+														<figure>
+															<a href="time-line.html" title=""><img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt=""></a>
+														</figure>
+														<div class="pepl-info">
+															<h4><a href="#" title="">${element.name} ${element.surname}</a></h4>
+															<span>${element.email}</span>
+															<a href="#" title="" data-value="${element.email}" class="add-butn unfriend" data-ripple="">unfriend</a>
+														</div>
+													</div>
+												</li>`)
+				   });
                 }
         }
 	});
+
+	$("#frends").on('click', ".unfriend", function (e) {
+		e.preventDefault();
+		let fr_email = $(this).data("value");
+		console.log("adasdsadas");
+		let for_del = $(this).parent().parent().parent();
+        $.ajax({
+            type: "post",
+            url: "./u_profile/fr_server.php",
+            data: {
+				"action" : "del_friend",
+				fr_email : fr_email
+            },
+            success: function (response) {
+                for_del.remove();
+            }
+        });
+	})
 	
+	$("#frends-req").on("click", '.fr_accept', function(e){
+		e.preventDefault();
+		console.log("accept")
+		let fr_id = $(this).parent().data("value");
+		console.log(fr_id);
+		let fr_data = {
+			action : "fr_accept",
+			id : fr_id
+		}
+		let for_del = $(this).parent().parent().parent();
+		$.ajax({
+			type: "post",
+			url: "./u_profile/fr_server.php",
+			data: fr_data,
+			success: function (response) {
+				for_del.remove();
+			}
+		});
+	})
+
+	$("#frends-req").on("click", '.fr_reject', function(e){
+		e.preventDefault();
+		console.log("reject")
+		let fr_id = $(this).parent().data("value");
+		console.log(fr_id);
+		let fr_data = {
+			action : "fr_reject",
+			id : fr_id
+		}
+		let for_del = $(this).parent().parent().parent();
+		$.ajax({
+			type: "post",
+			url: "./u_profile/fr_server.php",
+			data: fr_data,
+			success: function (response) {
+				for_del.remove();
+			}
+		});
+	})
+
+    $(".add-btn").on('click', ".del_friend", function () {
+        $.ajax({
+            type: "post",
+            url: "./u_profile/fr_server.php",
+            data: {
+                "action" : "del_friend"
+            },
+            success: function (response) {
+                $(".add-btn").empty();
+                        $(".add-btn").append(`<span class="snd_request">Send Request</span>`);
+            }
+        });
+    })
+
+
+
 	$(".notifi-menu").on("click", '.fr_item', function(){
 		let fr_email = $(this).data("value");
 		localStorage.setItem('fr_email', fr_email);
@@ -981,11 +1066,13 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 	var p_photo;
 	$("#p_photo[type=file]").on('change' , function (event) {
 
-		p_photo = this.files;
-		console.log(p_photo)
+	p_photo = this.files;
+	// console.log(this.files.length)
+	
+	event.preventDefault();
+	event.stopPropagation();
 
-		event.preventDefault();
-		event.stopPropagation();
+
 	})
 
 	$(".new-post").click(function(event){
@@ -1069,39 +1156,7 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 																			<ins>0</ins>
 																		</span>
 																	</li>
-																	<li class="social-media">
-																		<div class="menu">
-																		<div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																			</div>
-																		</div>
-																			<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																			</div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																			</div>
-																		</div>
-
-																		</div>
-																	</li>
+																	
 																</ul>
 															</div>
 															
@@ -1128,8 +1183,11 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 													</div>
 												</div>
 											</div>`);
+											$('#p_photo').val('')
 				}
+			
 			});
+		
 	})
 
 	$(document).on('click', '.like', function(){

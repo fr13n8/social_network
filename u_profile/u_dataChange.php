@@ -1,13 +1,30 @@
 <?php
+require_once '../jevix/jevix.class.php';
 session_start();
 
     class uChangeData{
         private $db;
         private $inp_errors = [];
+        private $jevix;
 
         function __construct(){
             $this -> db = new mysqli("localhost", "root", "", "social_network");
 
+            $this -> jevix = new Jevix();
+            // Устанавливаем разрешённые теги. (Все не разрешенные теги считаются запрещенными.)
+            $this -> jevix->cfgAllowTags(array('a', 'strong'));
+            
+            // Устанавливаем разрешённые параметры тегов.
+            $this -> jevix->cfgAllowTagParams('a', array('title', 'href'));
+            
+            // Устанавливаем параметры тегов являющиеся обязяательными. Без них вырезает тег оставляя содержимое.
+            $this -> jevix->cfgSetTagParamsRequired('a', 'href');
+            
+            // Устанавливаем теги которые может содержать тег контейнер
+            // $this -> jevix->cfgSetTagChilds('ul', 'li', true, false);
+            
+            // Устанавливаем атрибуты тегов, которые будут добавлятся автоматически
+            // $this -> jevix->cfgSetTagParamsAutoAdd('a', array('rel' => 'nofollow'));
             if(isset($_POST)){
                 switch ($_POST["action"]) {
                     case 'u_dataChange':
@@ -35,6 +52,35 @@ session_start();
                         // $this->data_clean($u_data);
                         $this->u_changePassValid($u_data);
                         break;
+                    case 'add_interest':
+                        $u_data = [
+                            "interest" => $_POST["interest"]
+                        ];
+                        $this->data_clean($u_data);
+                        $this->add_interest($u_data);
+                    break;
+                    case 'del_interest':
+                        $u_data = [
+                            "interest" => $_POST["interest"]
+                        ];
+                        $this->del_interest($u_data);
+                    break;
+                    case 'get_interests':
+                        $u_session = $_SESSION["u_session"];
+                        $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+                        $id = $id[0]["ID"];
+                        $interests = $this -> get_interests($id);
+
+                        echo $interests;
+                    break;
+                    case 'get_FRinterests':
+                        $fr_email = $_SESSION["fr_email"];
+                        $fr_id = $this -> db -> query("SELECT ID FROM users WHERE email = '$fr_email'")->fetch_all(true);
+                        $fr_id = $fr_id[0]["ID"];
+                        $interests = $this -> get_interests($fr_id);
+
+                        echo $interests;
+                    break;
                 }
             }
         }
@@ -47,6 +93,7 @@ session_start();
                         $value = stripslashes($value);
                         $value = strip_tags($value);
                         $value = htmlspecialchars($value);
+                        $value =$this->jevix->parse($value,$errors);
                         $u_data[$key] = $value;
                         return;
                         break;
@@ -69,7 +116,8 @@ session_start();
             $value = stripslashes($value);
             $value = strip_tags($value);
             $value = htmlspecialchars($value);
-            
+            $value =$this->jevix->parse($value,$errors);
+
             return $value;
         }
 
@@ -329,6 +377,36 @@ session_start();
             ];
             $u_newPassHash = password_hash($u_newPassword, PASSWORD_BCRYPT, $options);      
             $this->db->query("UPDATE users SET password = '$u_newPassHash' WHERE session = $u_session");   
+        }
+
+        function add_interest($u_data){
+            $u_session = $_SESSION["u_session"];
+            $interest = $u_data["interest"];
+            $interest =$this->jevix->parse($interest,$errors);
+            $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+            $id = $id[0]["ID"];
+            $this -> db -> query("INSERT INTO interests(interest, user_id) VALUES('$interest', '$id')");
+            $interests = $this -> get_interests($id);
+
+            echo $interests;
+        }
+
+        function del_interest($u_data){
+            $u_session = $_SESSION["u_session"];
+            $interest = $u_data["interest"];
+            $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+            $id = $id[0]["ID"];
+
+            $this->db->query("DELETE FROM interests WHERE user_id = '$id' AND interest = '$interest'");
+            $interests = $this -> get_interests($id);
+
+            echo $interests;
+        }
+
+        function get_interests($id){
+            $interests = $this -> db -> query("SELECT interest FROM interests WHERE user_id = '$id'")->fetch_all(true);
+            $interests = json_encode($interests);
+            return $interests;
         }
     }
 

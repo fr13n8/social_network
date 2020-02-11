@@ -1,5 +1,5 @@
 <?php 
-
+require_once '../jevix/jevix.class.php';
     class RegisterController{
         private $db;
         private $inp_errors = [];
@@ -162,6 +162,11 @@
             $u_surname = $u_data["surname"];
             $u_age = $u_data["age"];
             $u_email = $u_data["email"];
+            $u_name = mysqli_real_escape.string($this->db, $u_name);
+            $u_password = mysqli_real_escape.string($this->db, $u_password);
+            $u_surname = mysqli_real_escape.string($this->db, $u_surname);
+            $u_age = mysqli_real_escape.string($this->db, $u_age);
+            $u_email = mysqli_real_escape.string($this->db, $u_email);
             $this -> db -> query("INSERT INTO users(name, surname, age, email, password) 
                                 VALUES('$u_name', '$u_surname', '$u_age', '$u_email', '$u_password')");
 

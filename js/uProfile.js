@@ -93,7 +93,23 @@ $(document).ready(function () {
         }
     });
 
-    
+    $.ajax({
+        type: "post",
+        url: "./u_profile/u_dataChange.php",
+        data: {
+            action : "get_interests"
+        },
+        success: function (response) {
+            response = JSON.parse(response);
+            console.log(response);
+            response = response.reverse();
+            $(".interest-added").empty();
+            $.each(response, function (indexInArray, element) { 
+                 $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`);
+                 $(".basics").append(`<li>${element.interest}</li>`);
+            });
+        }
+    });
 
     $("#u_dataChange").click(function () {
         let u_name = $("#u_nameChange").val();
@@ -293,21 +309,21 @@ $.ajax({
         // respond = JSON.parse(respond)
 
         console.log(response)
-        if(response.u_photos){
-            response.u_photos.forEach(element => {
-                if(element.photo_path == "anonymous"){
+        if(response){
+            response.forEach(element => {
+                if(element == "anonymous"){
                     return;
                 }
                 else{
                     $(".photos").append(`<li>									
                                             <div class="user-photos">
                                                 <figure>
-                                                <a class="strip" href="u_profile/uploads/${element.photo_path}.jpg" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
-                                                <img src="u_profile/uploads/resized/${element.photo_path}_gall_min.jpg" alt=""></a>
+                                                <a class="strip" href="u_profile/uploads/${element}.jpg" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+                                                <img src="u_profile/uploads/resized/${element}_gall_min.jpg" alt=""></a>
                                                     <form class="edit-phtos" style="cursor: pointer;">
                                                         <i class="fa fa-camera-retro"></i>
                                                         <label class="fileContainer">
-                                                            <span id="make_avatar" data-value=${element.photo_path}>Make the main photo</span>
+                                                            <span id="make_avatar" data-value=${element}>Make the main photo</span>
                                                         </label>
                                                     </form>
                                                 </figure>
@@ -341,8 +357,64 @@ $(document).on('click', "#make_avatar", function(){
                 let u_miniature = u_photo + "_min.jpg"; 
                 $("#u_avatar").attr("src", `./u_profile/uploads/resized/${u_avatar}`);
                 $(".u_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+                $(".u_top_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
             }
         });
 })
+
+
+$(".add-interest").click(function (e) {
+    e.preventDefault();
+    let interest = $(".interest-value").val();
+    $(".interest-value").val('');
+    let data = {
+        action : "add_interest",
+        interest : interest
+    };
+    $.ajax({
+        type: "post",
+        url: "./u_profile/u_dataChange.php",
+        data: data,
+        success: function (response) {
+            response = JSON.parse(response);
+            response = response.reverse();
+            console.log(response);
+            $(".interest-added").empty();
+            $.each(response, function (indexInArray, element) { 
+                 $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`)
+            });
+        }
+    });
+})
+
+$(".interest-added").on('click', 'a', function (e){
+   e.preventDefault();
+})
+
+$(".interest-added").on('click', '.remove', function (e){
+    e.preventDefault();
+    let del_interest = $(this).data("value");
+    console.log(del_interest);
+    let this_int = $(this);
+    let data = {
+        action : "del_interest",
+        interest : del_interest
+    };
+    $.ajax({
+        type: "post",
+        url: "./u_profile/u_dataChange.php",
+        data: data,
+        success: function (response) {
+            response = JSON.parse(response);
+            response = response.reverse();
+            console.log(response);
+            $(".interest-added").empty();
+            $.each(response, function (indexInArray, element) { 
+                 $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`)
+            });
+        }
+    });
+})
+
     
 });

@@ -41,7 +41,7 @@
 									<a class="active" href="profile.php" title="" data-ripple="">time line</a>
 									<a class="" href="fr-timeline-photos.php" title="" data-ripple="">Photos</a>
 									<!-- <a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a> -->
-									<a class="" href="timeline-friends.html" title="" data-ripple="">Friends</a>
+									<a class="" href="fr_friends.php" title="" data-ripple="">Friends</a>
 									<!-- <a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a> -->
 									<a class="" href="fr-about.php" title="" data-ripple="">about</a>
 									<!-- <a class="" href="#" title="" data-ripple="">more</a> -->
@@ -93,7 +93,7 @@
 											</li> -->
 											<li>
 												<i class="ti-user"></i>
-												<a href="timeline-friends.html" title="">friends</a>
+												<a href="timeline-friends.php" title="">friends</a>
 											</li>
 											<li>
 												<i class="ti-image"></i>
@@ -107,10 +107,10 @@
 												<i class="ti-comments-smiley"></i>
 												<a href="messages.html" title="">Messages</a>
 											</li>
-											<li>
+											<!-- <li>
 												<i class="ti-bell"></i>
 												<a href="notifications.html" title="">Notifications</a>
-											</li>
+											</li> -->
 											<!-- <li>
 												<i class="ti-share"></i>
 												<a href="people-nearby.html" title="">People Nearby</a>
