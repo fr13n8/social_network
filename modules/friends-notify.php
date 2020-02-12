@@ -116,7 +116,7 @@
 												</div>
 											</li> -->
 										</ul>
-											<div class="lodmore"><button class="btn-view btn-load-more"></button></div>
+											<!-- <div class="lodmore"><button class="btn-view btn-load-more"></button></div> -->
 										  </div>
 										  <div class="tab-pane fade" id="frends-req" >
 											<ul class="nearby-contct">

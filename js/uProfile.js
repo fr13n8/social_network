@@ -35,6 +35,13 @@ $(document).ready(function () {
                 else{
                     $("#u_live").html(`City : ${response[0].u_city}`);
                 }
+
+                if(response[0].birth_day && response[0].birth_month && response[0].birth_year){
+                    let d = +response[0].birth_day;
+                    let m = response[0].birth_month;
+                    let y = +response[0].birth_year;
+                    $("#u_date").html(`Date : ${d} ${m} ${y}`);
+                }
                
                 $(".admin-name > h5").html(`${response[0].u_name} ${response[0].u_surname}`);
                 $("#u_name").html(` ${response[0].u_name} ${response[0].u_surname}`);
@@ -141,12 +148,18 @@ $(document).ready(function () {
         let u_email = $("#u_emailChange").val();
         let u_password = $("#u_password").val();
         let u_about = $("#u_aboutChange").val();
-
+        let u_day = $(".day").val();
+        let u_month = $(".month").val();
+        let u_year = $(".year").val();
+        console.log(u_day, u_month, u_year)
         let u_gender = $("input[name='gender']:checked").val();
         let u_phone = $("#u_phoneChange").val();
         let u_city = $("#u_city").val();
         let u_country = $("#u_country").val();
         let u_data = {
+            year : u_year,
+            month : u_month,
+            day : u_day,
             name : u_name,
             surname : u_surname,
             // age : u_age,

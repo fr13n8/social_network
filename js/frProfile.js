@@ -320,8 +320,9 @@ $(document).ready(function () {
                 if(response.fr_friends){
                     console.log("FRRRRRRRRRRRRR")
                     console.log(response.fr_friends);
+                    $(".friendz-count").html(response.fr_friends.length);
                     response.fr_friends.forEach(element => {
-                        $("#frends > ul").append(`<li data-value="${element.ID}">
+                        $("#fr_frends > ul").append(`<li data-value="${element.ID}">
                                                      <div class="nearly-pepls">
                                                          <figure>
                                                              <a href="#" class='get_fr' data-value="${element.email}" title=""><img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt=""></a>

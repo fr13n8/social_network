@@ -48,10 +48,10 @@ session_destroy();
 							<input placeholder="Surname" type="text" id="surname">
 							<img src="images/user.svg">
 						</div>
-						<div class="input">
+						<!-- <div class="input">
 							<input placeholder="Age" type="text" id="age">
 							<img src="images/user.svg">
-						</div>
+						</div> -->
 						<div class="input">
 							<input placeholder="Email" type="text" id="email">
 							<img src="images/mail.svg">

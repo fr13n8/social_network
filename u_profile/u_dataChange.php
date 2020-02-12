@@ -38,7 +38,10 @@ session_start();
                             "city" => $_POST["city"],
                             "country" => $_POST["country"],
                             "password" => $_POST["password"],
-                            "gender" => $_POST["gender"]
+                            "gender" => $_POST["gender"],
+                            "day" => $_POST["day"],
+                            "month" => $_POST["month"],
+                            "year" => $_POST["year"],
                         ];
                         $this->data_clean($u_data);
                         $this->u_changeValid($u_data);
@@ -103,6 +106,15 @@ session_start();
                     case 'country':
                         return;
                         break;
+                    case 'day':
+                        return;
+                        break;
+                    case 'month':
+                        return;
+                        break;
+                    case 'year':
+                        return;
+                        break;
                     default:
                         $u_data[$key] = $this->clean($value);
                         break;
@@ -142,6 +154,15 @@ session_start();
                         // return;
                         break;
                     case 'email':
+                        // return;
+                        break;
+                    case 'day':
+                        // return;
+                        break;
+                    case 'month':
+                        // return;
+                        break;
+                    case 'year':
                         // return;
                         break;
                     default:
@@ -273,14 +294,14 @@ session_start();
             }
         }
 
-        function age_valid($u_age){
-            if(filter_var($u_age, FILTER_VALIDATE_INT)){
-                return;
-            }
-            else{
-                $this->inp_errors["age"] = "Please input the correct age";
-            }
-        }
+        // function age_valid($u_age){
+        //     if(filter_var($u_age, FILTER_VALIDATE_INT)){
+        //         return;
+        //     }
+        //     else{
+        //         $this->inp_errors["age"] = "Please input the correct age";
+        //     }
+        // }
 
         function email_valid($u_email){
             $u_email = str_replace(' ', '', $u_email);
@@ -347,6 +368,9 @@ session_start();
             $u_country = $u_data["country"];
             $u_gender = $u_data["gender"];
             $u_about = $u_data["about"];
+            $u_day = $u_data["day"];
+            $u_month = $u_data["month"];
+            $u_year = $u_data["year"];
             $this -> db -> query("UPDATE users SET 
                                 name = '$u_name', 
                                 surname = '$u_surname', 
@@ -355,7 +379,10 @@ session_start();
                                 gender = '$u_gender',
                                 city = '$u_city',
                                 country = '$u_country',
-                                about = '$u_about' 
+                                about = '$u_about',
+                                day = '$u_day',
+                                month = '$u_month',
+                                year = '$u_year'
                                 WHERE session = $u_session");
             $u_info = $this->db->query("SELECT 
                                         name as u_name, 

@@ -23,7 +23,7 @@
 											</div>
 											<div class="dob">
 												<div class="form-group">
-													<select>
+													<select class="day">
 														<option value="Day">Day</option>
 														  <option>1</option>
 														  <option>2</option>
@@ -59,7 +59,7 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<select>
+													<select class="month">
 														<option value="month">Month</option>
 														  <option>Jan</option>
 														  <option>Feb</option>
@@ -76,7 +76,7 @@
 													</select>
 												</div>
 												<div class="form-group">
-													<select>
+													<select class="year">
 													  <option value="year">Year</option>
 													  <option>1988</option>
 													  <option>1989</option>

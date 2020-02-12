@@ -64,6 +64,9 @@ session_start();
                                             user.phone AS u_phone,
                                             user.about AS u_about,
                                             user.session AS u_session,
+                                            user.day AS birth_day,
+                                            user.month AS birth_month,
+                                            user.year AS birth_year,
                                             photos.photo_path,
                                             back.background_path
                                         FROM
@@ -169,14 +172,18 @@ session_start();
                                                 FROM
                                                     friends
                                                 WHERE
-                                                    friend_id = '$fr_id'
+                                                    friend_id = $fr_id 
+                                                    AND
+                                                    user_id <> $u_id
                                                 UNION
                                                     SELECT
                                                         friend_id
                                                     FROM
                                                         friends
                                                     WHERE
-                                                        user_id = '$fr_id'
+                                                        user_id = $fr_id 
+                                                        AND
+                                                        friend_id <> $u_id
                                             )
                                         AND photos.active = 1 ")->fetch_all(true);
             $fr_info['fr_photos'] = $fr_photos;
