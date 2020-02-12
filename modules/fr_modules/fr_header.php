@@ -38,7 +38,7 @@
 								  <span>Group Admin</span>
 								</li>
 								<li>
-									<a class="active" href="profile.php" title="" data-ripple="">time line</a>
+									<a class="active" href="fr_profile.php" title="" data-ripple="">time line</a>
 									<a class="" href="fr-timeline-photos.php" title="" data-ripple="">Photos</a>
 									<!-- <a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a> -->
 									<a class="" href="fr_friends.php" title="" data-ripple="">Friends</a>

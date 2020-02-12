@@ -427,7 +427,7 @@
 					<a href="profile-setting.php" title=""><i class="ti-pencil-alt"></i>edit Profile</a>
 					<a href="edit-interest.php" title=""><i class="ti-heart"></i>edit Interests</a>
 					<a href="edit-password.php" title=""><i class="ti-lock"></i>edit Password</a>
-					<a href="#" title="" id="u_logout"><i class="ti-power-off"></i>Log Out</a>
+					<a href="#" title="" class="u_logout"><i class="ti-power-off"></i>Log Out</a>
 				</div>
 			</div>
 			<span class="main-menu" data-ripple=""></span>
@@ -521,7 +521,7 @@
 					</div>
 				</div>
 				<div class="chat-list">
-					<ul>
+					<ul class="msg-list">
 						<!-- <li class="me">
 							<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
 							<div class="notification-event">

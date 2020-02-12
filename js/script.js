@@ -7,9 +7,9 @@ jQuery(document).ready(function($) {
 	socket.onopen = function(e) {
 	  console.log("[open] Соединение установлено");
 	  console.log("Отправляем данные на сервер");
-	  getPosts();
-	  getComments();
-	  getLDs();
+		getPosts();
+		getComments();
+		getLDs();
 	//   socket.send("Меня зовут Джон");
 	};
 	
@@ -63,7 +63,6 @@ jQuery(document).ready(function($) {
 													</div>
 												</li>`);
 					}
-					// scrollToBottom();
 				});
 				break;
 			case "posts_data":
@@ -227,6 +226,7 @@ jQuery(document).ready(function($) {
 //------- remove class active on body
   $("body *").not('.top-area > .setting-area > li').on("click", function(e) {
 	// e.stopPropagation();
+	// e.preventDefault();
 		$(".top-area > .setting-area > li > div").removeClass('active');		
  });
 	
@@ -254,6 +254,9 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	console.log(data);
 	socket.send(JSON.stringify(data));
 	getMessages(fr_id, fr_photo_phath, u_photo_phath);
+	setTimeout(() => {
+		scrollToBottom();
+	}, 200);
 	// scrollToBottom()
 	// $.ajax({
 	// 	type: "post",
@@ -292,7 +295,7 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 		u_session : u_session
 	};
 	socket.send(JSON.stringify(data));
-	
+	scrollToBottom();
 	// scrollToBottom()
 	// console.log(message);
 	// $.ajax({
@@ -739,23 +742,27 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 	
 
 // Log Out
-	$("#u_logout").click(function () {
-        $.ajax({
-            type: "post",
-            url: "./u_profile/u_logout.php",
-            data: {
-                action : "u_logout"
-            },
-            success: function (response) {
-                if(response){
-                    console.log("saccess")
-                }
-                else{
-                    console.log("logout")
-                    location.href = './index.php'
-                }
-            }
-        });
+	$(".u_logout").click(function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		socket.close();
+			$.ajax({
+				type: "post",
+				url: "./u_profile/u_logout.php",
+				data: {
+					action : "u_logout"
+				},
+				success: function (response) {
+					
+					if(response){
+						console.log("saccess")
+					}
+					else{
+						console.log("logout")
+						location.href = './index.php'
+					}
+				}
+			});
 	})
 	
 
@@ -889,10 +896,10 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 						$("#frends-req > ul").append(`<li>
 															<div class="nearly-pepls">
 																<figure>
-																	<a href="time-line.html" title=""><img src="./u_profile/uploads/resized/${req_photo}" alt=""></a>
+																	<a href="#" class='get_fr' data-value="${element.email}" title=""><img src="./u_profile/uploads/resized/${req_photo}" alt=""></a>
 																</figure>
 																<div class="pepl-info" data-value="${element.ID}">
-																	<h4><a href="time-line.html" title="">${req_name} ${req_surname}</a></h4>
+																	<h4><a href="#" class='get_fr' data-value="${element.email}" title="">${req_name} ${req_surname}</a></h4>
 																	<span>${req_email}</span>
 																	<a href="#" title="" class="add-butn more-action fr_reject" data-ripple="">delete Request</a>
 																	<a href="#" title="" class="add-butn fr_accept" data-ripple="">Confirm</a>
@@ -919,10 +926,10 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 					   $("#frends > ul").append(`<li data-value="${element.ID}">
 													<div class="nearly-pepls">
 														<figure>
-															<a href="time-line.html" title=""><img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt=""></a>
+															<a href="#" class='get_fr' data-value="${element.email}" title=""><img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt=""></a>
 														</figure>
 														<div class="pepl-info">
-															<h4><a href="#" title="">${element.name} ${element.surname}</a></h4>
+															<h4><a href="#" class='get_fr' data-value="${element.email}" title="">${element.name} ${element.surname}</a></h4>
 															<span>${element.email}</span>
 															<a href="#" title="" data-value="${element.email}" class="add-butn unfriend" data-ripple="">unfriend</a>
 														</div>
@@ -932,6 +939,28 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
                 }
         }
 	});
+
+	$("#frends-req, #frends").on("click", '.get_fr', function(event){
+		event.preventDefault();
+		event.stopPropagation();
+		let fr_email = $(this).data("value");
+		localStorage.setItem('fr_email', fr_email);
+		console.log(fr_email);
+		let fr_data = {
+			action : "fr_email",
+			email : fr_email
+		}
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_search.php",
+			data: fr_data,
+			success: function (response) {
+				if(response){
+					location.href = './fr_profile.php'
+				}
+			}
+		});
+	})
 
 	$("#frends").on('click', ".unfriend", function (e) {
 		e.preventDefault();

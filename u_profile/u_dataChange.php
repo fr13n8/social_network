@@ -92,7 +92,7 @@ session_start();
                         $value = trim($value);
                         $value = stripslashes($value);
                         $value = strip_tags($value);
-                        $value = htmlspecialchars($value);
+                        // $value = htmlspecialchars($value);
                         $value =$this->jevix->parse($value,$errors);
                         $u_data[$key] = $value;
                         return;
@@ -132,13 +132,16 @@ session_start();
                     case 'country':
                         // return;
                         break;
-                    case 'city':
-                        // return;
-                        break;
-                    case 'phone':
-                        // return;
-                        break;
                     case 'gender':
+                        // return;
+                        break;
+                    case 'name':
+                        // return;
+                        break;
+                    case 'surname':
+                        // return;
+                        break;
+                    case 'email':
                         // return;
                         break;
                     default:

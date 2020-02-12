@@ -268,7 +268,24 @@ $(document).ready(function () {
                     return;
                 }
             
-            
+                $("#u_phone").append(`${response[0].u_phone}`);
+                $.each(response[0], function (index, element) { 
+                    if(index != "action"){
+                        if(element){
+                            if(index == "u_city"){
+                                $(`#${index}`).val(`${element}`);
+                            }
+                           $(`#${index}Change`).val(`${element}`);
+                        }
+                        else{
+                            if(index == "u_city"){
+                                $(`#${index}`).val(``);
+                            }
+                           $(`#${index}Change`).val(``);
+                        }
+                    }
+
+               });
             
                 if(response.req_active.length != 0){
                     if(response.req_active[0].active == 1){
@@ -304,7 +321,7 @@ $(document).ready(function () {
                     $(".interest-added").empty();
                     $.each(fr_friends, function (indexInArray, element) { 
                         $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`);
-                        $(".basics").append(`<li>${element.interest}</li>`);
+                        $(".interests-list").append(`<li>${element.interest}</li>`);
                     });
                 }
         }
@@ -323,7 +340,7 @@ $(document).ready(function () {
             $(".interest-added").empty();
             $.each(response, function (indexInArray, element) { 
                  $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`);
-                 $(".basics").append(`<li>${element.interest}</li>`);
+                 $(".interests-list").append(`<li>${element.interest}</li>`);
             });
         }
     });

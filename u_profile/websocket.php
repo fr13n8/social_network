@@ -122,6 +122,7 @@ $ws_worker->onMessage = function($connection, $data)
                 $connection->send($myLDs->callback);
             }
         );
+        
     }
 };
 
@@ -129,6 +130,8 @@ $ws_worker->onMessage = function($connection, $data)
 $ws_worker->onClose = function($connection)
 {
     echo "Connection closed\n";
+    // Timer::delAll();
+    // echo "Timers are closed";
 };
 
 // Run worker

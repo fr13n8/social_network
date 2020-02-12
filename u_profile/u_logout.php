@@ -17,6 +17,10 @@ session_start();
 
         function u_logOut(){
             // $this->db->query("UPDATE users SET session = '$u_session' WHERE email = '$u_email'");
+            $u_session = $_SESSION['u_session'];
+            $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+            $id = $id[0]["ID"];
+            $this -> db -> query("UPDATE users SET session = '' WHERE ID = '$id'");
             session_destroy();
         }
     }

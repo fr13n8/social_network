@@ -856,6 +856,8 @@ header.sticky {
     visibility: visible;
 }
 
+
+
 .edit-phtos {
     background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
     bottom: 100px;
@@ -873,6 +875,21 @@ header.sticky {
     background: transparent none repeat scroll 0 0;
     /* border: 1px solid; */
     color: #fff;
+}
+
+.user-photos:hover .del-photo{
+    top: 30px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.del-photo{
+    top: 0;
+    position: relative;
+}
+
+#del_photo{
+    cursor: pointer;
 }
 
 #make_avatar{
@@ -1219,7 +1236,7 @@ header.sticky {
 .add-btn {
     bottom: 100px;
     position: absolute;
-    right: 43px;
+    right: 100px;
 }
 
 .add-btn > span {
@@ -4929,7 +4946,7 @@ canvas {
     border-radius: 3px;
     bottom: -2px;
     position: fixed;
-    right: 4%;
+    right: 5%;
     width: 300px;
     z-index: 9999999;
     transform: translate(40px) scale(0);
@@ -5528,7 +5545,7 @@ canvas {
 /*--- fixed sidebar right ---*/
 
 .fixed-sidebar {
-    background: #fff none repeat scroll 0 0;
+    background: #0e0e0e  none repeat scroll 0 0;
     height: 100vh;
     left: 0;
     padding-bottom: 30px;
@@ -5547,6 +5564,7 @@ canvas {
 .fixed-sidebar.right {
     left: auto;
     right: 0;
+    border-left: 1px solid #9300e7;
 }
 
 .chat-friendz {

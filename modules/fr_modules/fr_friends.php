@@ -3,8 +3,8 @@
 								<div class="central-meta">
 									<div class="frnds">
 										<ul class="nav nav-tabs">
-											 <li class="nav-item"><a class="active" href="#frends" data-toggle="tab">My Friends</a> <span class="friendz-count"></span></li>
-											 <li class="nav-item frends_req"><a class="" href="#frends-req" data-toggle="tab">Friend Requests</a><span class="friendz-req-count"></span></li>
+											 <li class="nav-item"><a class="active" href="#frends" data-toggle="tab">Friends</a> <span class="friendz-count"></span></li>
+											 <!-- <li class="nav-item frends_req"><a class="" href="#frends-req" data-toggle="tab">Friend Requests</a><span class="friendz-req-count"></span></li> -->
 										</ul>
 
 										<!-- Tab panes -->

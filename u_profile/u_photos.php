@@ -16,7 +16,6 @@ require_once("photo-cut.php");
                     // TODO
                     $this -> avatar_save();
                     break;
-                
                 case 'background':
                     // TODO
                     $this -> background_save();
@@ -29,6 +28,9 @@ require_once("photo-cut.php");
                     // TODO
                     $this -> make_main_photo();
                     break;
+                case 'del':
+                    $this -> del_photo();
+                break;
             }
 
         }
@@ -108,10 +110,26 @@ require_once("photo-cut.php");
             $photo_path = $_POST["photo"];
             $u_session = $_SESSION['u_session'];
             $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
-                $id = $id[0]["ID"];
+            $id = $id[0]["ID"];
             $this-> db -> query("UPDATE photos SET active = 0 WHERE user_id = $id");
             $this-> db -> query("UPDATE photos SET active = 1 WHERE photo_path = $photo_path");
             echo $photo_path;
+        }
+
+        function del_photo(){
+            $photo_path = $_POST["photo"];
+            $u_session = $_SESSION['u_session'];
+            $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
+            $id = $id[0]["ID"];
+            $check = $this->db->query("SELECT active FROM photos WHERE photo_path = '$photo_path'")->fetch_all(true);
+
+            if($check[0]["active"] == 1){
+                $this->db->query("DELETE FROM photos WHERE photo_path = '$photo_path'");
+                $this->db->query("UPDATE photos SET active = 1 WHERE user_id = $id");
+            }
+            else{
+                $this->db->query("DELETE FROM photos WHERE photo_path = '$photo_path'");
+            }
         }
 
         function backround_resize($uploaddir, $file_name, $uploaddirResized){

@@ -43,9 +43,9 @@
     #people-list figure {
         width: 18.5%;
     }
-    .chat-box {
+    /* .chat-box {
         right: 294px;
-    }
+    } */
     .edit-phto {
         left: 315px;
         bottom: 125px;
@@ -78,9 +78,9 @@
     .user-avatar {
         width: 80.2%
     }
-    .chat-box {
+    /* .chat-box {
         right: 230px;
-    }
+    } */
     .post-meta .detail {
         width: 62%;
     }
@@ -204,11 +204,11 @@
     .user-avatar {
         margin-top: -90px;
     }
-    .chat-box {
+    /* .chat-box {
         bottom: 0;
         right: 0;
         top: auto;
-    }
+    } */
     footer .widget-title h4 {
         font-size: 14px;
     }
@@ -426,11 +426,11 @@
     .advertisment-box img {
         width: 100%;
     }
-    .chat-box {
+    /* .chat-box {
         bottom: 25px;
         right: 30px;
         top: auto;
-    }
+    } */
     .widget-page .sidebar .widget {
         margin: 0 0 30px;
         width: 100%;
@@ -836,11 +836,11 @@
         max-width: 3.5%;
         width: 3.5%;
     }
-    .chat-box {
+    /* .chat-box {
         right: 0;
         position: fixed;
         bottom: 30px;
-    }
+    } */
     .page-infos > h5 {
         font-size: 14px;
     }

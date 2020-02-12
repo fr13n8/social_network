@@ -19,7 +19,7 @@ $(document).ready(function () {
                     // } 
                     // }
                 let country;
-                if(response[0].u_country){
+                if(response[0].u_country && response[0].u_country != "country"){
                     country = response[0].u_country;
                     $.getJSON("country-codes/country.json",
                             function (data) {
@@ -33,13 +33,30 @@ $(document).ready(function () {
                             );
                 }
                 else{
-                    $("#u_live").html(`Place of residence not known`);
+                    $("#u_live").html(`City : ${response[0].u_city}`);
                 }
                
                 $(".admin-name > h5").html(`${response[0].u_name} ${response[0].u_surname}`);
                 $("#u_name").html(` ${response[0].u_name} ${response[0].u_surname}`);
                 $("#u_email").html(`${response[0].u_email}`);
-                
+                $("#u_phone").append(`${response[0].u_phone}`);
+                $.each(response[0], function (index, element) { 
+                    if(index != "action"){
+                        if(element){
+                            if(index == "u_city"){
+                                $(`#${index}`).val(`${element}`);
+                            }
+                           $(`#${index}Change`).val(`${element}`);
+                        }
+                        else{
+                            if(index == "u_city"){
+                                $(`#${index}`).val(``);
+                            }
+                           $(`#${index}Change`).val(``);
+                        }
+                    }
+
+               });
 
                 if(response.u_photos){
                     response.u_photos.forEach(element => {
@@ -58,6 +75,12 @@ $(document).ready(function () {
                             $(".photos").append(`  <li>									
                                                         <div class="user-photos">
                                                             <figure>
+                                                            <form class="edit-phtos del-photo" style="cursor: pointer;">
+                                                                    <i class="fa fa-camera-retro"></i>
+                                                                    <label class="fileContainer">
+                                                                        <span id="del_photo" data-value=${element.photo_path}>Delete this photo</span>
+                                                                    </label>
+                                                                </form>
                                                             <a class="strip" href="u_profile/uploads/${element.photo_path}.jpg" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
                                                             <img src="u_profile/uploads/resized/${element.photo_path}_gall_min.jpg" alt=""></a>
                                                                 <form class="edit-phtos" style="cursor: pointer;">
@@ -106,7 +129,7 @@ $(document).ready(function () {
             $(".interest-added").empty();
             $.each(response, function (indexInArray, element) { 
                  $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`);
-                 $(".basics").append(`<li>${element.interest}</li>`);
+                 $(".interests-list").append(`<li>${element.interest}</li>`);
             });
         }
     });
@@ -146,10 +169,43 @@ $(document).ready(function () {
                     response = JSON.parse(response);
                     console.log(response);
                     if(response.action === "errors"){
-                        // console.log(response);
+                        $.each(response, function (index, element) { 
+                             if(index != "action"){
+                                 if(index == "password" || index == "city"){
+                                    $(`#u_${index}`).val('').attr('placeholder', `${element}`);
+                                    $(`#u_${index}`).siblings(".mtrl-select").css({
+                                        "border-bottom-color" : "red"
+                                    });
+                                 }
+                                $(`#u_${index}Change`).val('').attr('placeholder', `${element}`);
+                                $(`#u_${index}Change`).siblings(".mtrl-select").css({
+                                    "border-bottom-color" : "red"
+                                });
+                             }
+
+                        });
                     }
                     else if(response.action == "u_updInfo"){
-                        
+                        console.log(response);
+                        $.each(response[0], function (index, element) {
+                            $(".mtrl-select").css({
+                                "border-bottom-color" : "#e1e8ed"
+                            });
+                            if(index != "action"){
+                                if(element){
+                                    if(index == "u_city"){
+                                        $(`#${index}`).val(`${element}`);
+                                    }
+                                   $(`#${index}Change`).val(`${element}`);
+                                }
+                                else{
+                                    if(index == "u_city"){
+                                        $(`#${index}`).val(``);
+                                    }
+                                   $(`#${index}Change`).val(``);
+                                }
+                            }
+                       });
                         // console.log(response);
                         // for (const key in response[0]) {
                         //     if (response[0].hasOwnProperty(key)) {
@@ -318,6 +374,12 @@ $.ajax({
                     $(".photos").append(`<li>									
                                             <div class="user-photos">
                                                 <figure>
+                                                <form class="edit-phtos del-photo" style="cursor: pointer;">
+                                                                    <i class="fa fa-camera-retro"></i>
+                                                                    <label class="fileContainer">
+                                                                        <span id="del_photo" data-value=${element.photo_path}>Delete this photo</span>
+                                                                    </label>
+                                                                </form>
                                                 <a class="strip" href="u_profile/uploads/${element}.jpg" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
                                                 <img src="u_profile/uploads/resized/${element}_gall_min.jpg" alt=""></a>
                                                     <form class="edit-phtos" style="cursor: pointer;">
@@ -362,6 +424,45 @@ $(document).on('click', "#make_avatar", function(){
         });
 })
 
+$(document).on('click', "#make_avatar", function(){
+    let u_photo = $(this).attr("data-value");
+    let make_main = {
+        photo : u_photo,
+        my_photo_upload : "main"
+    }
+    console.log(u_photo)
+    $.ajax({
+        type: "post",
+        url: "./u_profile/u_photos.php",
+        data: make_main,
+        success: function (response) {
+            let u_photo = response;
+            let u_avatar = u_photo + "_avatar.jpg";
+            let u_miniature = u_photo + "_min.jpg"; 
+            $("#u_avatar").attr("src", `./u_profile/uploads/resized/${u_avatar}`);
+            $(".u_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+            $(".u_top_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+        }
+    });
+})
+
+$(document).on('click', "#del_photo", function(){
+    let u_photo = $(this).attr("data-value");
+    let this_p = $(this);
+    let del_photo = {
+        photo : u_photo,
+        my_photo_upload : "del"
+    }
+    console.log(u_photo)
+    $.ajax({
+        type: "post",
+        url: "./u_profile/u_photos.php",
+        data: del_photo,
+        success: function (response) {
+            this_p.parent().parent().parent().parent().parent().remove();
+        }
+    });
+})
 
 $(".add-interest").click(function (e) {
     e.preventDefault();

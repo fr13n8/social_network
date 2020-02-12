@@ -1,6 +1,6 @@
 <div class="col-lg-3">
-								<aside class="sidebar static">
-									<!-- <div class="widget">
+								<!-- <aside class="sidebar static">
+									<div class="widget">
 										<div class="banner medium-opacity bluesh">
 											<div style="background-image: url(images/resources/baner-widgetbg.jpg)" class="bg-image"></div>
 											<div class="baner-top">
@@ -15,12 +15,12 @@
 												<a href="#" title="" data-ripple="">start now!</a>
 											</div>
 										</div>											
-									</div> -->
+									</div>
 									<div class="widget friend-list stick-widget">
 										<h4 class="widget-title">Friends</h4>
 										<div id="searchDir"></div>
 										<ul id="people-list" class="friendz-list">
-											<!-- <li>
+											<li>
 												<figure>
 													<img src="images/resources/friend-avatar.jpg" alt="">
 													<span class="status f-online"></span>
@@ -114,7 +114,7 @@
 													<a href="time-line.html">Sarah Loren</a>
 													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c1e1d0e12190f3c1b111d1510521f1311">[email&#160;protected]</a></i>
 												</div>
-											</li> -->
+											</li>
 										</ul>
 										<div class="chat-box">
 											<div class="chat-head">
@@ -127,7 +127,7 @@
 											</div>
 											<div class="chat-list">
 												<ul class="msg-list">
-													<!-- <li class="me">
+													<li class="me">
 														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
 														<div class="notification-event">
 															<span class="chat-message-item">
@@ -153,11 +153,11 @@
 															</span>
 															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
 														</div>
-													</li> -->
+													</li>
 												</ul>
 												<form class="text-box">
 													<textarea class="message_body" placeholder="Post enter to post..."></textarea>
-													<!-- <div class="add-smiles">
+													<div class="add-smiles">
 														<span title="add icon" class="em em-expressionless"></span>
 													</div>
 													<div class="smiles-bunch">
@@ -173,14 +173,14 @@
 														<i class="em em-kissing_heart"></i>
 														<i class="em em-rage"></i>
 														<i class="em em-stuck_out_tongue"></i>
-													</div> -->
+													</div>
 													<button type="submit"></button>
 												</form>
 											</div>
 										</div>
-									</div><!-- friends list sidebar -->
-								</aside>
-							</div>  <!-- sidebar -->
+									</div>
+								</aside> -->
+							</div>  
 						</div>	
 					</div>
 				</div>

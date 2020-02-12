@@ -16,7 +16,7 @@ require_once './jevix/jevix.class.php';
 
             $this -> jevix = new Jevix();
             // Устанавливаем разрешённые теги. (Все не разрешенные теги считаются запрещенными.)
-            // $this -> jevix->cfgAllowTags(array());
+            $this -> jevix->cfgAllowTags(array('strong'));
             
             // Устанавливаем разрешённые параметры тегов.
             // $this -> jevix->cfgAllowTagParams('a', array('title', 'href'));
