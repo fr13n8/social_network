@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/responsive.css">
-
+	<link rel="stylesheet" href="node_modules/sweetalert2-theme/theme-dark/dark.css">
+	<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 </head>
 <body>
 <!-- <div class="se-pre-con"></div> -->

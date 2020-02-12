@@ -83,7 +83,7 @@ $(document).ready(function () {
                     
                 }
                 else{
-                    location.href = './profile.php'
+                    location.href = './profile-setting.php'
                 }
                 
             }

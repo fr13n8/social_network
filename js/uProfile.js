@@ -186,6 +186,13 @@ $(document).ready(function () {
                         });
                     }
                     else if(response.action == "u_updInfo"){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your setiings has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
                         console.log(response);
                         $.each(response[0], function (index, element) {
                             $(".mtrl-select").css({
@@ -239,10 +246,32 @@ $(document).ready(function () {
                 if(response){
                     response = JSON.parse(response);
                     console.log(response);
+                    $.each( response, function( key, value ){
+                        switch (key) {
+                            case "new_password":
+                                $("#u_newPass").val('').attr("placeholder", `${value}`);
+                                break;
+                            case "password":
+                                $("#u_passwordChange").val('').attr("placeholder", `${value}`);
+                                break;
+                            case "confirm_password":
+                                $("#u_confirmPass").val('').attr("placeholder", `${value}`);
+                                break;
+                        }
+                    });
                 }
                 else{
                     console.log("ok");
-                    $("input").val("");
+                    $("#u_newPass").val('')
+                    $("#u_passwordChange").val('')
+                    $("#u_confirmPass").val('')
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your password has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                 }
             }
         });

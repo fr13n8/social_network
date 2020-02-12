@@ -207,7 +207,7 @@ $(document).ready(function () {
                 response = JSON.parse(response);
                 console.log(response);
                 let country;
-                if(response[0].u_country){
+                if(response[0].u_country && response[0].u_country != "country"){
                     country = response[0].u_country;
                     $.getJSON("country-codes/country.json",
                             function (data) {
@@ -221,8 +221,9 @@ $(document).ready(function () {
                             );
                 }
                 else{
-                    $("#u_live").html(`Place of residence not known`);
+                    $("#u_live").html(`City : ${response[0].u_city}`);
                 }
+                
                
                 
 
@@ -317,11 +318,21 @@ $(document).ready(function () {
                 }
 
                 if(response.fr_friends){
-                    let fr_friends = response.fr_friends.reverse();
-                    $(".interest-added").empty();
-                    $.each(fr_friends, function (indexInArray, element) { 
-                        $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`);
-                        $(".interests-list").append(`<li>${element.interest}</li>`);
+                    console.log("FRRRRRRRRRRRRR")
+                    console.log(response.fr_friends);
+                    response.fr_friends.forEach(element => {
+                        $("#frends > ul").append(`<li data-value="${element.ID}">
+                                                     <div class="nearly-pepls">
+                                                         <figure>
+                                                             <a href="#" class='get_fr' data-value="${element.email}" title=""><img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt=""></a>
+                                                         </figure>
+                                                         <div class="pepl-info">
+                                                             <h4><a href="#" class='get_fr' data-value="${element.email}" title="">${element.name} ${element.surname}</a></h4>
+                                                             <span>${element.email}</span>
+                                                             <a href="#" title="" data-value="${element.email}" class="add-butn unfriend" data-ripple="">unfriend</a>
+                                                         </div>
+                                                     </div>
+                                                 </li>`)
                     });
                 }
         }

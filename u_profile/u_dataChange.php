@@ -369,6 +369,7 @@ session_start();
                                         about as u_about FROM users WHERE session = $u_session")->fetch_all(true);
             $u_info["action"] = "u_updInfo";
             $u_info = json_encode($u_info);
+            $_SESSION["checkSettings"] = "checked";
             echo $u_info;
         }
 
