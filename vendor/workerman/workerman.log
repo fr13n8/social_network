@@ -1277,3 +1277,25 @@ Stack trace:
 #7 C:\xampp\htdocs\social_network\u_profile\websocket.php(141): Workerman\Worker::runAll()
 #8 {main}
 2020-02-13 03:00:08 pid:1 Worker process terminated
+2020-02-13 18:15:41 pid:1 Error: Using $this when not in object context in C:\xampp\htdocs\social_network\u_profile\websocket.php:33
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(657): {closure}(Object(Workerman\Connection\TcpConnection), Array)
+#1 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(292): Workerman\Connection\TcpConnection->baseRead(Resource id #85)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#6 C:\xampp\htdocs\social_network\u_profile\websocket.php(142): Workerman\Worker::runAll()
+#7 {main}
+2020-02-13 18:15:41 pid:1 Worker process terminated
+2020-02-13 18:16:08 pid:1 Error: Using $this when not in object context in C:\xampp\htdocs\social_network\u_profile\websocket.php:33
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Connection\TcpConnection.php(657): {closure}(Object(Workerman\Connection\TcpConnection), Array)
+#1 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(292): Workerman\Connection\TcpConnection->baseRead(Resource id #24)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#6 C:\xampp\htdocs\social_network\u_profile\websocket.php(142): Workerman\Worker::runAll()
+#7 {main}
+2020-02-13 18:16:08 pid:1 Worker process terminated

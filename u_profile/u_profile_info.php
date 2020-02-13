@@ -96,7 +96,8 @@ session_start();
                                                 users.surname,
                                                 users.email,
                                                 photos.photo_path,
-                                                users.ID
+                                                users.ID,
+                                                users.online
                                             FROM
                                                 users
                                             INNER JOIN photos ON photos.user_id = users.ID

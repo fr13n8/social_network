@@ -26,7 +26,8 @@ jQuery(document).ready(function($) {
 					console.log(data);
 					$(".msgs_name").html(`${data[0].name} ${data[0].surname}`);
 					$('.message_body').attr("data-value", `${data[0].ID}`);
-					$('.message_body1').attr("data-value", `${data[0].ID}`);
+					// $('#message_body1').attr("data-id", ' ');
+					// $('#message_body1').attr("data-id", `${data[0].ID}`);
 					let u_miniature = data[0].photo_path + "_min.jpg";
 					$(".conversation-head").find("img").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
 					$(".conversation-head").find("span").html(`${data[0].name} ${data[0].surname}`);
@@ -258,6 +259,7 @@ $('.user-img').on('click', function(e) {
 
 $(".peoples").on('click', 'li', function(){
 	let fr_id = $(this).data("value");
+	$("#message_body1").attr("data-id", fr_id);
 	let fr_photo_phath = $(this).find('img').attr("src");
 	let u_photo_phath = $(".u_top_miniature").attr("src");
 	$(".peoples-mesg-box").toggleClass("show-mesg-box");
@@ -314,15 +316,21 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 })
 	$('.close-mesage').on('click', function() {
 		$('.chat-box').removeClass("show");
+		let data = {
+			action : "delTimer"
+		};
+		socket.send(JSON.stringify(data));
 		return false;
 	});	
 	
 //------ message send
-
-$('.message_body1').bind("enterKey",function(e){
+$('#message_body1').bind("enterKey",function(e){
 	let message = $(this).val();
-	let fr_id = $(this).data("value");
-	$(this).val("");
+	// console.log($(this));
+	console.log($(this).attr("data-id"));
+	// console.log(fr_id)
+	let fr_id = $(this).attr("data-id");
+	console.log(fr_id);
 	let u_session = localStorage.getItem('u_session');
 	let data = {
 		friend_id : fr_id,
@@ -330,12 +338,12 @@ $('.message_body1').bind("enterKey",function(e){
 		action : "snd_msg",
 		u_session : u_session
 	};
-	console.log("snd msg");
-	console.log(($(this)));
-	console.log($(this).data("value"));
+	// console.log("snd msg");
+	// console.log(($(this)));
 	socket.send(JSON.stringify(data));
+	$(this).val("");
 	scrollToBottom1();
-	console.log($(this).data("value"));
+	// console.log($(this).data("value"));
 	// scrollToBottom()
 	// console.log(message);
 	// $.ajax({
@@ -351,7 +359,7 @@ $('.message_body1').bind("enterKey",function(e){
 	// 	}
 	// });
  });
- $('.message_body1').keyup(function(e){
+ $('#message_body1').keyup(function(e){
 	 if(e.keyCode == 13)
 	 {
 		 $(this).trigger("enterKey");
@@ -360,7 +368,7 @@ $('.message_body1').bind("enterKey",function(e){
 
  $('.message_body').bind("enterKey",function(e){
 	let message = $(this).val();
-	let fr_id = $(this).data("value");
+	let fr_id = $(this).attr("data-value");
 	$(this).val("");
 	let u_session = localStorage.getItem('u_session');
 	let data = {
@@ -991,12 +999,19 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 				if(response.u_friends){
 					$(".friendz-count").html(response.u_friends.length);
                     response.u_friends.forEach(element => {
+						var check;
+						if(element.online == 1){
+							check = "f-online";
+						}
+						else{
+							check = "f-offline";
+						}
                         $("#people-list").append(`
 											
 											<li data-value="${element.ID}">
 												<div class="author-thmb">
 													<img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
-													<span class="status f-online"></span>
+													<span class="status ${check}"></span>
 												</div>
 											</li>`);
 				   });
@@ -1017,9 +1032,16 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 				   });
 
 				   response.u_friends.forEach(element => {
+					var check;
+					if(element.online == 1){
+						check = "f-online";
+					}
+					else{
+						check = "f-offline";
+					}
 					$(".peoples").append(`<li data-value="${element.ID}">
 											<figure><img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
-												<span class="status f-away"></span>
+												<span class="status ${check}"></span>
 											</figure>
 											<div class="people-name">
 												<span>${element.name} ${element.surname}</span>

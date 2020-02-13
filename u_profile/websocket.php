@@ -37,7 +37,7 @@ $ws_worker->onMessage = function($connection, $data)
         return false;
     }
     else if($data["action"] == "get_messages"){
-        Timer::delAll();
+        // Timer::delAll();
         // 2.5 seconds
         // var_dump($data);
         $time_interval = 0.1; 

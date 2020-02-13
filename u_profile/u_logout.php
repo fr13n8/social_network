@@ -20,7 +20,7 @@ session_start();
             $u_session = $_SESSION['u_session'];
             $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
             $id = $id[0]["ID"];
-            $this -> db -> query("UPDATE users SET session = '' WHERE ID = '$id'");
+            $this -> db -> query("UPDATE users SET session = '', online = 0 WHERE ID = '$id'");
             session_destroy();
         }
     }
