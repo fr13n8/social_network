@@ -13,7 +13,7 @@ require_once '../jevix/jevix.class.php';
                         $u_data = [
                             "name" => $_POST["name"],
                             "surname" => $_POST["surname"],
-                            "age" => $_POST["age"],
+                            // "age" => $_POST["age"],
                             "email" => $_POST["email"],
                             "password" => $_POST["password"],
                             "confirm_password" => $_POST["confirm_password"]
@@ -48,7 +48,7 @@ require_once '../jevix/jevix.class.php';
                     $this->inp_errors[$key] = "Please input your {$key}";
                 }
                 else{
-                    $this->age_valid($u_data["age"]);
+                    // $this->age_valid($u_data["age"]);
                     $this->email_valid($u_data["email"]);
                     $this->length_valid($u_data);
                     $this->password_confirm($u_data["password"], $u_data["confirm_password"]);
@@ -114,14 +114,14 @@ require_once '../jevix/jevix.class.php';
             }
         }
 
-        function age_valid($u_age){
-            if(filter_var($u_age, FILTER_VALIDATE_INT)){
-                return;
-            }
-            else{
-                $this->inp_errors["age"] = "Please input the correct age";
-            }
-        }
+        // function age_valid($u_age){
+        //     if(filter_var($u_age, FILTER_VALIDATE_INT)){
+        //         return;
+        //     }
+        //     else{
+        //         $this->inp_errors["age"] = "Please input the correct age";
+        //     }
+        // }
 
         function email_valid($u_email){
             $u_email = str_replace(' ', '', $u_email);
@@ -160,15 +160,15 @@ require_once '../jevix/jevix.class.php';
             $u_password = password_hash($u_data["password"], PASSWORD_BCRYPT, $options);
             $u_name = $u_data["name"];
             $u_surname = $u_data["surname"];
-            $u_age = $u_data["age"];
+            // $u_age = $u_data["age"];
             $u_email = $u_data["email"];
             $u_name = mysqli_real_escape_string($this->db, $u_name);
             $u_password = mysqli_real_escape_string($this->db, $u_password);
             $u_surname = mysqli_real_escape_string($this->db, $u_surname);
-            $u_age = mysqli_real_escape_string($this->db, $u_age);
+            // $u_age = mysqli_real_escape_string($this->db, $u_age);
             $u_email = mysqli_real_escape_string($this->db, $u_email);
-            $this -> db -> query("INSERT INTO users(name, surname, age, email, password) 
-                                VALUES('$u_name', '$u_surname', '$u_age', '$u_email', '$u_password')");
+            $this -> db -> query("INSERT INTO users(name, surname, email, password) 
+                                VALUES('$u_name', '$u_surname', '$u_email', '$u_password')");
 
             $jd_photo = "anonymous";
             

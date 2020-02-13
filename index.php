@@ -7,6 +7,8 @@ session_destroy();
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/logRegStyle.css">
+	<link rel="stylesheet" href="node_modules/sweetalert2-theme/theme-dark/dark.css">
+	<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 	<title>user login</title>
 </head>
 <body>

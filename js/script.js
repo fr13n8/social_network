@@ -7,9 +7,11 @@ jQuery(document).ready(function($) {
 	socket.onopen = function(e) {
 	  console.log("[open] Соединение установлено");
 	  console.log("Отправляем данные на сервер");
-		getPosts();
-		getComments();
-		getLDs();
+		setTimeout(() => {
+			getPosts();
+			getComments();
+			getLDs();
+		}, 400);
 	//   socket.send("Меня зовут Джон");
 	};
 	
@@ -21,9 +23,13 @@ jQuery(document).ready(function($) {
 
 		switch (data.action) {
 			case "msgs-data":
-					// console.log("show-msgs");
+					console.log(data);
 					$(".msgs_name").html(`${data[0].name} ${data[0].surname}`);
 					$('.message_body').attr("data-value", `${data[0].ID}`);
+					$('.message_body1').attr("data-value", `${data[0].ID}`);
+					let u_miniature = data[0].photo_path + "_min.jpg";
+					$(".conversation-head").find("img").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
+					$(".conversation-head").find("span").html(`${data[0].name} ${data[0].surname}`);
 					// scrollToBottom();
 					// if (elem.scrollTop >= (elem.scrollHeight - elem.clientHeight)) {
 					// 	elem.scrollTop = 0;
@@ -35,22 +41,26 @@ jQuery(document).ready(function($) {
 				// console.log("get_messages");
 				// console.log(data);
 				$(".chat-list > ul").empty();
-
+				$(".chatting-area").empty();
 				$.each(data, function (indexInArray, element) { 
 					if(isNaN(indexInArray)){
 						return;
 					}
 					else{
-						let person, person_avatar;
+						let person, person_avatar, person1, person1_avatar;
 						if(element.receiver_id == data.fr_id){
 							// console.log(222)
 							person = "you";
+							person1 = "me";
 							person_avatar = data.u_photo_phath;
+							person1_avatar = data.fr_photo_phath;
 						}
 						else{
 							// console.log(333)
 							person = "me";
+							person1 = "you";
 							person_avatar = data.fr_photo_phath;
+							person1_avatar = data.u_photo_phath;
 						}
 						$(".chat-list > ul").append(`
 												<li class="${person}">
@@ -62,6 +72,10 @@ jQuery(document).ready(function($) {
 														<span class="notification-date"><time datetime="${element.time}" class="entry-date updated">${element.time}</time></span>
 													</div>
 												</li>`);
+						$(".chatting-area").append(`<li class="${person1}">
+														<figure><img src="${person_avatar}" alt=""></figure>
+														<p>${element.message}</p>
+													</li>`);
 					}
 				});
 				break;
@@ -212,10 +226,15 @@ jQuery(document).ready(function($) {
 
 	function scrollToBottom() {
 		let scrollCount = $(".msg-list")[0].scrollHeight;
-		// console.log(scrollCount)
+		console.log(scrollCount)
 		$(".msg-list").stop().animate({scrollTop : scrollCount });
 	  }
 	  
+	function scrollToBottom1(){
+		let scrollCount1 = $(".chatting-area")[0].scrollHeight;
+		// console.log(scrollCount)
+		$(".chatting-area").stop().animate({scrollTop : scrollCount1 });
+	}
 
 //------- Notifications Dropdowns
   $('.top-area > .setting-area > li').on("click",function(){
@@ -237,9 +256,26 @@ $('.user-img').on('click', function(e) {
 		$('.user-setting').toggleClass("active");	
 });	
 
+$(".peoples").on('click', 'li', function(){
+	let fr_id = $(this).data("value");
+	let fr_photo_phath = $(this).find('img').attr("src");
+	let u_photo_phath = $(".u_top_miniature").attr("src");
+	$(".peoples-mesg-box").toggleClass("show-mesg-box");
+	let u_session = localStorage.getItem('u_session');
+	let data = {
+		friend_id : fr_id,
+		action : "show_msgs",
+		u_session : u_session
+	};
+	socket.send(JSON.stringify(data));
+	getMessages(fr_id, fr_photo_phath, u_photo_phath);
+	setTimeout(() => {
+		scrollToBottom1();
+	}, 200);
+})
 
 $('.friendz-list, .chat-users').on('click', 'li', function(){
-	$('.chat-box').addClass("show");
+	$('.chat-box').toggleClass("show");
 	let fr_id = $(this).data("value");
 	let fr_photo_phath = $(this).find('img').attr("src");
 	let u_photo_phath = $(".u_top_miniature").attr("src");
@@ -283,6 +319,45 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	
 //------ message send
 
+$('.message_body1').bind("enterKey",function(e){
+	let message = $(this).val();
+	let fr_id = $(this).data("value");
+	$(this).val("");
+	let u_session = localStorage.getItem('u_session');
+	let data = {
+		friend_id : fr_id,
+		message : message,
+		action : "snd_msg",
+		u_session : u_session
+	};
+	console.log("snd msg");
+	console.log(($(this)));
+	console.log($(this).data("value"));
+	socket.send(JSON.stringify(data));
+	scrollToBottom1();
+	console.log($(this).data("value"));
+	// scrollToBottom()
+	// console.log(message);
+	// $.ajax({
+	// 	type: "post",
+	// 	url: "./u_profile/u_messages.php",
+	// 	data: {
+	// 		friend_id : fr_id,
+	// 		message : message,
+	// 		action : "snd_msg"
+	// 	},
+	// 	success: function (response) {
+			
+	// 	}
+	// });
+ });
+ $('.message_body1').keyup(function(e){
+	 if(e.keyCode == 13)
+	 {
+		 $(this).trigger("enterKey");
+	 }
+ });
+
  $('.message_body').bind("enterKey",function(e){
 	let message = $(this).val();
 	let fr_id = $(this).data("value");
@@ -294,8 +369,12 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 		action : "snd_msg",
 		u_session : u_session
 	};
+	console.log("snd msg");
+	console.log(($(this)));
+	console.log($(this).data("value"));
 	socket.send(JSON.stringify(data));
 	scrollToBottom();
+	console.log($(this).data("value"));
 	// scrollToBottom()
 	// console.log(message);
 	// $.ajax({
@@ -936,6 +1015,17 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 													</div>
 												</li>`)
 				   });
+
+				   response.u_friends.forEach(element => {
+					$(".peoples").append(`<li data-value="${element.ID}">
+											<figure><img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
+												<span class="status f-away"></span>
+											</figure>
+											<div class="people-name">
+												<span>${element.name} ${element.surname}</span>
+											</div>
+										</li>`)
+				});
                 }
         }
 	});

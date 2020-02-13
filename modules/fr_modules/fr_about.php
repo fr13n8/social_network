@@ -21,6 +21,9 @@
 												<li class="nav-item">
 													<a href="#interest" class="nav-link" data-toggle="tab"  >interests</a>
 												</li>
+												<li class="nav-item">
+													<a href="#fr_birth" class="nav-link" data-toggle="tab"  >Birth</a>
+												</li>
 												<!-- <li class="nav-item">
 													<a href="#lang" class="nav-link" data-toggle="tab" >languages</a>
 												</li> -->
@@ -56,6 +59,11 @@
 														<!-- <li>Footbal</li>
 														<li>internet</li>
 														<li>photography</li> -->
+													</ul>
+												</div>
+												<div class="tab-pane fade" id="fr_birth" role="tabpanel">
+													<ul class="basics">
+														<li><i class="ti-user"></i><span id="fr_date"></span></li>
 													</ul>
 												</div>
 												<!-- <div class="tab-pane fade" id="lang" role="tabpanel">

@@ -24,7 +24,7 @@
 											<div class="dob">
 												<div class="form-group">
 													<select class="day">
-														<option value="Day">Day</option>
+														<option value="day">Day</option>
 														  <option>1</option>
 														  <option>2</option>
 														  <option>3</option>

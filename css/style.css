@@ -4312,11 +4312,20 @@ a.forgot-pwd {
 }
 
 .peoples-mesg-box {
-    display: inline-block;
+    display: none;
     vertical-align: top;
     width: 64.5%;
     padding-left: 15px;
 }
+
+.show-mesg-box{
+    display: inline-block;
+}
+
+.chatting-area > li > p{
+    max-width: 300px;
+    word-wrap: break-word;
+} 
 
 .peoples-mesg-box > ul.chatting-area {
     display: inline-block;
@@ -4394,7 +4403,7 @@ a.forgot-pwd {
 .peoples-mesg-box > ul li.me p {
     margin-left: 0;
     margin-right: 10px;
-    text-align: left;
+    /* text-align: left; */
     direction: ltr;
 }
 
@@ -4403,7 +4412,7 @@ li.me{
 }
 
 li.you{
-    text-align:right;
+    /* text-align:right; */
 }
 
 .conversation-head {

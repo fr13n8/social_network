@@ -45,6 +45,13 @@ $(document).ready(function () {
                 else{
                     $("input").val("");
                     $("input").css({border : "none"});
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'You have successfully registered',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                 }
             }
         });
@@ -67,6 +74,10 @@ $(document).ready(function () {
                 if(response){
                     response = JSON.parse(response);
                     console.log(response);
+                    if(response[0].settingsCheck){
+                        console.log("redirecting")
+                        response[0].settingsCheck == 1?location.href = './profile.php':location.href = './profile-setting.php';
+                    }
 
                     $("input").css({border : "none"});
                     for (const key in response) {
@@ -82,9 +93,9 @@ $(document).ready(function () {
                     }
                     
                 }
-                else{
-                    location.href = './profile-setting.php'
-                }
+                // else{
+                //     location.href = './profile-setting.php'
+                // }
                 
             }
         });

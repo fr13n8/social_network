@@ -143,6 +143,9 @@ session_start();
                                             user.country AS u_country,
                                             user.phone AS u_phone,
                                             user.about AS u_about,
+                                            user.day AS birth_day,
+                                            user.month AS birth_month,
+                                            user.year AS birth_year,
                                             photos.photo_path,
                                             back.background_path
                                         FROM
@@ -153,7 +156,7 @@ session_start();
                                             email = '$fr_email'
                                             AND photos.active = 1
                                             AND back.active = 1")->fetch_all(true);
-            $req_active = $this -> db -> query("SELECT active FROM requests WHERE user_id = '$u_id' AND friend_id = '$fr_id' ")->fetch_all(true);
+            $req_active = $this -> db -> query("SELECT active FROM requests WHERE user_id = '$u_id' AND friend_id = '$fr_id' OR user_id = '$fr_id' AND friend_id = '$u_id'")->fetch_all(true);
             $check_friend = $this -> db -> query("SELECT active FROM friends WHERE user_id = '$u_id' AND friend_id = '$fr_id' UNION SELECT active FROM friends WHERE user_id = '$fr_id' AND friend_id = '$u_id'")->fetch_all(true);
             $fr_photos = $this->db->query("SELECT photo_path FROM photos WHERE user_id = (SELECT ID FROM users WHERE email = '$fr_email')")->fetch_all(true);
             $fr_friends = $this->db->query("SELECT

@@ -56,9 +56,7 @@ session_start();
                         $this->u_changePassValid($u_data);
                         break;
                     case 'add_interest':
-                        $u_data = [
-                            "interest" => $_POST["interest"]
-                        ];
+                        $u_data = $_POST["interest"];
                         $this->data_clean($u_data);
                         $this->add_interest($u_data);
                     break;
@@ -147,22 +145,31 @@ session_start();
                     case 'gender':
                         // return;
                         break;
-                    case 'name':
-                        // return;
-                        break;
-                    case 'surname':
-                        // return;
-                        break;
-                    case 'email':
-                        // return;
-                        break;
+                    // case 'name':
+                    //     // return;
+                    //     break;
+                    // case 'surname':
+                    //     // return;
+                    //     break;
+                    // case 'email':
+                    //     // return;
+                    //     break;
                     case 'day':
+                        if($u_data[$key] == "day"){
+                            $this->inp_errors[$key] = "Please input your {$key}";
+                        }
                         // return;
                         break;
                     case 'month':
+                        if($u_data[$key] == "month"){
+                            $this->inp_errors[$key] = "Please input your {$key}";
+                        }
                         // return;
                         break;
                     case 'year':
+                        if($u_data[$key] == "year"){
+                            $this->inp_errors[$key] = "Please input your {$key}";
+                        }
                         // return;
                         break;
                     default:
@@ -396,7 +403,11 @@ session_start();
                                         about as u_about FROM users WHERE session = $u_session")->fetch_all(true);
             $u_info["action"] = "u_updInfo";
             $u_info = json_encode($u_info);
-            $_SESSION["checkSettings"] = "checked";
+            if($_SESSION["checkSettings"] != 1){
+                $settingsCheck = 1;
+                $_SESSION["checkSettings"] = $settingsCheck;
+                $this -> db -> query("UPDATE users SET settingsCheck = 1 WHERE session = $u_session");
+            }
             echo $u_info;
         }
 
@@ -412,11 +423,15 @@ session_start();
 
         function add_interest($u_data){
             $u_session = $_SESSION["u_session"];
-            $interest = $u_data["interest"];
-            $interest =$this->jevix->parse($interest,$errors);
+            $interest = $u_data;
             $id = $this -> db -> query("SELECT ID FROM users WHERE session = $u_session")->fetch_all(true);
             $id = $id[0]["ID"];
-            $this -> db -> query("INSERT INTO interests(interest, user_id) VALUES('$interest', '$id')");
+
+            foreach ($interest as $key => $value) {
+                $value =$this->jevix->parse($value,$errors);
+                $this -> db -> query("INSERT INTO interests(interest, user_id) VALUES('$value', '$id')");
+            }
+            
             $interests = $this -> get_interests($id);
 
             echo $interests;

@@ -224,7 +224,12 @@ $(document).ready(function () {
                     $("#u_live").html(`City : ${response[0].u_city}`);
                 }
                 
-               
+                if(response[0].birth_day && response[0].birth_month && response[0].birth_year){
+                    let d = +response[0].birth_day;
+                    let m = response[0].birth_month;
+                    let y = +response[0].birth_year;
+                    $("#fr_date").html(`Date : ${d} ${m} ${y}`);
+                }
                 
 
                 $(".admin-name > h5").html(`${response[0].u_name} ${response[0].u_surname}`);
@@ -330,7 +335,6 @@ $(document).ready(function () {
                                                          <div class="pepl-info">
                                                              <h4><a href="#" class='get_fr' data-value="${element.email}" title="">${element.name} ${element.surname}</a></h4>
                                                              <span>${element.email}</span>
-                                                             <a href="#" title="" data-value="${element.email}" class="add-butn unfriend" data-ripple="">unfriend</a>
                                                          </div>
                                                      </div>
                                                  </li>`)

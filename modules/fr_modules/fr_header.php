@@ -105,7 +105,7 @@
 											</li> -->
 											<li>
 												<i class="ti-comments-smiley"></i>
-												<a href="messages.html" title="">Messages</a>
+												<a href="u_messages.php" title="">Messages</a>
 											</li>
 											<!-- <li>
 												<i class="ti-bell"></i>

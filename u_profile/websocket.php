@@ -30,16 +30,18 @@ $ws_worker->onMessage = function($connection, $data)
     $data = json_decode($data);
     $data = (array) $data;
     if($data["action"] == "show_msgs"){
+        // Timer::delAll();
         // var_dump($data);
         $messages = new MessagesController($data);
         $connection->send($messages->callback);
         return false;
     }
     else if($data["action"] == "get_messages"){
+        Timer::delAll();
         // 2.5 seconds
         // var_dump($data);
         $time_interval = 0.1; 
-        $timer_id = Timer::add($time_interval, 
+        $msg_timer = Timer::add($time_interval, 
             function() use($connection, $data)
             {
                 // echo "Timer run\n";
@@ -48,8 +50,10 @@ $ws_worker->onMessage = function($connection, $data)
                 $connection->send($messages->callback);
             }
         );
+        
     }
     else if($data["action"] == "snd_msg"){
+        // Timer::delAll();
         // var_dump($data);
         $messages = new MessagesController($data);
         return false;
@@ -129,8 +133,8 @@ $ws_worker->onMessage = function($connection, $data)
 // Emitted when connection closed
 $ws_worker->onClose = function($connection)
 {
+    Timer::delAll();
     echo "Connection closed\n";
-    // Timer::delAll();
     // echo "Timers are closed";
 };
 

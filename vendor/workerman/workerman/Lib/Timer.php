@@ -174,7 +174,7 @@ class Timer
     public static function delAll()
     {
         self::$_tasks = array();
-        \pcntl_alarm(0);
+        // \pcntl_alarm(0);
         if (self::$_event) {
             self::$_event->clearAllTimer();
         }

@@ -190,10 +190,16 @@ $(document).ready(function () {
                                         "border-bottom-color" : "red"
                                     });
                                  }
+                                 if(index == "day" || index == "month" || index == "year"){
+                                     $(`.${index}`).siblings(".chosen-container-single").find(".chosen-single").css({
+                                         "border-color" : "red"
+                                     });
+                                 }
                                 $(`#u_${index}Change`).val('').attr('placeholder', `${element}`);
                                 $(`#u_${index}Change`).siblings(".mtrl-select").css({
                                     "border-bottom-color" : "red"
                                 });
+                                
                              }
 
                         });
@@ -226,6 +232,7 @@ $(document).ready(function () {
                                 }
                             }
                        });
+                       location.href = './profile.php';
                         // console.log(response);
                         // for (const key in response[0]) {
                         //     if (response[0].hasOwnProperty(key)) {
@@ -509,25 +516,33 @@ $(document).on('click', "#del_photo", function(){
 $(".add-interest").click(function (e) {
     e.preventDefault();
     let interest = $(".interest-value").val();
+    interest = interest.split(",");
+    interest = $.map(interest, function (element, indexOrKey) {
+        return element.trim();
+    });
+    interest = interest.filter(word => word);
+    console.log(interest)
     $(".interest-value").val('');
     let data = {
         action : "add_interest",
         interest : interest
     };
-    $.ajax({
-        type: "post",
-        url: "./u_profile/u_dataChange.php",
-        data: data,
-        success: function (response) {
-            response = JSON.parse(response);
-            response = response.reverse();
-            console.log(response);
-            $(".interest-added").empty();
-            $.each(response, function (indexInArray, element) { 
-                 $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`)
-            });
-        }
-    });
+    if(interest.length >= 1){
+        $.ajax({
+            type: "post",
+            url: "./u_profile/u_dataChange.php",
+            data: data,
+            success: function (response) {
+                response = JSON.parse(response);
+                response = response.reverse();
+                console.log(response);
+                $(".interest-added").empty();
+                $.each(response, function (indexInArray, element) { 
+                     $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`)
+                });
+            }
+        });
+    }
 })
 
 $(".interest-added").on('click', 'a', function (e){
