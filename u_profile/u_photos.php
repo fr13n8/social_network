@@ -142,7 +142,7 @@ require_once("photo-cut.php");
             cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_avatar.jpg", 219, 214);
             cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_min.jpg", 45, 45);
             $height = imagesy(imagecreatefromjpeg($uploaddir."/".$file_name.".jpg"));
-            cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_gall_min.jpg", 600, $height);
+            cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_gall_min.jpg", 230, 223);
             echo $file_name;
         }
 
@@ -150,7 +150,7 @@ require_once("photo-cut.php");
             cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_avatar.jpg", 219, 214);
             cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_min.jpg", 45, 45);
             $height = imagesy(imagecreatefromjpeg($uploaddir."/".$file_name.".jpg"));
-            cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_gall_min.jpg", 600, $height);
+            cropImage($uploaddir."/".$file_name.".jpg", $uploaddirResized."/".$file_name."_gall_min.jpg", 230, 223);
         }
     }
 

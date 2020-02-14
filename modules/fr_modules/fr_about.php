@@ -3,9 +3,6 @@
 									<div class="about">
 										<div class="personal">
 											<h5 class="f-title"><i class="ti-info-alt"></i> Personal Info</h5>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-											</p>
 										</div>
 										<div class="d-flex flex-row mt-2">
 											<ul class="nav nav-tabs nav-tabs--vertical nav-tabs--left" >

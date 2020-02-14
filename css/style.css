@@ -662,6 +662,7 @@ header.sticky {
     width: 15%;
     position: relative;
     z-index: 10;
+    cursor: pointer;
 }
 
 .topbar > form {
@@ -4331,7 +4332,7 @@ a.forgot-pwd {
     display: inline-block;
     list-style: outside none none;
     margin-bottom: 0;
-    max-height: 322px;
+    height: 322px;
     padding: 40px 15px 10px 0;
     width: 100%;
     position: relative;
@@ -5055,7 +5056,7 @@ canvas {
 .chat-list > ul {
     margin: 0;
     padding-left: 0;
-    max-height: 290px;
+    height: 290px;
     overflow: hidden;
     position: relative;
     padding-right: 8px;
@@ -10253,4 +10254,10 @@ aside.sidebar.full-style {
 
 .fr_profile{
     cursor: pointer;
+}
+
+.close-post{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
 }

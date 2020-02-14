@@ -74,7 +74,7 @@ require_once '../jevix/jevix.class.php';
                         $this->name_length($u_data[$key], $min, $max);
                         break;
                     case 'surname':
-                        $min = 4;
+                        $min = 3;
                         $max = 20;
                         $this->surname_length($u_data[$key], $min, $max);
                         break;

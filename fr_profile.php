@@ -17,6 +17,8 @@ else{
     header('Location: index.php');
 }
 
-
-
 ?>
+
+<script>
+    $("#main-page").addClass("active");
+</script>

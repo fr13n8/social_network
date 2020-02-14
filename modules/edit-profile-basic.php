@@ -380,7 +380,7 @@
 											  <label class="control-label" for="textarea">About Me</label><i class="mtrl-select"></i>
 											</div>
 											<div class="form-group">	
-											  <input type="text" id="u_password" required="required"/>
+											  <input type="password" id="u_password" required="required"/>
 											  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
 											</div>
 											<div class="submit-btns">

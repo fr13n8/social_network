@@ -226,7 +226,7 @@
 												</div>
 											</li> -->
 										</ul>	
-											  <button class="btn-view btn-load-more"></button>
+											  <!-- <button class="btn-view btn-load-more"></button> -->
 										  </div>
 										</div>
 									</div>

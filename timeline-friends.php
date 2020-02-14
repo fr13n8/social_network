@@ -16,3 +16,7 @@ else{
     header('Location: index.php');
 }
 ?>
+
+<script>
+    $("#friend-page").addClass("active");
+</script>

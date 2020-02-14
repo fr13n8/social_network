@@ -1299,3 +1299,25 @@ Stack trace:
 #6 C:\xampp\htdocs\social_network\u_profile\websocket.php(142): Workerman\Worker::runAll()
 #7 {main}
 2020-02-13 18:16:08 pid:1 Worker process terminated
+2020-02-13 22:43:36 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\s_posts.php:148
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\s_posts.php(38): PostsController->get_allComments()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(153): PostsController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_network\ in C:\xampp\htdocs\social_network\u_profile\s_posts.php on line 148"
+2020-02-14 04:40:31 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\s_posts.php:221
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\s_posts.php(26): PostsController->get_frcomments()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(100): PostsController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_network\u in C:\xampp\htdocs\social_network\u_profile\s_posts.php on line 221"

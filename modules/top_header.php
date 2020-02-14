@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-	<title>Night_Hub</title>
+	<title>Night Hub</title>
     <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> 
     
     <link rel="stylesheet" href="css/main.min.css">
@@ -298,7 +298,7 @@
 						</div>
 					</div>
 				</li>
-				<li><a href="newsfeed.html" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
+				<li><a href="newses.php" title="News Line" class="news_line" data-ripple=""><i class="ti-home"></i></a></li>
 				<li>
 					<a href="#" title="Notification" data-ripple="">
 						<i class="ti-bell"></i><span class="notifi-count"></span>
@@ -508,10 +508,10 @@
 			</ul>
 			<div class="chat-box">
 				<div class="chat-head">
-					<span class="status f-online"></span>
+					<!-- <span class="status f-online"></span> -->
 					<h6 class="msgs_name"></h6>
 					<div class="more">
-						<span class="more-optns"><i class="ti-more-alt"></i>
+						<!-- <span class="more-optns"><i class="ti-more-alt"></i> -->
 							<!-- <ul>
 								<li>block chat</li>
 								<li>unblock chat</li>

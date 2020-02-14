@@ -17,3 +17,7 @@ else{
 }
 
 ?>
+
+<script>
+    $("#main-page").addClass("active");
+</script>

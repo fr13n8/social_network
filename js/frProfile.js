@@ -22,12 +22,15 @@ $(document).ready(function () {
                     console.log(data)
                     
                     $.each(data, function (indexInArray, element) {
+                        let me_miniature;
+                        let u_miniature;
+                        me_miniature = data["myphoto"] + "_min.jpg";
                         if(isNaN(indexInArray)){
                             return;
                         }
                         else{
-                            let u_miniature = element["photo_path"] + "_min.jpg";
-                            let me_miniature = $(".u_top_miniature").attr("src");
+                            u_miniature = element["photo_path"] + "_min.jpg";
+                            console.log(me_miniature)
                         var p_photo;
                         if(element.picture){
                             p_photo = `<img src="./u_profile/uploads/posts/${element.picture}.jpg" alt="">`;
@@ -42,7 +45,7 @@ $(document).ready(function () {
                                                                 <img src="./u_profile/uploads/resized/${u_miniature}" alt="">
                                                             </figure>
                                                             <div class="friend-name">
-                                                                <ins><a href="time-line.html" title="">${element.name} ${element.surname}</a></ins>
+                                                                <ins><a href="#" data-value="${element.email}" class="get_fr" title="">${element.name} ${element.surname}</a></ins>
                                                                 <span>published: ${element.time}</span>
                                                             </div>
                                                             <div class="post-meta">
@@ -63,12 +66,6 @@ $(document).ready(function () {
                                                                             </span>
                                                                         </li> -->
                                                                         <li>
-                                                                            <span class="comment" data-toggle="tooltip" title="Comments">
-                                                                                <i class="fa fa-comments-o"></i>
-                                                                                <ins>0</ins>
-                                                                            </span>
-                                                                        </li>
-                                                                        <li>
                                                                             <span class="like" data-toggle="tooltip" data-value="${element.ID}" title="like">
                                                                                 <i class="ti-heart"></i>
                                                                                 <ins>0</ins>
@@ -80,39 +77,6 @@ $(document).ready(function () {
                                                                                 <ins>0</ins>
                                                                             </span>
                                                                         </li>
-                                                                        <li class="social-media">
-                                                                            <div class="menu">
-                                                                            <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                                            <div class="rotater">
-                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                                            </div>
-                                                                            <div class="rotater">
-                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                                            </div>
-                                                                            <div class="rotater">
-                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                                            </div>
-                                                                            <div class="rotater">
-                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                                            </div>
-                                                                            <div class="rotater">
-                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                                            </div>
-                                                                            <div class="rotater">
-                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-                                                                                </div>
-                                                                            </div>
-                                                                                <div class="rotater">
-                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="rotater">
-                                                                                <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-                                                                                </div>
-                                                                            </div>
-    
-                                                                            </div>
-                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                                 
@@ -121,11 +85,10 @@ $(document).ready(function () {
                                                         <div class="coment-area">
                                                             <ul class="we-comet">
                                                                 <li class="load_more">
-                                                                    <a href="#" title="" class="showmore underline">more comments</a>
                                                                 </li>
                                                                 <li class="post-comment">
                                                                     <div class="comet-avatar">
-                                                                        <img src="${me_miniature}" alt="">
+                                                                        <img src="./u_profile/uploads/resized/${me_miniature}" alt="">
                                                                     </div>
                                                                     <div class="post-comt-box">
                                                                         <form method="post">
@@ -156,7 +119,7 @@ $(document).ready(function () {
                                             </div>
                                             <div class="we-comment">
                                                 <div class="coment-head">
-                                                    <h5><a href="time-line.html" title="">${element.name} ${element.surname}</a></h5>
+                                                    <h5><a href="#" data-value="${element.email}" class="get_fr" title="">${element.name} ${element.surname}</a></h5>
                                                     <span>${element.time}</span>
                                                     <i class="fa fa-reply"></i>
                                                 </div>
@@ -273,7 +236,9 @@ $(document).ready(function () {
                 else{
                     return;
                 }
-            
+                if(response[0].u_about){
+                    $(".personal").append(`<p>${response[0].u_about}</p>`);
+                }
                 $("#u_phone").append(`${response[0].u_phone}`);
                 $.each(response[0], function (index, element) { 
                     if(index != "action"){
@@ -360,6 +325,28 @@ $(document).ready(function () {
             });
         }
     });
+
+    $(document).on("click", '.get_fr', function(event){
+		event.preventDefault();
+		event.stopPropagation();
+		let fr_email = $(this).data("value");
+		localStorage.setItem('fr_email', fr_email);
+		console.log(fr_email);
+		let fr_data = {
+			action : "fr_email",
+			email : fr_email
+		}
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_search.php",
+			data: fr_data,
+			success: function (response) {
+				if(response){
+					location.href = './fr_profile.php'
+				}
+			}
+		});
+	})
 
     $(".add-btn").on('click', ".snd_request", function () {
         $.ajax({

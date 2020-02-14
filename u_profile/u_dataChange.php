@@ -178,6 +178,7 @@ session_start();
                         }
                         else{
                             // $this->age_valid($u_data["age"]);
+                            $this->phone_valid($u_data["phone"]);
                             $this->email_valid($u_data["email"]);
                             $this->length_valid($u_data);
                             $this->password_confirm($u_data);
@@ -245,7 +246,7 @@ session_start();
                         break;
                     case 'about':
                         $min = 15;
-                        $max = 150;
+                        $max = 700;
                         if(empty($u_data[$key])){
                             break;
                         }
@@ -261,7 +262,7 @@ session_start();
                 $this->inp_errors["about"] = "Text must contain at least 15 characters";
             }
             else if(strlen($u_about) >= $max){
-                $this->inp_errors["about"] = "Text should contain no more than 150 characters";
+                $this->inp_errors["about"] = "Text should contain no more than 700 characters";
             }
         }
 
@@ -301,15 +302,15 @@ session_start();
             }
         }
 
-        // function age_valid($u_age){
-        //     if(filter_var($u_age, FILTER_VALIDATE_INT)){
-        //         return;
-        //     }
-        //     else{
-        //         $this->inp_errors["age"] = "Please input the correct age";
-        //     }
-        // }
+        function phone_valid($u_phone){
+            if(preg_match('/^[0-9]{9}+$/', $u_phone)) {
+            }else{
+                $this->inp_errors["phone"] = "Please input the correct number";
+            }
+        }
+        
 
+        
         function email_valid($u_email){
             $u_email = str_replace(' ', '', $u_email);
             $u_session = $_SESSION['u_session'];

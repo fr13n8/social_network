@@ -74,9 +74,11 @@ $(document).ready(function () {
                 if(response){
                     response = JSON.parse(response);
                     console.log(response);
-                    if(response[0].settingsCheck){
+                    if(response[0]){
+                        if(response[0].settingsCheck){
                         console.log("redirecting")
                         response[0].settingsCheck == 1?location.href = './profile.php':location.href = './profile-setting.php';
+                        }
                     }
 
                     $("input").css({border : "none"});

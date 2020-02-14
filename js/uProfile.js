@@ -47,6 +47,9 @@ $(document).ready(function () {
                 $("#u_name").html(` ${response[0].u_name} ${response[0].u_surname}`);
                 $("#u_email").html(`${response[0].u_email}`);
                 $("#u_phone").append(`${response[0].u_phone}`);
+                if(response[0].u_about){
+                    $(".personal").append(`<p>${response[0].u_about}</p>`);
+                }
                 $.each(response[0], function (index, element) { 
                     if(index != "action"){
                         if(element){
@@ -416,10 +419,7 @@ $.ajax({
         console.log(response)
         if(response){
             response.forEach(element => {
-                if(element == "anonymous"){
-                    return;
-                }
-                else{
+                if(element != "anonymous"){
                     $(".photos").append(`<li>									
                                             <div class="user-photos">
                                                 <figure>

@@ -17,3 +17,5 @@ else{
 }
 
 ?>
+
+<script src="js/newses.js"></script>

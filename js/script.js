@@ -97,12 +97,13 @@ jQuery(document).ready(function($) {
 					}
 					$(".post_form").after(`	<div class="central-meta item myposts" id="post_${element.ID}">
 												<div class="user-post">
-													<div class="friend-info">
+													<div class="friend-info" >
+													<span class="close-post" data-value="${element.ID}"><i class="ti-close"></i></span>
 														<figure>
 															<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
 														</figure>
 														<div class="friend-name">
-															<ins><a href="time-line.html" title="">${element.name} ${element.surname}</a></ins>
+															<ins><a href="#" title="">${element.name} ${element.surname}</a></ins>
 															<span>published: ${element.time}</span>
 														</div>
 														<div class="post-meta">
@@ -122,12 +123,6 @@ jQuery(document).ready(function($) {
 																			<ins>1.2k</ins>
 																		</span>
 																	</li> -->
-																	<li>
-																		<span class="comment" data-toggle="tooltip" title="Comments">
-																			<i class="fa fa-comments-o"></i>
-																			<ins>0</ins>
-																		</span>
-																	</li>
 																	<li>
 																		<span class="like" data-toggle="tooltip" data-value="${element.ID}" title="like">
 																			<i class="ti-heart"></i>
@@ -149,7 +144,6 @@ jQuery(document).ready(function($) {
 													<div class="coment-area">
 														<ul class="we-comet">
 															<li class="load_more">
-																<a href="#" title="" class="showmore underline">more comments</a>
 															</li>
 															<li class="post-comment">
 																<div class="comet-avatar">
@@ -185,7 +179,7 @@ jQuery(document).ready(function($) {
 										</div>
 										<div class="we-comment">
 											<div class="coment-head">
-												<h5><a href="time-line.html" title="">${element.name} ${element.surname}</a></h5>
+												<h5><a href="#" data-value="${element.email}" class="get_fr" title="">${element.name} ${element.surname}</a></h5>
 												<span>${element.time}</span>
 												<i class="fa fa-reply"></i>
 											</div>
@@ -210,6 +204,28 @@ jQuery(document).ready(function($) {
 		}
 	};
 	
+	$(document).on("click", '.get_fr', function(event){
+		event.preventDefault();
+		event.stopPropagation();
+		let fr_email = $(this).data("value");
+		localStorage.setItem('fr_email', fr_email);
+		console.log(fr_email);
+		let fr_data = {
+			action : "fr_email",
+			email : fr_email
+		}
+		$.ajax({
+			type: "post",
+			url: "./u_profile/u_search.php",
+			data: fr_data,
+			success: function (response) {
+				if(response){
+					location.href = './fr_profile.php'
+				}
+			}
+		});
+	})
+
 	socket.onclose = function(event) {
 	  if (event.wasClean) {
 		console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
@@ -577,16 +593,16 @@ if ($.isFunction($.fn.userincr)) {
 	}).data({'min':0,'max':20,'step':1});
 }	
 	
-if ($.isFunction($.fn.loadMoreResults)) {	
-	$('.loadMore').loadMoreResults({
-		displayedItems: 3,
-		showItems: 1,
-		button: {
-		  'class': 'btn-load-more',
-		  'text': 'Load More'
-		}
-	});	
-}
+// if ($.isFunction($.fn.loadMoreResults)) {	
+// 	$('.loadMore').loadMoreResults({
+// 		displayedItems: 3,
+// 		showItems: 1,
+// 		button: {
+// 		  'class': 'btn-load-more',
+// 		  'text': 'Load More'
+// 		}
+// 	});	
+// }
 	//===== owl carousel  =====//
 	if ($.isFunction($.fn.owlCarousel)) {
 		$('.sponsor-logo').owlCarousel({
@@ -920,6 +936,10 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 
 //============================================================================================================
 
+	$(".news_line").click(function(){
+		location.href = './newses.php'
+	})
+	
 	 $.ajax({
         type: "post",
         url: "./u_profile/u_profile_info.php",
@@ -1010,7 +1030,7 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 											
 											<li data-value="${element.ID}">
 												<div class="author-thmb">
-													<img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" alt="">
+													<img src="u_profile/uploads/resized/${element.photo_path}_min.jpg" title="${element.name} ${element.surname}" alt="">
 													<span class="status ${check}"></span>
 												</div>
 											</li>`);
@@ -1052,7 +1072,7 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
         }
 	});
 
-	$("#frends-req, #frends").on("click", '.get_fr', function(event){
+	$("#frends").on("click", '.get_fr', function(event){
 		event.preventDefault();
 		event.stopPropagation();
 		let fr_email = $(this).data("value");
@@ -1220,8 +1240,13 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 		event.stopPropagation();
 		event.preventDefault(); 
 			let post_description = $(".new-post-description").val();
+			post_description = post_description.trim();
 			console.log(p_photo)
-			
+			if(!post_description){
+				if(!p_photo){
+					return false;
+				}
+			}
 			var data = new FormData();
 			if( typeof p_photo != 'undefined' ){
 				$.each( p_photo, function( key, value ){
@@ -1232,7 +1257,7 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 			data.append( 'action', 'new_post' );
 			data.append('p_description' , post_description);
 	
-
+			$(".new-post-description").val('');
 			$.ajax({
 				url         : './u_profile/u_profile_info.php',
 				type        : 'POST',
@@ -1252,14 +1277,15 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 					else{
 						p_photo = '';
 					}
-					$(".post_form").after(`	<div class="central-meta item myposts" id="post_${response[0].ID}">
+					$(".post_form, .post_form1").after(`	<div class="central-meta item myposts" id="post_${response[0].ID}">
 												<div class="user-post">
-													<div class="friend-info">
+													<div class="friend-info" >
+													<span class="close-post" data-value="${response[0].ID}"><i class="ti-close"></i></span>
 														<figure>
 															<img src="./u_profile/uploads/resized/${u_miniature}" alt="">
 														</figure>
 														<div class="friend-name">
-															<ins><a href="time-line.html" title="">${response[0].name} ${response[0].surname}</a></ins>
+															<ins><a href="#" title="">${response[0].name} ${response[0].surname}</a></ins>
 															<span>published: ${response[0].time}</span>
 														</div>
 														<div class="post-meta">
@@ -1279,12 +1305,6 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 																			<ins>1.2k</ins>
 																		</span>
 																	</li> -->
-																	<li>
-																		<span class="comment" data-toggle="tooltip" title="Comments">
-																			<i class="fa fa-comments-o"></i>
-																			<ins>0</ins>
-																		</span>
-																	</li>
 																	<li>
 																		<span class="like" data-toggle="tooltip" data-value="${response[0].ID}" title="like">
 																			<i class="ti-heart"></i>
@@ -1306,7 +1326,6 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 													<div class="coment-area">
 														<ul class="we-comet">
 															<li class="load_more">
-																<a href="#" title="" class="showmore underline">more comments</a>
 															</li>
 															<li class="post-comment">
 																<div class="comet-avatar">
@@ -1329,6 +1348,10 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 			
 			});
 		
+	})
+
+	$(".logo").click(function(){
+		location.href = './profile.php'
 	})
 
 	$(document).on('click', '.like', function(){
@@ -1392,7 +1415,11 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 		if(e.keyCode == 13)
 		{
 		let message = $(this).val();
+		message = message.trim();
 		let post_id = $(this).data("value");
+		if(!message){
+			return false;
+		}
 		$(this).val("");
 		let u_session = localStorage.getItem('u_session');
 		let data = {
@@ -1430,6 +1457,19 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 			}
 		});
 		}
+	})
+
+	$(".col-lg-6").on('click', '.close-post', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		console.log("delete")
+		let post_id = $(this).attr("data-value");
+		let data = {
+			action : "del_post",
+			post_id : post_id
+		}
+		$(`#post_${post_id}`).remove();
+		socket.send(JSON.stringify(data));
 	})
 
 	function getPosts(){

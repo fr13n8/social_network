@@ -16,7 +16,8 @@ if(isset($_SESSION["u_session"]) && $_SESSION["fr_email"]){
 else{
     header('Location: index.php');
 }
-
-
-
 ?>
+
+<script>
+    $("#photo-page").addClass("active");
+</script>

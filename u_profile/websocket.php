@@ -126,7 +126,40 @@ $ws_worker->onMessage = function($connection, $data)
                 $connection->send($myLDs->callback);
             }
         );
-        
+    }
+    else if($data["action"] == "get_allLDs"){
+        $time_interval = 0.1; 
+        $timer_id = Timer::add($time_interval, 
+            function() use($connection, $data)
+            {
+                // echo "Timer run\n";
+                $myLDs = new PostsController($data);
+                // var_dump($posts->callback);
+                $connection->send($myLDs->callback);
+            }
+        );
+    }
+    else if($data["action"] == "get_allPosts"){
+        $posts = new PostsController($data);
+        // var_dump($posts->callback);
+        $connection->send($posts->callback);
+    }
+    else if($data["action"] == "get_allComments"){
+        $time_interval = 0.1; 
+        $timer_id = Timer::add($time_interval, 
+            function() use($connection, $data)
+            {
+                // echo "Timer run\n";
+                $comments = new PostsController($data);
+                // var_dump($messages->callback);
+                $connection->send($comments->callback);
+            }
+        );
+    }
+    else if($data["action"] == "del_post"){
+                // echo "Timer run\n";
+                $comments = new PostsController($data);
+                // var_dump($messages->callback);
     }
 };
 
