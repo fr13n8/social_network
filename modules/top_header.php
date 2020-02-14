@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="css/responsive.css">
 	<link rel="stylesheet" href="node_modules/sweetalert2-theme/theme-dark/dark.css">
 	<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="node_modules/emojionearea/dist/emojionearea.min.css">
+	
 </head>
 <body>
 <!-- <div class="se-pre-con"></div> -->

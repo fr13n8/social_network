@@ -2,6 +2,7 @@ jQuery(document).ready(function($) {
 	
 	"use strict";
 
+	
 	let socket = new WebSocket("ws://localhost:2346");
 
 	socket.onopen = function(e) {
@@ -276,6 +277,7 @@ $('.user-img').on('click', function(e) {
 $(".peoples").on('click', 'li', function(){
 	let fr_id = $(this).data("value");
 	$("#message_body1").attr("data-id", fr_id);
+	$(".send-msg").attr("data-id", fr_id);
 	let fr_photo_phath = $(this).find('img').attr("src");
 	let u_photo_phath = $(".u_top_miniature").attr("src");
 	$(".peoples-mesg-box").toggleClass("show-mesg-box");
@@ -340,6 +342,37 @@ $('.friendz-list, .chat-users').on('click', 'li', function(){
 	});	
 	
 //------ message send
+
+$(".send-msg").click(function (e) {
+	e.preventDefault()
+	e.stopPropagation()
+	let message = $("#message_body1").val();
+	// $("#message_body1").text(" ");
+	$("#message_body1").data("emojioneArea").setText('');
+	// document.getElementById("message_body1").value = "";
+	// console.log($(this));
+	console.log($(this).attr("data-id"));
+	// console.log(fr_id)
+	message = message.trim();
+	if(!message){
+		return false;
+	}
+	let fr_id = $(this).attr("data-id");
+	console.log(fr_id);
+	let u_session = localStorage.getItem('u_session');
+	let data = {
+		friend_id : fr_id,
+		message : message,
+		action : "snd_msg",
+		u_session : u_session
+	};
+	// console.log("snd msg");
+	// console.log(($(this)));
+	socket.send(JSON.stringify(data));
+	$(this).val("");
+	scrollToBottom1();
+})
+
 $('#message_body1').bind("enterKey",function(e){
 	let message = $(this).val();
 	// console.log($(this));
@@ -1497,7 +1530,19 @@ jQuery(".post-comt-box textarea").on("keydown", function(event) {
 			u_session : u_session
 		}
 		socket.send(JSON.stringify(data));
-    }
+	}
+
+	$("#message_body1").emojioneArea({
+		tonesStyle: "bullet",
+		pickerPosition: "top",
+		filtersPosition: "bottom",
+		buttonTitle: "Use the TAB key to insert emoji faster",
+		shortnames: true,
+		inline: true,
+		maxCount  : 15,
+    	// placement : null
+  });
+	
 });//document ready end
 
 

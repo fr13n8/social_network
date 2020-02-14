@@ -128,8 +128,8 @@
 												</ul>
 												<div class="message-text-container">
 													<form method="post">
-														<textarea id="message_body1" placeholder="Post enter to post..."></textarea>
-														<!-- <button title="send"><i class="fa fa-paper-plane"></i></button> -->
+														<textarea id="message_body1" class="emojionearea" placeholder="Post enter to post..."></textarea>
+														<button class="send-msg" title="send"><i class="fa fa-paper-plane"></i></button>
 													</form>
 												</div>
 											</div>

@@ -185,7 +185,7 @@
 	<script src="js/script.js"></script>
 	<!-- <script src="./js/jquery-3.4.1.min.js"></script> -->
 	<script src="./js/uProfile.js"></script>
-
+	<script type="text/javascript" src="node_modules/emojionearea/dist/emojionearea.min.js"></script>
 </body>	
 
 </html>

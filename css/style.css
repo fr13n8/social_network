@@ -4475,7 +4475,7 @@ li.you{
     height: 30px;
     padding: 0;
     position: absolute;
-    right: 13px;
+    right: -40px;
     text-align: center;
     top: 50%;
     transform: translateY(-50%);
