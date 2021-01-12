@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/responsive.css">
-	<link rel="stylesheet" href="node_modules/sweetalert2-theme/theme-dark/dark.css">
+	<link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
 	<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-	<link rel="stylesheet" href="node_modules/emojionearea/dist/emojionearea.min.css">
+	<!-- <link rel="stylesheet" href="node_modules/emojionearea/dist/emojionearea.min.css"> -->
 	
 </head>
 <body>
@@ -217,85 +217,13 @@
 		</div>
 		
 		<div class="top-area">
-			<!-- <ul class="main-menu">
-				<li>
-					<a href="#" title="">Home</a>
-					<ul>
-						<li><a href="index-2.html" title="">Home Social</a></li>
-						<li><a href="index2.html" title="">Home Social 2</a></li>
-						<li><a href="index-company.html" title="">Home Company</a></li>
-						<li><a href="landing.html" title="">Login page</a></li>
-						<li><a href="logout.html" title="">Logout Page</a></li>
-						<li><a href="newsfeed.html" title="">news feed</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">timeline</a>
-					<ul>
-						<li><a href="profile.php" title="">timeline</a></li>
-						<li><a href="timeline-friends.html" title="">timeline friends</a></li>
-						<li><a href="timeline-groups.html" title="">timeline groups</a></li>
-						<li><a href="timeline-pages.html" title="">timeline pages</a></li>
-						<li><a href="timeline-photos.php" title="">timeline photos</a></li>
-						<li><a href="timeline-videos.html" title="">timeline videos</a></li>
-						<li><a href="fav-page.html" title="">favourit page</a></li>
-						<li><a href="groups.html" title="">groups page</a></li>
-						<li><a href="page-likers.html" title="">Likes page</a></li>
-						<li><a href="people-nearby.html" title="">people nearby</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">account settings</a>
-					<ul>
-						<li><a href="create-fav-page.html" title="">create fav page</a></li>
-						<li><a href="edit-account-setting.html" title="">edit account setting</a></li>
-						<li><a href="edit-interest.html" title="">edit-interest</a></li>
-						<li><a href="edit-password.php" title="">edit-password</a></li>
-						<li><a href="profile-setting.php" title="">edit profile basics</a></li>
-						<li><a href="edit-work-eductation.html" title="">edit work educations</a></li>
-						<li><a href="messages.html" title="">message box</a></li>
-						<li><a href="inbox.html" title="">Inbox</a></li>
-						<li><a href="notifications.html" title="">notifications page</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">more pages</a>
-					<ul>
-						<li><a href="404.html" title="">404 error page</a></li>
-						<li><a href="about.php" title="">about</a></li>
-						<li><a href="contact.html" title="">contact</a></li>
-						<li><a href="faq.html" title="">faq's page</a></li>
-						<li><a href="insights.html" title="">insights</a></li>
-						<li><a href="knowledge-base.html" title="">knowledge base</a></li>
-						<li><a href="widgets.html" title="">Widgts</a></li>
-					</ul>
-				</li>
-			</ul> -->
 			<ul class="setting-area">
 				<li>
 					<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
 					<div class="searched">
 						<div class="form-search">
 							<input type="text" id="people_search" placeholder="Search Friend">
-							<!-- <i class="ti-search"></i> -->
-							<!-- <button data-ripple><i class="ti-search"></i></button> -->
 							<ul class="search_friends_list">
-								<!-- <li>
-									<figure>
-										<img src="images/resources/friend-avatar.jpg" alt="" class="search_result_photos">
-									</figure>
-									<div class="friendz-data">
-										<a href="time-line.html">bucky barnes</a>
-									</div>
-								</li>
-								<li>
-									<figure>
-										<img src="images/resources/friend-avatar.jpg" alt="" class="search_result_photos">
-									</figure>
-									<div class="friendz-data">
-										<a href="time-line.html">bucky barnes</a>
-									</div>
-								</li> -->
 							</ul>
 						</div>
 					</div>
@@ -308,124 +236,14 @@
 					<div class="dropdowns">
 						<span class="notifi-title"></span>
 						<ul class="drops-menu notifi-menu">
-							<!-- <li>
-								<a href="#" title="">
-									<img src="images/resources/thumb-1.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>sarah Loren</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag green">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-2.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Jhon doe</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag red">Reply</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-3.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Andrew</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag blue">Unseen</span>
-							</li> -->
-							
 						</ul>
-						<!-- <a href="notifications.html" title="" class="more-mesg">view more</a> -->
 					</div>
 				</li>
-				<!-- <li>
-					<a href="#" title="Messages" data-ripple=""><i class="ti-comment"></i><span>12</span></a>
-					<div class="dropdowns">
-						<span>5 New Messages</span>
-						<ul class="drops-menu">
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-1.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>sarah Loren</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag green">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-2.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Jhon doe</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag red">Reply</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-3.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Andrew</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag blue">Unseen</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-4.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Tom cruse</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-5.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Amy</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-						</ul>
-						<a href="messages.html" title="" class="more-mesg">view more</a>
-					</div>
-				</li> -->
-				<!-- <li><a href="#" title="Languages" data-ripple=""><i class="fa fa-globe"></i></a>
-					<div class="dropdowns languages">
-						<a href="#" title=""><i class="ti-check"></i>English</a>
-						<a href="#" title="">Arabic</a>
-						<a href="#" title="">Dutch</a>
-						<a href="#" title="">French</a>
-					</div>
-				</li> -->
 			</ul>
 			<div class="user-img">
 				<img src="" class="u_top_miniature" alt="">
 				<span class="status f-online"></span>
 				<div class="user-setting">
-					<!-- <a href="#" title=""><span class="status f-online"></span>online</a>
-					<a href="#" title=""><span class="status f-away"></span>away</a>
-					<a href="#" title=""><span class="status f-off"></span>offline</a> -->
 					<a href="profile.php" title=""><i class="ti-user"></i> view Profile</a>
 					<a href="profile-setting.php" title=""><i class="ti-pencil-alt"></i>edit Profile</a>
 					<a href="edit-interest.php" title=""><i class="ti-heart"></i>edit Interests</a>
@@ -441,160 +259,21 @@
 <div class="fixed-sidebar right">
 		<div class="chat-friendz">
 			<ul class="chat-users" id="people-list">
-				<!-- <li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend1.jpg" alt="">
-						<span class="status f-online"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend2.jpg" alt="">
-						<span class="status f-away"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend3.jpg" alt="">
-						<span class="status f-online"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend4.jpg" alt="">
-						<span class="status f-offline"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend5.jpg" alt="">
-						<span class="status f-online"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend6.jpg" alt="">
-						<span class="status f-online"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend7.jpg" alt="">
-						<span class="status f-offline"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend8.jpg" alt="">
-						<span class="status f-online"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend9.jpg" alt="">
-						<span class="status f-away"></span>
-					</div>
-				</li>
-				<li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend10.jpg" alt="">
-						<span class="status f-away"></span>
-					</div>
-				</li> -->
-				<!-- <li>
-					<div class="author-thmb">
-						<img src="images/resources/side-friend8.jpg" alt="">
-						<span class="status f-online"></span>
-					</div>
-				</li> -->
 			</ul>
 			<div class="chat-box">
 				<div class="chat-head">
-					<!-- <span class="status f-online"></span> -->
 					<h6 class="msgs_name"></h6>
 					<div class="more">
-						<!-- <span class="more-optns"><i class="ti-more-alt"></i> -->
-							<!-- <ul>
-								<li>block chat</li>
-								<li>unblock chat</li>
-								<li>conversation</li>
-							</ul> -->
 						</span>
 						<span class="close-mesage"><i class="ti-close"></i></span>
 					</div>
 				</div>
 				<div class="chat-list">
 					<ul class="msg-list">
-						<!-- <li class="me">
-							<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-							<div class="notification-event">
-								<span class="chat-message-item">
-									Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-								</span>
-								<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-							</div>
-						</li>
-						<li class="you">
-							<div class="chat-thumb"><img src="images/resources/chatlist2.jpg" alt=""></div>
-							<div class="notification-event">
-								<span class="chat-message-item">
-									Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-								</span>
-								<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-							</div>
-						</li>
-						<li class="me">
-							<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-							<div class="notification-event">
-								<span class="chat-message-item">
-									Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-								</span>
-								<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-							</div>
-						</li> -->
 					</ul>
 					<form class="text-box">
 						<textarea class="message_body" placeholder="Post enter to post..."></textarea>
-						<!-- <div class="add-smiles">
-							<span title="add icon" class="em em-expressionless"></span>
-						</div>
-						<div class="smiles-bunch">
-							<i class="em em---1"></i>
-							<i class="em em-smiley"></i>
-							<i class="em em-anguished"></i>
-							<i class="em em-laughing"></i>
-							<i class="em em-angry"></i>
-							<i class="em em-astonished"></i>
-							<i class="em em-blush"></i>
-							<i class="em em-disappointed"></i>
-							<i class="em em-worried"></i>
-							<i class="em em-kissing_heart"></i>
-							<i class="em em-rage"></i>
-							<i class="em em-stuck_out_tongue"></i>
-						</div>
-						<button type="submit"></button> -->
 					</form>
-					<!-- <form class="text-box">
-						<textarea placeholder="Post enter to post..."></textarea>
-						<div class="add-smiles">
-							<span title="add icon" class="em em-expressionless"></span>
-						</div>
-						<div class="smiles-bunch">
-							<i class="em em---1"></i>
-							<i class="em em-smiley"></i>
-							<i class="em em-anguished"></i>
-							<i class="em em-laughing"></i>
-							<i class="em em-angry"></i>
-							<i class="em em-astonished"></i>
-							<i class="em em-blush"></i>
-							<i class="em em-disappointed"></i>
-							<i class="em em-worried"></i>
-							<i class="em em-kissing_heart"></i>
-							<i class="em em-rage"></i>
-							<i class="em em-stuck_out_tongue"></i>
-						</div>
-						<button type="submit"></button>
-					</form> -->
 				</div>
 			</div>
 		</div>

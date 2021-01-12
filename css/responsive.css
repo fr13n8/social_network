@@ -76,7 +76,7 @@
         font-size: 14px;
     }
     .user-avatar {
-        width: 80.2%
+        width: 100%
     }
     /* .chat-box {
         right: 230px;
@@ -618,12 +618,12 @@
     .feature-photo > figure {
         margin-bottom: 10px;
     }
-    .user-avatar {
-        /* border: medium none; */
-        /* border-radius: 0; */
+    /* .user-avatar {
+        border: medium none;
+        border-radius: 0;
         width: 100%;
         margin: 10px 0;
-    }
+    } */
     .fileContainer {
         font-size: 10px;
     }

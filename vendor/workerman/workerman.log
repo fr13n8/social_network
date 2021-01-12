@@ -1321,3 +1321,25 @@ Stack trace:
 #6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
 #7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
 #8 C:\xampp\htdocs\social_network\u in C:\xampp\htdocs\social_network\u_profile\s_posts.php on line 221"
+2021-01-11 23:19:50 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\social_network\u_profile\s_posts.php:131
+Stack trace:
+#0 C:\xampp\htdocs\social_network\u_profile\s_posts.php(20): PostsController->get_comments()
+#1 C:\xampp\htdocs\social_network\u_profile\websocket.php(83): PostsController->__construct(Array)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(232): {closure}()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(280): Workerman\Events\Select->tick()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#6 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\social_network\u_pr in C:\xampp\htdocs\social_network\u_profile\s_posts.php on line 131"
+2021-01-12 19:48:11 pid:1 Error: Object of class Workerman\Connection\TcpConnection could not be converted to string in C:\xampp\htdocs\social_network\u_profile\websocket.php:23
+Stack trace:
+#0 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2468): {closure}(Object(Workerman\Connection\TcpConnection))
+#1 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Events\Select.php(292): Workerman\Worker->acceptConnection(Resource id #21)
+#2 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\Select->loop()
+#3 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#4 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#5 C:\xampp\htdocs\social_network\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#6 C:\xampp\htdocs\social_network\u_profile\websocket.php(175): Workerman\Worker::runAll()
+#7 {main}
+2021-01-12 19:48:12 pid:1 Worker process terminated

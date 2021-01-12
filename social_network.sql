@@ -1,252 +1,557 @@
-/*
- Navicat Premium Data Transfer
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Хост: 127.0.0.1
+-- Время создания: Янв 12 2021 г., 21:02
+-- Версия сервера: 10.4.14-MariaDB
+-- Версия PHP: 7.4.9
 
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 100138
- Source Host           : 127.0.0.1:3306
- Source Schema         : social_network
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
- Target Server Type    : MySQL
- Target Server Version : 100138
- File Encoding         : 65001
 
- Date: 14/02/2020 07:53:23
-*/
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+--
+-- База данных: `social_network`
+--
 
--- ----------------------------
--- Table structure for background
--- ----------------------------
-DROP TABLE IF EXISTS `background`;
-CREATE TABLE `background`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `background_path` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `active` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `user_id_idx`(`user_id`) USING BTREE,
-  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+-- --------------------------------------------------------
 
--- ----------------------------
--- Records of background
--- ----------------------------
-INSERT INTO `background` VALUES (1, 1, '', '0');
-INSERT INTO `background` VALUES (2, 2, '', '0');
-INSERT INTO `background` VALUES (3, 2, '1581649041511131', '1');
-INSERT INTO `background` VALUES (4, 1, '1581649723728949', '0');
-INSERT INTO `background` VALUES (5, 1, '1581649801347', '1');
+--
+-- Структура таблицы `background`
+--
 
--- ----------------------------
--- Table structure for comments
--- ----------------------------
-DROP TABLE IF EXISTS `comments`;
-CREATE TABLE `comments`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) NULL DEFAULT NULL,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `comment` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `post_id`(`post_id`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+CREATE TABLE `background` (
+  `ID` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `background_path` varchar(45) DEFAULT NULL,
+  `active` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- ----------------------------
--- Records of comments
--- ----------------------------
-INSERT INTO `comments` VALUES (1, 1, 1, 'Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, ', '2020-02-14 07:13:13');
-INSERT INTO `comments` VALUES (2, 1, 2, 'Bonorum et Malorum&quot; (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Â«Lorem ipsum dolor sit amet..Â», comes from a line in section 1.10.32.', '2020-02-14 07:16:01');
-INSERT INTO `comments` VALUES (3, 1, 1, 'Contrary to popular belief, Lorem Ipsum is not simply random text.', '2020-02-14 07:16:21');
-INSERT INTO `comments` VALUES (4, 4, 2, 'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?Â»', '2020-02-14 07:38:42');
+--
+-- Дамп данных таблицы `background`
+--
 
--- ----------------------------
--- Table structure for friends
--- ----------------------------
-DROP TABLE IF EXISTS `friends`;
-CREATE TABLE `friends`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `friend_id` int(11) NULL DEFAULT NULL,
-  `active` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  INDEX `friend_id`(`friend_id`) USING BTREE,
-  CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+INSERT INTO `background` (`ID`, `user_id`, `background_path`, `active`) VALUES
+(7, 3, '', '0'),
+(8, 3, '1610404736573217', '1'),
+(9, 4, '', '0'),
+(10, 4, '1610404921600208', '1'),
+(11, 5, '', '0'),
+(12, 5, '1610407001440583', '0'),
+(13, 5, '1610407236551307', '0'),
+(14, 5, '1610409189694339', '1'),
+(15, 6, '', '1'),
+(16, 7, '', '1');
 
--- ----------------------------
--- Records of friends
--- ----------------------------
-INSERT INTO `friends` VALUES (1, 1, 2, '1');
+-- --------------------------------------------------------
 
--- ----------------------------
--- Table structure for interests
--- ----------------------------
-DROP TABLE IF EXISTS `interests`;
-CREATE TABLE `interests`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `interest` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  CONSTRAINT `interests_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+--
+-- Структура таблицы `comments`
+--
 
--- ----------------------------
--- Records of interests
--- ----------------------------
-INSERT INTO `interests` VALUES (1, 2, 'Sport');
-INSERT INTO `interests` VALUES (2, 2, 'Programming');
-INSERT INTO `interests` VALUES (3, 1, 'Gaming');
-INSERT INTO `interests` VALUES (4, 1, 'Adventures');
+CREATE TABLE `comments` (
+  `ID` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `comment` varchar(1000) DEFAULT NULL,
+  `time` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- ----------------------------
--- Table structure for messages
--- ----------------------------
-DROP TABLE IF EXISTS `messages`;
-CREATE TABLE `messages`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `receiver_id` int(11) NULL DEFAULT NULL,
-  `message` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  INDEX `receiver_id`(`receiver_id`) USING BTREE,
-  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+--
+-- Дамп данных таблицы `comments`
+--
 
--- ----------------------------
--- Table structure for photos
--- ----------------------------
-DROP TABLE IF EXISTS `photos`;
-CREATE TABLE `photos`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `photo_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `active` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+INSERT INTO `comments` (`ID`, `post_id`, `user_id`, `comment`, `time`) VALUES
+(10, 10, 4, '123', '2021-01-11 23:01:37'),
+(11, 10, 3, '1234', '2021-01-11 23:01:43'),
+(12, 12, 4, 'коммент от чужого акка', '2021-01-11 23:43:10'),
+(13, 12, 5, 'Коммент от мего акк', '2021-01-11 23:43:22'),
+(14, 11, 4, 'второй комментарий из чужого акка', '2021-01-11 23:43:47'),
+(15, 12, 5, '123123', '2021-01-11 23:44:29'),
+(16, 10, 4, '999999999999999', '2021-01-11 23:44:46');
 
--- ----------------------------
--- Records of photos
--- ----------------------------
-INSERT INTO `photos` VALUES (1, 1, 'anonymous', '0');
-INSERT INTO `photos` VALUES (2, 2, 'anonymous', '0');
-INSERT INTO `photos` VALUES (4, 2, '1581649145571857', '1');
-INSERT INTO `photos` VALUES (5, 1, '1581649718544134', '1');
-INSERT INTO `photos` VALUES (6, 1, '1581649856180338', '0');
+-- --------------------------------------------------------
 
--- ----------------------------
--- Table structure for post_dislikes
--- ----------------------------
-DROP TABLE IF EXISTS `post_dislikes`;
-CREATE TABLE `post_dislikes`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) NULL DEFAULT NULL,
-  `user_id` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `post_id`(`post_id`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  CONSTRAINT `post_dislikes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `post_dislikes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+--
+-- Структура таблицы `friends`
+--
 
--- ----------------------------
--- Table structure for post_likes
--- ----------------------------
-DROP TABLE IF EXISTS `post_likes`;
-CREATE TABLE `post_likes`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) NULL DEFAULT NULL,
-  `user_id` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `post_id`(`post_id`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  CONSTRAINT `post_likes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `post_likes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+CREATE TABLE `friends` (
+  `ID` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `friend_id` int(11) DEFAULT NULL,
+  `active` varchar(255) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- ----------------------------
--- Records of post_likes
--- ----------------------------
-INSERT INTO `post_likes` VALUES (1, 3, 2);
-INSERT INTO `post_likes` VALUES (2, 1, 2);
-INSERT INTO `post_likes` VALUES (3, 4, 1);
+--
+-- Дамп данных таблицы `friends`
+--
 
--- ----------------------------
--- Table structure for posts
--- ----------------------------
-DROP TABLE IF EXISTS `posts`;
-CREATE TABLE `posts`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `post_description` varchar(10000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  `picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+INSERT INTO `friends` (`ID`, `user_id`, `friend_id`, `active`) VALUES
+(2, 4, 3, '1'),
+(4, 4, 5, '1');
 
--- ----------------------------
--- Records of posts
--- ----------------------------
-INSERT INTO `posts` VALUES (1, 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 2, '2020-02-14 07:00:34', '1581649194193255');
-INSERT INTO `posts` VALUES (3, '', 2, '2020-02-14 07:04:15', '158164945530770');
-INSERT INTO `posts` VALUES (4, 'Â«Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?Â»', 1, '2020-02-14 07:10:35', '1581649835630880');
+-- --------------------------------------------------------
 
--- ----------------------------
--- Table structure for requests
--- ----------------------------
-DROP TABLE IF EXISTS `requests`;
-CREATE TABLE `requests`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `friend_id` int(11) NULL DEFAULT NULL,
-  `active` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
-  PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `friend_id`(`friend_id`) USING BTREE,
-  CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`friend_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+--
+-- Структура таблицы `interests`
+--
 
--- ----------------------------
--- Table structure for users
--- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `surname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `session` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `country` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `about` varchar(10000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `day` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `month` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `year` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `settingsCheck` int(1) NULL DEFAULT 0,
-  `online` int(1) NULL DEFAULT 0,
-  PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+CREATE TABLE `interests` (
+  `ID` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `interest` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- ----------------------------
--- Records of users
--- ----------------------------
-INSERT INTO `users` VALUES (1, 'John', 'Legend', 'john@mail.ru', '$2y$11$4DSqiKbVHRG5HafTEhq56uWbP4tS9QS3zhwSXyI16B9jDOQUvVB.W', '158165217380817', 'California', 'USA', '888888888', '', 'male', '1', 'Mar', '1990', 1, 1);
-INSERT INTO `users` VALUES (2, 'Jane', 'Dickenson', 'jane@mail.ru', '$2y$11$nf3ayMdOMrp8hlM/YLGkUOZbYEaKyCrjVPLfXUaq3vrqaqGr3XUza', '1581650976368331', 'New York', 'USA', '999999999', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'male', '4', 'Apr', '1990', 1, 1);
+--
+-- Дамп данных таблицы `interests`
+--
 
-SET FOREIGN_KEY_CHECKS = 1;
+INSERT INTO `interests` (`ID`, `user_id`, `interest`) VALUES
+(9, 5, 'Я'),
+(10, 5, 'люблю'),
+(11, 5, 'свою'),
+(12, 5, 'чудесную'),
+(13, 5, 'Маньюсетьку'),
+(14, 5, 'Фотографирование'),
+(15, 5, 'танцы'),
+(16, 5, 'бег');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `messages`
+--
+
+CREATE TABLE `messages` (
+  `ID` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `receiver_id` int(11) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `time` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Дамп данных таблицы `messages`
+--
+
+INSERT INTO `messages` (`ID`, `user_id`, `receiver_id`, `message`, `time`) VALUES
+(12, 3, 4, 'adas<br/>\r\n', '2021-01-11 22:50:43'),
+(13, 4, 3, 'asdfasdf<br/>\r\n', '2021-01-11 22:50:46'),
+(14, 3, 4, 'xxxxx', '2021-01-11 22:50:59'),
+(15, 3, 4, '515153<br/>\r\n', '2021-01-11 22:51:39'),
+(16, 5, 4, 'Привет мой старый друг<br/>\r\n', '2021-01-11 23:28:48'),
+(17, 4, 5, 'Приветики <br/>\r\n', '2021-01-11 23:28:57'),
+(18, 4, 5, 'куда ты пропал далбаеб<br/>\r\n', '2021-01-11 23:29:06'),
+(19, 5, 4, 'сам ты далбаеб<br/>\r\n', '2021-01-11 23:29:15'),
+(20, 4, 5, 'нет ты<br/>\r\n', '2021-01-11 23:29:20'),
+(21, 4, 5, 'фыварфыоварфывафыва', '2021-01-11 23:35:29'),
+(22, 5, 4, '123<br/>\r\n', '2021-01-11 23:35:42'),
+(23, 4, 5, 'фыварфыоварфывафыва', '2021-01-11 23:35:54'),
+(24, 4, 5, 'фыварфыоварфывафыва<br/>\r\n', '2021-01-11 23:35:56'),
+(25, 5, 4, 'фыва<br/>\r\n', '2021-01-11 23:36:16'),
+(26, 5, 4, 'фывафыавфыв<br/>\r\n', '2021-01-11 23:37:01'),
+(27, 4, 5, '123<br/>\r\n', '2021-01-11 23:37:07'),
+(28, 5, 4, '545646546<br/>\r\n', '2021-01-11 23:48:55'),
+(29, 5, 4, '1564564<br/>\r\n', '2021-01-11 23:49:33'),
+(30, 4, 5, '12211<br/>\r\n', '2021-01-11 23:49:37'),
+(31, 5, 4, 'Hello<br/>\r\n', '2021-01-11 23:50:10'),
+(32, 4, 5, 'asdfasdf<br/>\r\n', '2021-01-11 23:50:26'),
+(33, 5, 4, 'asdfasdfasdf<br/>\r\n', '2021-01-11 23:52:35');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `photos`
+--
+
+CREATE TABLE `photos` (
+  `ID` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `photo_path` varchar(255) DEFAULT NULL,
+  `active` varchar(255) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Дамп данных таблицы `photos`
+--
+
+INSERT INTO `photos` (`ID`, `user_id`, `photo_path`, `active`) VALUES
+(12, 3, 'anonymous', '0'),
+(15, 3, '1610404680492749', '0'),
+(16, 3, '1610404680645905', '0'),
+(17, 3, '1610404681412608', '1'),
+(18, 4, 'anonymous', '0'),
+(19, 4, '1610404893787406', '1'),
+(20, 5, 'anonymous', '0'),
+(22, 5, '1610407032532358', '0'),
+(23, 5, '1610407032776681', '0'),
+(24, 5, '1610407045531780', '0'),
+(25, 5, '1610407045625555', '0'),
+(26, 5, '161040704568699', '0'),
+(27, 5, '1610407046551022', '0'),
+(28, 5, '1610407046777764', '0'),
+(29, 5, '1610407046919643', '0'),
+(30, 5, '1610407046381370', '0'),
+(31, 5, '1610407046285714', '0'),
+(32, 5, '1610407046117561', '0'),
+(33, 5, '1610407046125498', '0'),
+(34, 5, '1610407046101324', '0'),
+(35, 5, '1610407046348058', '0'),
+(36, 5, '1610407046214724', '0'),
+(37, 5, '1610407047289393', '0'),
+(38, 5, '1610407047276087', '0'),
+(39, 5, '1610409199532206', '1'),
+(40, 6, 'anonymous', '1'),
+(41, 7, 'anonymous', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `posts`
+--
+
+CREATE TABLE `posts` (
+  `ID` int(11) NOT NULL,
+  `post_description` varchar(10000) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `time` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `picture` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Дамп данных таблицы `posts`
+--
+
+INSERT INTO `posts` (`ID`, `post_description`, `user_id`, `time`, `picture`) VALUES
+(10, 'asdfasdfasd', 4, '2021-01-11 22:58:53', '1610405933611620'),
+(11, 'Здрасте моя любимая Мария', 5, '2021-01-11 23:39:08', NULL),
+(12, 'феыапфгынпаофванрфжывдалдфывафывафывафывафывавфвфывафывафыва', 5, '2021-01-11 23:40:52', '1610408452661911'),
+(13, 'SADFASDFasdf', 5, '2021-01-11 23:53:38', '1610409218283433');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `post_dislikes`
+--
+
+CREATE TABLE `post_dislikes` (
+  `ID` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Дамп данных таблицы `post_dislikes`
+--
+
+INSERT INTO `post_dislikes` (`ID`, `post_id`, `user_id`) VALUES
+(12, 10, 5),
+(14, 12, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `post_likes`
+--
+
+CREATE TABLE `post_likes` (
+  `ID` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Дамп данных таблицы `post_likes`
+--
+
+INSERT INTO `post_likes` (`ID`, `post_id`, `user_id`) VALUES
+(13, 10, 3),
+(14, 10, 4),
+(15, 11, 4),
+(17, 12, 4),
+(18, 10, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `requests`
+--
+
+CREATE TABLE `requests` (
+  `ID` int(11) NOT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `friend_id` int(11) DEFAULT NULL,
+  `active` varchar(255) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `ID` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `surname` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `session` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `about` varchar(10000) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `day` varchar(255) DEFAULT NULL,
+  `month` varchar(255) DEFAULT NULL,
+  `year` varchar(255) DEFAULT NULL,
+  `settingsCheck` int(1) DEFAULT 0,
+  `online` int(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`ID`, `name`, `surname`, `email`, `password`, `session`, `city`, `country`, `phone`, `about`, `gender`, `day`, `month`, `year`, `settingsCheck`, `online`) VALUES
+(3, 'TestUser1', 'Surname', 'qwerty@mail.com', '$2y$11$RK.g6QIUGVTQTY1QNGBoLOhQvAR7hx4oTF7lII9H/EvQFpJCyApG.', '', 'erevab', 'BOL', '999999999', 'asdfasdfasdfasdfasdf', 'male', '2', 'Mar', '1989', 1, 0),
+(4, 'Tewrqwer', 'qwerqwer', 'admin@example.com', '$2y$11$qCiHRWKgCd/qAndHjo0Jqev6ryO7IJ/XAsyUFWHR1wZrrBxctOOJi', '', 'asdfasdf', 'AND', '999999999', 'asdfasdfasdfasdfasdfasdfsadfsadfsadf', 'male', '4', 'Feb', '1989', 1, 0),
+(5, 'asdfasdf', 'qweqdqwdqw', 'qwerty@mail.ru', '$2y$11$3OzRiWSnXf8NmiJp6WJsie8V2QTpheSIinsGop6lerr.vnm5KOlV2', '1610406874658891', 'Mogilyov', 'BLR', '216515615', 'asdfasdfasdfasdfasdfasdfasdfadsfasdfads', 'male', '4', 'Mar', '1991', 1, 1),
+(6, 'admin', 'asdfasdf', 'ovsepanrik@gmail.com', '$2y$11$EAoRHFqmpN1tjIzbiDQhcOKz0Ax3MpImdZGIWnD6l78mDNwynG21S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
+(7, 'mogfil', 'asdfasdf', 'superadminuser@example.com', '$2y$11$8OwI7TFudmPs4AOsaj8/HOytuXdWBRLFMR53giaNVKDYTsNPNUQEi', '', 'asdfasd', 'AIA', '098077928', '', 'male', '1', 'Apr', '1991', 1, 0);
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `background`
+--
+ALTER TABLE `background`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `user_id_idx` (`user_id`) USING BTREE;
+
+--
+-- Индексы таблицы `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `post_id` (`post_id`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE;
+
+--
+-- Индексы таблицы `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE,
+  ADD KEY `friend_id` (`friend_id`) USING BTREE;
+
+--
+-- Индексы таблицы `interests`
+--
+ALTER TABLE `interests`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE;
+
+--
+-- Индексы таблицы `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE,
+  ADD KEY `receiver_id` (`receiver_id`) USING BTREE;
+
+--
+-- Индексы таблицы `photos`
+--
+ALTER TABLE `photos`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE;
+
+--
+-- Индексы таблицы `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE;
+
+--
+-- Индексы таблицы `post_dislikes`
+--
+ALTER TABLE `post_dislikes`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `post_id` (`post_id`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE;
+
+--
+-- Индексы таблицы `post_likes`
+--
+ALTER TABLE `post_likes`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `post_id` (`post_id`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE;
+
+--
+-- Индексы таблицы `requests`
+--
+ALTER TABLE `requests`
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `friend_id` (`friend_id`) USING BTREE;
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`ID`) USING BTREE;
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `background`
+--
+ALTER TABLE `background`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT для таблицы `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT для таблицы `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `interests`
+--
+ALTER TABLE `interests`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT для таблицы `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT для таблицы `photos`
+--
+ALTER TABLE `photos`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT для таблицы `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT для таблицы `post_dislikes`
+--
+ALTER TABLE `post_dislikes`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT для таблицы `post_likes`
+--
+ALTER TABLE `post_likes`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT для таблицы `requests`
+--
+ALTER TABLE `requests`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `background`
+--
+ALTER TABLE `background`
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `friends`
+--
+ALTER TABLE `friends`
+  ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `interests`
+--
+ALTER TABLE `interests`
+  ADD CONSTRAINT `interests_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `photos`
+--
+ALTER TABLE `photos`
+  ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `post_dislikes`
+--
+ALTER TABLE `post_dislikes`
+  ADD CONSTRAINT `post_dislikes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `post_dislikes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `post_likes`
+--
+ALTER TABLE `post_likes`
+  ADD CONSTRAINT `post_likes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `post_likes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `requests`
+--
+ALTER TABLE `requests`
+  ADD CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`friend_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
