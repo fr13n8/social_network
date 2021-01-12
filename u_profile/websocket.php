@@ -6,12 +6,11 @@ require_once './vendor/autoload.php';
 use Workerman\Worker;
 use Workerman\Lib\Timer;
 
-$connections = [];
 // Create a Websocket server
 $ws_worker = new Worker("websocket://0.0.0.0:2346");
 
 // 4 processes
-// $ws_worker->count = 4;
+$ws_worker->count = 4;
 
 $ws_worker->onWorkerStart = function($ws_worker)
 {
@@ -19,11 +18,8 @@ $ws_worker->onWorkerStart = function($ws_worker)
 };
 
 // Emitted when new connection come
-$ws_worker->onConnect = function($connection) use(&$connections)
+$ws_worker->onConnect = function($connection)
 {
-    $connection->onWebSocketConnect = function($connection) use (&$connections) {
-        $connections[$connection->id] = $connection;
-    };
     echo "new connection from ip " . $connection->getRemoteIp() . "\n";
 };
 
