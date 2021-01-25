@@ -3,8 +3,8 @@ $(document).ready(function () {
     let socket = new WebSocket("ws://localhost:2346");
 
 	socket.onopen = function(e) {
-        console.log("[open] Соединение установлено");
-        console.log("Отправляем данные на сервер");
+        
+        
             getfrPosts();
             getfrComments();
             getLDs();
@@ -14,12 +14,12 @@ $(document).ready(function () {
 	socket.onmessage = function(event) {
 		let data = JSON.parse(event.data);
 		// let data = event.data;
-		// console.log(`[message] Данные получены с сервера: ${data}`);
-		// console.log(data);
+		// 
+		// 
 
 		switch (data.action) {
 			case "frposts_data":
-                    console.log(data)
+                    
                     
                     $.each(data, function (indexInArray, element) {
                         let me_miniature;
@@ -30,7 +30,7 @@ $(document).ready(function () {
                         }
                         else{
                             u_miniature = element["photo_path"] + "_min.jpg";
-                            console.log(me_miniature)
+                            
                         var p_photo;
                         if(element.picture){
                             p_photo = `<img src="./u_profile/uploads/posts/${element.picture}.jpg" alt="">`;
@@ -107,7 +107,7 @@ $(document).ready(function () {
                     });
                 break;
             case "frcomments_data":
-                    // console.log(data)
+                    // 
                     $.each(data, function (indexInArray, element) { 
                         $(`#post_${element.post_id}`).find(".comment_data").remove();
                     });
@@ -129,7 +129,7 @@ $(document).ready(function () {
                     });
                 break;
             case 'LDs':
-                    // console.log(data);
+                    // 
                     $(".posts").find(".we-video-info").find("ins").html("0");
                         data.likes.forEach(element => {
                             $(`#post_${element.post_id}`).find(".like").find("ins").html(`${element.likes}`);
@@ -147,16 +147,16 @@ $(document).ready(function () {
 	
 	socket.onclose = function(event) {
 	  if (event.wasClean) {
-		console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+		
 	  } else {
 		// например, сервер убил процесс или сеть недоступна
 		// обычно в этом случае event.code 1006
-		console.log('[close] Соединение прервано');
+		
 	  }
 	};
 	
 	socket.onerror = function(error) {
-	  console.log(`[error] ${error.message}`);
+	  
 	};
 
     $.ajax({
@@ -168,7 +168,7 @@ $(document).ready(function () {
         success: function (response) {
             
                 response = JSON.parse(response);
-                console.log(response);
+                
                 let country;
                 if(response[0].u_country && response[0].u_country != "country"){
                     country = response[0].u_country;
@@ -207,7 +207,7 @@ $(document).ready(function () {
 
                 if(response.fr_photos){
                     $(".photos").empty();
-                    // console.log("empty")
+                    // 
                     response.fr_photos.forEach(element => {
                         if(element.photo_path == "anonymous"){
                             let u_avatar = response[0]["photo_path"] + "_avatar.jpg";
@@ -288,8 +288,8 @@ $(document).ready(function () {
                 }
 
                 if(response.fr_friends){
-                    console.log("FRRRRRRRRRRRRR")
-                    console.log(response.fr_friends);
+                    
+                    
                     $(".friendz-count").html(response.fr_friends.length);
                     response.fr_friends.forEach(element => {
                         $("#fr_frends > ul").append(`<li data-value="${element.ID}">
@@ -316,7 +316,7 @@ $(document).ready(function () {
         },
         success: function (response) {
             response = JSON.parse(response);
-            console.log(response);
+            
             response = response.reverse();
             $(".interest-added").empty();
             $.each(response, function (indexInArray, element) { 
@@ -331,7 +331,7 @@ $(document).ready(function () {
 		event.stopPropagation();
 		let fr_email = $(this).data("value");
 		localStorage.setItem('fr_email', fr_email);
-		console.log(fr_email);
+		
 		let fr_data = {
 			action : "fr_email",
 			email : fr_email

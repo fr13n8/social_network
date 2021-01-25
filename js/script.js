@@ -6,8 +6,8 @@ jQuery(document).ready(function ($) {
 	let socket = new WebSocket("ws://localhost:2346?id=" + localStorage.getItem("userId"));
 
 	socket.onopen = function (e) {
-		console.log("[open] Соединение установлено");
-		console.log("Отправляем данные на сервер");
+		
+		
 		setTimeout(() => {
 			getPosts();
 			getComments();
@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
 
 		switch (data.action) {
 			case "msgs-data":
-				console.log(data);
+				
 				$(".msgs_name").html(`${data[0].name} ${data[0].surname}`);
 				$('.message_body').attr("data-value", `${data[0].ID}`);
 
@@ -31,8 +31,8 @@ jQuery(document).ready(function ($) {
 
 				break;
 			case "messages":
-				// console.log("get_messages");
-				// console.log(data);
+				// 
+				// 
 				$(".chat-list > ul").empty();
 				$(".chatting-area").empty();
 				$.each(data, function (indexInArray, element) {
@@ -41,13 +41,13 @@ jQuery(document).ready(function ($) {
 					} else {
 						let person, person_avatar, person1, person1_avatar;
 						if (element.receiver_id == data.fr_id) {
-							// console.log(222)
+							// 
 							person = "you";
 							person1 = "me";
 							person_avatar = data.u_photo_phath;
 							person1_avatar = data.fr_photo_phath;
 						} else {
-							// console.log(333)
+							// 
 							person = "me";
 							person1 = "you";
 							person_avatar = data.fr_photo_phath;
@@ -71,7 +71,7 @@ jQuery(document).ready(function ($) {
 				});
 				break;
 			case "posts_data":
-				// console.log(data);
+				// 
 				$.each(data, function (indexInArray, element) {
 					if (isNaN(indexInArray)) {
 						return;
@@ -154,7 +154,7 @@ jQuery(document).ready(function ($) {
 				});
 				break;
 			case "comments_data":
-				// console.log(data);
+				// 
 
 				$.each(data, function (indexInArray, element) {
 					$(`#post_${element.post_id}`).find(".comment_data").remove();
@@ -178,7 +178,7 @@ jQuery(document).ready(function ($) {
 				break;
 			case 'myLDs':
 				$(".myposts").find(".we-video-info").find("ins").html("0");
-				// console.log(data);
+				// 
 				data.likes.forEach(element => {
 					$(`#post_${element.post_id}`).find(".like").find("ins").html(`${element.likes}`);
 
@@ -197,7 +197,7 @@ jQuery(document).ready(function ($) {
 		event.stopPropagation();
 		let fr_email = $(this).data("value");
 		localStorage.setItem('fr_email', fr_email);
-		console.log(fr_email);
+		
 		let fr_data = {
 			action: "fr_email",
 			email: fr_email
@@ -216,22 +216,22 @@ jQuery(document).ready(function ($) {
 
 	socket.onclose = function (event) {
 		if (event.wasClean) {
-			console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+			
 		} else {
 			// например, сервер убил процесс или сеть недоступна
 			// обычно в этом случае event.code 1006
-			console.log('[close] Соединение прервано');
+			
 		}
 	};
 
 	socket.onerror = function (error) {
-		console.log(`[error] ${error.message}`);
+		
 	};
 
 
 	function scrollToBottom() {
 		let scrollCount = $(".msg-list")[0].scrollHeight;
-		console.log(scrollCount)
+		
 		$(".msg-list").stop().animate({
 			scrollTop: scrollCount
 		});
@@ -239,7 +239,7 @@ jQuery(document).ready(function ($) {
 
 	function scrollToBottom1() {
 		let scrollCount1 = $(".chatting-area")[0].scrollHeight;
-		// console.log(scrollCount)
+		// 
 		$(".chatting-area").stop().animate({
 			scrollTop: scrollCount1
 		});
@@ -295,7 +295,7 @@ jQuery(document).ready(function ($) {
 			u_session: u_session,
 			userId: localStorage.getItem("userId")
 		};
-		console.log(data);
+		
 		socket.send(JSON.stringify(data));
 		getMessages(fr_id, fr_photo_phath, u_photo_phath);
 		setTimeout(() => {
@@ -317,13 +317,13 @@ jQuery(document).ready(function ($) {
 		e.preventDefault()
 		e.stopPropagation()
 		let message = $("#message_body1").val();
-		console.log($(this).attr("data-id"));
+		
 		message = message.trim();
 		if (!message) {
 			return false;
 		}
 		let fr_id = $(this).attr("data-id");
-		console.log(fr_id);
+		
 		let u_session = localStorage.getItem('u_session');
 		let data = {
 			friend_id: fr_id,
@@ -331,8 +331,8 @@ jQuery(document).ready(function ($) {
 			action: "snd_msg",
 			u_session: u_session
 		};
-		// console.log("snd msg");
-		// console.log(($(this)));
+		// 
+		// 
 		socket.send(JSON.stringify(data));
 		$(this).val("");
 		scrollToBottom1();
@@ -340,11 +340,11 @@ jQuery(document).ready(function ($) {
 
 	$('#message_body1').bind("enterKey", function (e) {
 		let message = $(this).val();
-		// console.log($(this));
-		console.log($(this).attr("data-id"));
-		// console.log(fr_id)
+		// 
+		
+		// 
 		let fr_id = $(this).attr("data-id");
-		console.log(fr_id);
+		
 		let u_session = localStorage.getItem('u_session');
 		let data = {
 			friend_id: fr_id,
@@ -353,8 +353,8 @@ jQuery(document).ready(function ($) {
 			u_session: u_session,
 			userId: localStorage.getItem("userId")
 		};
-		// console.log("snd msg");
-		// console.log(($(this)));
+		// 
+		// 
 		socket.send(JSON.stringify(data));
 		$(this).val("");
 		scrollToBottom1();
@@ -376,12 +376,12 @@ jQuery(document).ready(function ($) {
 			action: "snd_msg",
 			u_session: u_session
 		};
-		console.log("snd msg");
-		console.log(($(this)));
-		console.log($(this).data("value"));
+		
+		
+		
 		socket.send(JSON.stringify(data));
 		scrollToBottom();
-		console.log($(this).data("value"));
+		
 	});
 	$('.message_body').keyup(function (e) {
 		if (e.keyCode == 13) {
@@ -790,9 +790,9 @@ jQuery(document).ready(function ($) {
 			success: function (response) {
 
 				if (response) {
-					console.log("saccess")
+					
 				} else {
-					console.log("logout")
+					
 					location.href = './index.php'
 				}
 			}
@@ -803,7 +803,7 @@ jQuery(document).ready(function ($) {
 	// People Search
 	$(document).on('input', '#people_search', function () {
 		let seacrh_val = $(this).val();
-		// console.log(seacrh_val)
+		// 
 		let search_params = {
 			name: seacrh_val,
 			action: "search"
@@ -815,9 +815,9 @@ jQuery(document).ready(function ($) {
 			success: function (response) {
 				if (response) {
 					response = JSON.parse(response);
-					// console.log(response);
+					// 
 					if (response.errors) {
-						console.log(response)
+						
 						$(".search_friends_list").empty();
 					} else {
 						$(".search_friends_list").empty();
@@ -846,7 +846,7 @@ jQuery(document).ready(function ($) {
 		event.stopPropagation();
 		let fr_email = $(this).data("value");
 		localStorage.setItem('fr_email', fr_email);
-		console.log(fr_email);
+		
 		let fr_data = {
 			action: "fr_email",
 			email: fr_email
@@ -878,14 +878,14 @@ jQuery(document).ready(function ($) {
 		success: function (response) {
 
 			response = JSON.parse(response);
-			console.log(response);
+			
 
 
 			if (response.u_photos) {
 				response.u_photos.forEach(element => {
 					let u_miniature = response[0]["photo_path"] + "_min.jpg";
 					$(".u_top_miniature").attr("src", `./u_profile/uploads/resized/${u_miniature}`);
-					console.log(u_miniature)
+					
 
 				});
 			} else {
@@ -1002,7 +1002,7 @@ jQuery(document).ready(function ($) {
 		event.stopPropagation();
 		let fr_email = $(this).data("value");
 		localStorage.setItem('fr_email', fr_email);
-		console.log(fr_email);
+		
 		let fr_data = {
 			action: "fr_email",
 			email: fr_email
@@ -1022,7 +1022,7 @@ jQuery(document).ready(function ($) {
 	$("#frends").on('click', ".unfriend", function (e) {
 		e.preventDefault();
 		let fr_email = $(this).data("value");
-		console.log("adasdsadas");
+		
 		let for_del = $(this).parent().parent().parent();
 		$.ajax({
 			type: "post",
@@ -1039,9 +1039,9 @@ jQuery(document).ready(function ($) {
 
 	$("#frends-req").on("click", '.fr_accept', function (e) {
 		e.preventDefault();
-		console.log("accept")
+		
 		let fr_id = $(this).parent().data("value");
-		console.log(fr_id);
+		
 		let fr_data = {
 			action: "fr_accept",
 			id: fr_id
@@ -1059,9 +1059,9 @@ jQuery(document).ready(function ($) {
 
 	$("#frends-req").on("click", '.fr_reject', function (e) {
 		e.preventDefault();
-		console.log("reject")
+		
 		let fr_id = $(this).parent().data("value");
-		console.log(fr_id);
+		
 		let fr_data = {
 			action: "fr_reject",
 			id: fr_id
@@ -1096,7 +1096,7 @@ jQuery(document).ready(function ($) {
 	$(".notifi-menu").on("click", '.fr_item', function () {
 		let fr_email = $(this).data("value");
 		localStorage.setItem('fr_email', fr_email);
-		console.log(fr_email);
+		
 		let fr_data = {
 			action: "fr_email",
 			email: fr_email
@@ -1116,7 +1116,7 @@ jQuery(document).ready(function ($) {
 	$(".notifi-menu").on("click", '.fr_accept', function () {
 		let fr_id = $(this).parent().data("value");
 		let for_del = $(this).parent().parent().parent();
-		console.log(fr_id);
+		
 		let fr_data = {
 			action: "fr_accept",
 			id: fr_id
@@ -1134,7 +1134,7 @@ jQuery(document).ready(function ($) {
 	$(".notifi-menu").on("click", '.fr_reject', function () {
 		let fr_id = $(this).parent().data("value");
 		let for_del = $(this).parent().parent().parent();
-		console.log(fr_id);
+		
 		let fr_data = {
 			action: "fr_reject",
 			id: fr_id
@@ -1153,7 +1153,7 @@ jQuery(document).ready(function ($) {
 	$("#p_photo[type=file]").on('change', function (event) {
 
 		p_photo = this.files;
-		// console.log(this.files.length)
+		// 
 
 		event.preventDefault();
 		event.stopPropagation();
@@ -1166,7 +1166,7 @@ jQuery(document).ready(function ($) {
 		event.preventDefault();
 		let post_description = $(".new-post-description").val();
 		post_description = post_description.trim();
-		console.log(p_photo)
+		
 		if (!post_description) {
 			if (!p_photo) {
 				return false;
@@ -1193,7 +1193,7 @@ jQuery(document).ready(function ($) {
 			contentType: false,
 			success: function (response) {
 				// response = JSON.parse(response);
-				console.log(response);
+				
 				let u_miniature = response[0]["photo_path"] + "_min.jpg";
 				var p_photo;
 				if (response[0].picture) {
@@ -1279,13 +1279,13 @@ jQuery(document).ready(function ($) {
 	})
 
 	$(document).on('click', '.like', function () {
-		console.log('OK')
+		
 		let post_id = $(this).data('value');
 		let data = {
 			action: "p_like",
 			post_id: post_id
 		}
-		console.log(post_id)
+		
 		var this_likes = $(this);
 		$.ajax({
 			type: "post",
@@ -1293,11 +1293,11 @@ jQuery(document).ready(function ($) {
 			data: data,
 			success: function (response) {
 				// response = JSON.parse(response);
-				// console.log(response)
+				// 
 				// if(response){
 				// 	response = JSON.parse(response);
-				// 	console.log(typeof(response))
-				// 	console.log(response)
+				// 	
+				// 	
 				// 	this_likes.find("ins").html(response[0]["COUNT(*)"]);
 				// }
 				// else{
@@ -1308,13 +1308,13 @@ jQuery(document).ready(function ($) {
 	})
 
 	$(document).on('click', '.dislike', function () {
-		console.log('OK')
+		
 		let post_id = $(this).data('value');
 		let data = {
 			action: "p_dislike",
 			post_id: post_id
 		}
-		console.log(post_id)
+		
 		var this_dislikes = $(this);
 		$.ajax({
 			type: "post",
@@ -1357,7 +1357,7 @@ jQuery(document).ready(function ($) {
 	$(".col-lg-6").on('click', '.close-post', function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		console.log("delete")
+		
 		let post_id = $(this).attr("data-value");
 		let data = {
 			action: "del_post",

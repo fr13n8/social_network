@@ -10,7 +10,7 @@
 			var delta = 1;
 			edit.attr('title', (options.title) || edit.attr('title') || 'Enter "+x" or "+x%" or "*x" \nto change increment');
 			edit.on('change', function (e) {
-				// console.log('change-handler-enter');
+				// 
 				var v = edit.val();
 				if (0) {} else if ('%' == v.substr(-1)) {
 					v = parseFloat(v.substr(0, v.length - 1))
@@ -35,7 +35,7 @@
 				}
 				limit_val();
 				oldvalue = edit.val();
-				// console.log('change-handler-exit');
+				// 
 			});
 			var limit_val = function () {
 				var t = edit.data('min')
@@ -54,7 +54,7 @@
 				limit_val();
 				btn[spinop === 'dec' ? 0 : 1].focus();
 				oldvalue = edit.val();
-				// console.log('trigger-spin');
+				// 
 				edit.trigger('spin');
 			};
 

@@ -2,8 +2,8 @@ $(document).ready(function () {
     let socket = new WebSocket("ws://localhost:2346");
 
 	socket.onopen = function(e) {
-	  console.log("[open] Соединение установлено");
-	  console.log("Отправляем данные на сервер");
+	  
+	  
 		setTimeout(() => {
 			getPosts();
 			getComments();
@@ -14,14 +14,14 @@ $(document).ready(function () {
 	
 	socket.onmessage = function(event) {
 		let data = JSON.parse(event.data);
-		// console.log(data)
+		// 
 		// let data = event.data;
-		// console.log(`[message] Данные получены с сервера: ${data}`);
-		// console.log(data);
+		// 
+		// 
 
 		switch (data.action) {
 			case "posts_data":
-				console.log(data);
+				
 				$.each(data, function (indexInArray, element) {
 					if(isNaN(indexInArray)){
 						return;
@@ -105,7 +105,7 @@ $(document).ready(function () {
 				});
 			break;
 			case "allComments_data":
-				// console.log(data);
+				// 
 				
 				$.each(data, function (indexInArray, element) { 
 					$(`#post_${element.post_id}`).find(".comment_data").remove();
@@ -129,7 +129,7 @@ $(document).ready(function () {
 			break;
 			case 'allLDs':
 				$(".allposts").find(".we-video-info").find("ins").html("0");
-                    // console.log(data);
+                    // 
                     data.likes.forEach(element => {
                         $(`#post_${element.post_id}`).find(".like").find("ins").html(`${element.likes}`);
 
@@ -148,7 +148,7 @@ $(document).ready(function () {
 		event.stopPropagation();
 		let fr_email = $(this).data("value");
 		localStorage.setItem('fr_email', fr_email);
-		console.log(fr_email);
+		
 		let fr_data = {
 			action : "fr_email",
 			email : fr_email
@@ -167,16 +167,16 @@ $(document).ready(function () {
 
 	socket.onclose = function(event) {
 	  if (event.wasClean) {
-		console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+		
 	  } else {
 		// например, сервер убил процесс или сеть недоступна
 		// обычно в этом случае event.code 1006
-		console.log('[close] Соединение прервано');
+		
 	  }
 	};
 	
 	socket.onerror = function(error) {
-	  console.log(`[error] ${error.message}`);
+	  
     };
     
     

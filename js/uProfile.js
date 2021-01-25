@@ -8,7 +8,7 @@ $(document).ready(function () {
         success: function (response) {
             
                 response = JSON.parse(response);
-                console.log(response);
+                
                 localStorage.setItem('u_session', response[0].u_session);
                 // for (const key in response[0]) {
                     // if (response[0].hasOwnProperty(key)) {
@@ -134,7 +134,7 @@ $(document).ready(function () {
         },
         success: function (response) {
             response = JSON.parse(response);
-            console.log(response);
+            
             response = response.reverse();
             $(".interest-added").empty();
             $.each(response, function (indexInArray, element) { 
@@ -154,7 +154,7 @@ $(document).ready(function () {
         let u_day = $(".day").val();
         let u_month = $(".month").val();
         let u_year = $(".year").val();
-        console.log(u_day, u_month, u_year)
+        
         let u_gender = $("input[name='gender']:checked").val();
         let u_phone = $("#u_phoneChange").val();
         let u_city = $("#u_city").val();
@@ -175,7 +175,7 @@ $(document).ready(function () {
             about: u_about,
             action : "u_dataChange"
             };
-            console.log(u_data);
+            
         $.ajax({
             type: "post",
             url: "./u_profile/u_dataChange.php",
@@ -183,7 +183,7 @@ $(document).ready(function () {
             success: function (response) {
                 if(response){
                     response = JSON.parse(response);
-                    console.log(response);
+                    
                     if(response.action === "errors"){
                         $.each(response, function (index, element) { 
                              if(index != "action"){
@@ -215,7 +215,7 @@ $(document).ready(function () {
                             showConfirmButton: false,
                             timer: 1500
                           })
-                        console.log(response);
+                        
                         $.each(response[0], function (index, element) {
                             $(".mtrl-select").css({
                                 "border-bottom-color" : "#e1e8ed"
@@ -236,7 +236,7 @@ $(document).ready(function () {
                             }
                        });
                        location.href = './profile.php';
-                        // console.log(response);
+                        // 
                         // for (const key in response[0]) {
                         //     if (response[0].hasOwnProperty(key)) {
                         //         const element = response[0][key];
@@ -268,7 +268,7 @@ $(document).ready(function () {
             success: function (response) {
                 if(response){
                     response = JSON.parse(response);
-                    console.log(response);
+                    
                     $.each( response, function( key, value ){
                         switch (key) {
                             case "new_password":
@@ -284,7 +284,7 @@ $(document).ready(function () {
                     });
                 }
                 else{
-                    console.log("ok");
+                    
                     $("#u_newPass").val('')
                     $("#u_passwordChange").val('')
                     $("#u_confirmPass").val('')
@@ -304,7 +304,7 @@ $(document).ready(function () {
     var avatar;
     $('#avatar[type=file]').on('change', function(event){
         avatar = this.files;
-        console.log(avatar)
+        
         
 	event.stopPropagation();
 	event.preventDefault(); 
@@ -398,7 +398,7 @@ $.each( photos, function( key, value ){
     data.append( key, value );
 });
 
-console.log(photos)
+
 
 data.append( 'my_photo_upload', 'photos' );
 
@@ -416,7 +416,7 @@ $.ajax({
         // $("#u_background").attr("src", `./u_profile/uploads/resized/${u_background}`);
         // respond = JSON.parse(respond)
 
-        console.log(response)
+        
         if(response){
             response.forEach(element => {
                 if(element != "anonymous"){
@@ -457,7 +457,7 @@ $(document).on('click', "#make_avatar", function(){
             photo : u_photo,
             my_photo_upload : "main"
         }
-        console.log(u_photo)
+        
         $.ajax({
             type: "post",
             url: "./u_profile/u_photos.php",
@@ -479,7 +479,7 @@ $(document).on('click', "#make_avatar", function(){
         photo : u_photo,
         my_photo_upload : "main"
     }
-    console.log(u_photo)
+    
     $.ajax({
         type: "post",
         url: "./u_profile/u_photos.php",
@@ -502,7 +502,7 @@ $(document).on('click', "#del_photo", function(){
         photo : u_photo,
         my_photo_upload : "del"
     }
-    console.log(u_photo)
+    
     $.ajax({
         type: "post",
         url: "./u_profile/u_photos.php",
@@ -521,7 +521,7 @@ $(".add-interest").click(function (e) {
         return element.trim();
     });
     interest = interest.filter(word => word);
-    console.log(interest)
+    
     $(".interest-value").val('');
     let data = {
         action : "add_interest",
@@ -535,7 +535,7 @@ $(".add-interest").click(function (e) {
             success: function (response) {
                 response = JSON.parse(response);
                 response = response.reverse();
-                console.log(response);
+                
                 $(".interest-added").empty();
                 $.each(response, function (indexInArray, element) { 
                      $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`)
@@ -552,7 +552,7 @@ $(".interest-added").on('click', 'a', function (e){
 $(".interest-added").on('click', '.remove', function (e){
     e.preventDefault();
     let del_interest = $(this).data("value");
-    console.log(del_interest);
+    
     let this_int = $(this);
     let data = {
         action : "del_interest",
@@ -565,7 +565,7 @@ $(".interest-added").on('click', '.remove', function (e){
         success: function (response) {
             response = JSON.parse(response);
             response = response.reverse();
-            console.log(response);
+            
             $(".interest-added").empty();
             $.each(response, function (indexInArray, element) { 
                  $(".interest-added").append(`<li ><a href="#" title="">${element.interest}</a><span class="remove" data-value='${element.interest}' title="remove"><i class="fa fa-close"></i></span></li>`)
