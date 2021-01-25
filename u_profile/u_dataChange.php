@@ -231,12 +231,12 @@ session_start();
                 switch ($key) {
                     case 'name':
                         $min = 3;
-                        $max = 15;
+                        $max = 50;
                         $this->name_length($u_data[$key], $min, $max);
                         break;
                     case 'surname':
                         $min = 4;
-                        $max = 20;
+                        $max = 50;
                         $this->surname_length($u_data[$key], $min, $max);
                         break;
                     case 'new_password':
@@ -303,7 +303,7 @@ session_start();
         }
 
         function phone_valid($u_phone){
-            if(preg_match('/^[0-9]{9}+$/', $u_phone)) {
+            if(preg_match('/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/', $u_phone)) {
             }else{
                 $this->inp_errors["phone"] = "Please input the correct number";
             }

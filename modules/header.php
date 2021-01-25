@@ -38,12 +38,10 @@
 								<a class="" id="main-page" href="profile.php" title="" data-ripple="">time line</a>
 								<a class="" id="photo-page" href="timeline-photos.php" title=""
 									data-ripple="">Photos</a>
-								<!-- <a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a> -->
 								<a class="" id="friend-page" href="timeline-friends.php" title=""
 									data-ripple="">Friends</a>
-								<!-- <a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a> -->
 								<a class="" id="about-page" href="about.php" title="" data-ripple="">about</a>
-								<!-- <a class="" href="#" title="" data-ripple="">more</a> -->
+								<!-- <a class="" id="about-page" href="test.php" title="" data-ripple="">test</a> -->
 							</li>
 						</ul>
 					</div>

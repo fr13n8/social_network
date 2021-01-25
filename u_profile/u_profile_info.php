@@ -67,6 +67,7 @@ session_start();
                                             user.day AS birth_day,
                                             user.month AS birth_month,
                                             user.year AS birth_year,
+                                            user.id AS userId,
                                             photos.photo_path,
                                             back.background_path
                                         FROM

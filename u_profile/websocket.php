@@ -10,7 +10,9 @@ use Workerman\Lib\Timer;
 $ws_worker = new Worker("websocket://0.0.0.0:2346");
 
 // 4 processes
-$ws_worker->count = 4;
+// $ws_worker->count = 4;
+
+$connections = [];
 
 $ws_worker->onWorkerStart = function($ws_worker)
 {
@@ -18,13 +20,17 @@ $ws_worker->onWorkerStart = function($ws_worker)
 };
 
 // Emitted when new connection come
-$ws_worker->onConnect = function($connection)
+$ws_worker->onConnect = function($connection) use(&$connections)
 {
-    echo "new connection from ip " . $connection->getRemoteIp() . "\n";
+    $connection->onWebSocketConnect = function($connection) use(&$connections)
+    {
+        $connections[$_GET["id"]] = $connection;
+        echo "new connection from ip " . $connection->getRemoteIp() . "\n";
+    };
 };
 
 // Emitted when data received
-$ws_worker->onMessage = function($connection, $data)
+$ws_worker->onMessage = function($connection, $data) use(&$connections)
 {
     // Send hello $data
     $data = json_decode($data);
@@ -33,7 +39,7 @@ $ws_worker->onMessage = function($connection, $data)
         // Timer::delAll();
         // var_dump($data);
         $messages = new MessagesController($data);
-        $connection->send($messages->callback);
+        $connections[$data["userId"]]->send($messages->callback);
         return false;
     }
     else if($data["action"] == "get_messages"){
@@ -42,12 +48,12 @@ $ws_worker->onMessage = function($connection, $data)
         // var_dump($data);
         $time_interval = 0.1; 
         $msg_timer = Timer::add($time_interval, 
-            function() use($connection, $data)
+            function() use($connection, $data, &$connections)
             {
                 // echo "Timer run\n";
                 $messages = new MessagesController($data);
                 // var_dump($messages->callback);
-                $connection->send($messages->callback);
+                $connections[$data["userId"]]->send($messages->callback);
             }
         );
         

@@ -117,7 +117,7 @@ session_start();
                 $this->db->query("UPDATE users SET session = '$u_session', online = 1 WHERE email = '$u_email'");
                 $u_session = json_encode($u_session);
                 $_SESSION["u_session"] = $u_session;
-                $settingsCheck = $this->db->query("SELECT settingsCheck FROM users WHERE email = '$u_email'")->fetch_all(true);
+                $settingsCheck = $this->db->query("SELECT settingsCheck, id AS userId FROM users WHERE email = '$u_email'")->fetch_all(true);
                 $_SESSION["checkSettings"] = $settingsCheck[0]["settingsCheck"];
                 echo json_encode($settingsCheck);
             }

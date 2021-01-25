@@ -70,12 +70,12 @@ require_once '../jevix/jevix.class.php';
                 switch ($key) {
                     case 'name':
                         $min = 3;
-                        $max = 15;
+                        $max = 50;
                         $this->name_length($u_data[$key], $min, $max);
                         break;
                     case 'surname':
                         $min = 3;
-                        $max = 20;
+                        $max = 50;
                         $this->surname_length($u_data[$key], $min, $max);
                         break;
                     case 'password':

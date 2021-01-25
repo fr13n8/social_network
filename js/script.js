@@ -3,7 +3,7 @@ jQuery(document).ready(function ($) {
 	"use strict";
 
 
-	let socket = new WebSocket("ws://localhost:2346");
+	let socket = new WebSocket("ws://localhost:2346?id=" + localStorage.getItem("userId"));
 
 	socket.onopen = function (e) {
 		console.log("[open] Соединение установлено");
@@ -273,7 +273,8 @@ jQuery(document).ready(function ($) {
 		let data = {
 			friend_id: fr_id,
 			action: "show_msgs",
-			u_session: u_session
+			u_session: u_session,
+			userId: localStorage.getItem("userId")
 		};
 		socket.send(JSON.stringify(data));
 		getMessages(fr_id, fr_photo_phath, u_photo_phath);
@@ -291,7 +292,8 @@ jQuery(document).ready(function ($) {
 		let data = {
 			friend_id: fr_id,
 			action: "show_msgs",
-			u_session: u_session
+			u_session: u_session,
+			userId: localStorage.getItem("userId")
 		};
 		console.log(data);
 		socket.send(JSON.stringify(data));
@@ -348,7 +350,8 @@ jQuery(document).ready(function ($) {
 			friend_id: fr_id,
 			message: message,
 			action: "snd_msg",
-			u_session: u_session
+			u_session: u_session,
+			userId: localStorage.getItem("userId")
 		};
 		// console.log("snd msg");
 		// console.log(($(this)));
@@ -395,7 +398,8 @@ jQuery(document).ready(function ($) {
 			action: "get_messages",
 			u_session: u_session,
 			fr_photo_phath: fr_photo,
-			u_photo_phath: u_photo
+			u_photo_phath: u_photo,
+			userId: localStorage.getItem("userId")
 		};
 		socket.send(JSON.stringify(data));
 	}
